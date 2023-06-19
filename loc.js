@@ -201,3 +201,34 @@ productsFilter = listProducts.filter(item => {
 endIndex = Math.min(3, productsFilter.length); // Cập nhật giá trị của endIndex
 showProduct(productsFilter, endIndex);
 });
+
+// xử lý lọc khi vừa load web
+document.addEventListener('DOMContentLoaded', function() {
+  // Thực thi mã khi trang web được tải
+  
+  // lưu các giá trị từ multi select vào mảng
+  var selectedCountries = Array.from(document.getElementById('countrySelect').selectedOptions).map(function(option) {
+    return option.value;
+  });
+  var selectedCategory = Array.from(document.getElementById('categorySelect').selectedOptions).map(function(option) {
+    return option.value;
+  });
+
+  // xử lý lọc
+  productsFilter = listProducts.filter(item => {
+    if (selectedCountries.length != 0) {
+      if (!selectedCountries.includes(item.dataCountry)) {
+        return false;
+      }
+    }
+    if (selectedCategory.length != 0) {
+      if (!selectedCategory.includes(item.dataCategory)) {
+        return false;
+      }
+    }
+    return true;
+  });
+
+  endIndex = Math.min(3, productsFilter.length); // Cập nhật giá trị của endIndex
+  showProduct(productsFilter, endIndex);
+});

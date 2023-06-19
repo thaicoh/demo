@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Image Gallery</title>
+    <style>
+body {
+    background-color: #F7F8F9;
+}
+
+.image-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.image-list img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    margin: 10px;
+    cursor: pointer;
+}
+
+.full-image-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.5s;
+}
+
+.full-image-container.show {
+    visibility: visible;
+    opacity: 1;
+}
+
+.full-image-wrapper {
+    position: relative;
+    text-align: center !important;
+}
+
+.full-image {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+    cursor: move;
+}
+
+.prev-button,
+.next-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 40px;
+    color: white;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: color 0.3s;
+
+}
+
+.prev-button:hover,
+.next-button:hover {
+    color: #999;
+}
+
+.prev-button {
+    left: 10px;
+}
+
+.next-button {
+    right: 10px;
+}
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  color: white;
+  cursor: pointer;
+}
+
+.close-button:hover {
+  color: #999;
+}
+
+
+    </style>
+</head>
+<body>
+  <div class="image-list">
+    <img src="anh/Amanera-Resort-Casa-Grande-Exterior-3337-sRGB.jpg" alt="Image 1">
+    <img src="anh/aman_essentials_-_spring_seasonal_skincare_.jpg" alt="Image 2">
+    <img src="anh/Amanera-Resort-Casa-Grande-Exterior-3337-sRGB.jpg" alt="Image 3">
+    <img src="anh/Amanera-Resort-Casa-Grande-Exterior-3337-sRGB.jpg" alt="Image 1">
+    <img src="anh/aman_essentials_-_spring_seasonal_skincare_.jpg" alt="Image 2">
+    <img src="anh/Amanera-Resort-Casa-Grande-Exterior-3337-sRGB.jpg" alt="Image 3">
+    <img src="anh/Amanera-Resort-Casa-Grande-Exterior-3337-sRGB.jpg" alt="Image 1">
+    <img src="anh/aman_essentials_-_spring_seasonal_skincare_.jpg" alt="Image 2">
+    <img src="anh/Amanera-Resort-Casa-Grande-Exterior-3337-sRGB.jpg" alt="Image 3">
+    <!-- Thêm các ảnh khác vào đây -->
+</div>
+
+<div class="full-image-container">
+  <div class="close-button">&times;</div>
+  <div class="full-image-wrapper">
+    <img class="full-image" src="" alt="Full Image">
+    <button class="prev-button">&lt;</button>
+    <button class="next-button">&gt;</button>
+  </div>
+</div>
+
+
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      var imageList = document.querySelector(".image-list");
+      var fullImageContainer = document.querySelector(".full-image-container");
+      var fullImage = document.querySelector(".full-image");
+      var prevButton = document.querySelector(".prev-button");
+      var nextButton = document.querySelector(".next-button");
+      var images = Array.from(imageList.getElementsByTagName("img"));
+      var currentIndex = 0;
+    
+      // Hiển thị ảnh phóng to
+      function showFullImage(index) {
+        currentIndex = index;
+        var imageUrl = images[currentIndex].src;
+        fullImage.src = imageUrl;
+        fullImageContainer.classList.add("show");
+      }
+    
+      // Đóng ảnh phóng to
+      function closeFullImage() {
+        fullImageContainer.classList.remove("show");
+      }
+
+      // Xử lý sự kiện click trên danh sách ảnh
+      imageList.addEventListener("click", function(event) {
+        var clickedImage = event.target;
+        if (clickedImage.tagName === "IMG") {
+          var index = images.indexOf(clickedImage);
+          showFullImage(index);
+        }
+      });
+    
+      // Xử lý sự kiện click nút prev
+      prevButton.addEventListener("click", function() {
+        currentIndex = (currentIndex - 1 + images.length) % images.length;
+        showFullImage(currentIndex);
+      });
+    
+      // Xử lý sự kiện click nút next
+      nextButton.addEventListener("click", function() {
+        currentIndex = (currentIndex + 1) % images.length;
+        showFullImage(currentIndex);
+      });
+    
+      // Xử lý sự kiện click để đóng ảnh phóng to
+      fullImageContainer.addEventListener("click", function(event) {
+        if (event.target === fullImageContainer) {
+          closeFullImage();
+        }
+      });
+    
+      // Xử lý sự kiện phím bấm
+      document.addEventListener("keydown", function(event) {
+        if (event.key === "Escape") {
+          closeFullImage();
+        } else if (event.key === "ArrowLeft") {
+          currentIndex = (currentIndex - 1 + images.length) % images.length;
+          showFullImage(currentIndex);
+        } else if (event.key === "ArrowRight") {
+          currentIndex = (currentIndex + 1) % images.length;
+          showFullImage(currentIndex);
+        }
+      });
+      var closeButton = document.querySelector(".close-button");
+
+      // Xử lý sự kiện click nút đóng (close button)
+      closeButton.addEventListener("click", function() {
+        closeFullImage();
+});
+
+    });
+    
+    </script>
+</body>
+</html>

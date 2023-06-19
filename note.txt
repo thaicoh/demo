@@ -1,0 +1,16 @@
+**Để điều hướng qua lại giữa các trang sản phẩm, chúng ta sử dụng các nút điều khiển "carousel-control-prev" 
+và "carousel-control-next" có sẵn trong Bootstrap 4.
+
+
+**Border-radius
+Add classes to an element to easily round its corners.
+
+Copy
+<img src="..." alt="..." class="rounded">
+<img src="..." alt="..." class="rounded-top">
+<img src="..." alt="..." class="rounded-right">
+<img src="..." alt="..." class="rounded-bottom">
+<img src="..." alt="..." class="rounded-left">
+<img src="..." alt="..." class="rounded-circle">
+<img src="..." alt="..." class="rounded-pill">
+<img src="..." alt="..." class="rounded-0">

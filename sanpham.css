@@ -1,0 +1,77 @@
+
+.listSanPham{
+    text-align: center !important;
+}
+.listSanPham li{
+    list-style: none !important;
+    padding: 1.5rem;
+}
+.listSanPham ul{
+    display: flex;
+}
+.my-div {
+    opacity: 0;
+  /* transition: opacity 0.7s ease;   /* Thêm hiệu ứng mượt khi ẩn hiện */
+  }
+  
+  .show {
+    opacity: 1;
+  }
+
+/* select  */
+.btn-container{
+    padding: 0px !important;
+}
+.btn-container button{
+    margin: 0 10px ;
+}
+.btn-container svg{
+    font-size:x-large;
+}
+.khungSelect{
+    padding: 15px !important;
+    position:relative ;
+    /* nằm đè lên div khác */
+    position: absolute;
+    z-index: 9999; 
+    border: 1px solid black;
+}
+.body{
+    width: 100% !important;
+
+}
+.nutXem{
+    border: 1px solid black;
+    margin-top: 15px ; 
+    width: 60% !important;
+    padding: 0px !important;
+}
+
+.notFound{
+    display: none ;
+    padding: 30px 0px;
+}
+
+/* div du thuyen va may bay */
+
+.duThuyen-info{
+    background-color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    padding: 30px !important;
+}
+
+/* điểm đến nổi bật slick slider */
+.diemDenNoiBat{
+    background-color:#F3EEE7;
+ }
+ .diemDenNoiBat-item{
+    background-color: white ;
+    padding-bottom: 3rem !important;
+ }
+ .diemDenNoiBat img{
+    width: 100%;
+ }
+ /* Slick slider */
+
+

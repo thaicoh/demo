@@ -60,6 +60,9 @@
     flex-direction: column;
     padding: 30px !important;
 }
+ .video video{
+     width: 100% !important;
+ }
 
 /* điểm đến nổi bật slick slider */
 .diemDenNoiBat{

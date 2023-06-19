@@ -78,6 +78,12 @@ a{
     width:100%;
 
  }
+.video{
+   padding: 10px;
+}
+.video video{
+    width: 100% !important;
+}
  .carousel-caption{
     position: absolute;
     top:30%;
@@ -132,8 +138,15 @@ p {
 .card img{
    width: 100% !important;
 }
+.card h2{
+   margin-top: 12px !important;
+}
 .info-card{
    width: 100% !important; 
+}
+.subtitle{
+margin: 13px ;
+font-size: 20px !important;
 }
 
 
@@ -204,3 +217,4 @@ p {
    height: 500px;
    background-color: #FFFFFF;
 }
+

@@ -16,69 +16,229 @@ let list = document.getElementById('list')
 let filter = document.querySelector('.filter')
 let listProducts = [
 {
-  id:1,
+  // Viet Nam 4
   quocgia: 'Ninh Bình, Việt Nam',
   ten: 'HAHAHA',
   info: 'From the shores of the Aegean to the banks of the Grand Canal, a ski retreat in Les Trois Vallées to a Moroccan oasi',
   image:'anh/sp-vn-1.jpg',
   dataCountry : "Vie",
+  dataCategory:"villas",
+  link: 'item.html'
+},
+{
+  quocgia: 'Đà Nẵng, Việt Nam',
+  ten: 'HIHIHI DaNang',
+  info: 'From the shores of the Aegean to the banks of the Grand Canal, a ski retreat in Les Trois Vallées to a Moroccan oasi',
+  image:'anhSp/vn-2.jpg',
+  dataCountry : "Vie",
+  dataCategory:"bien",link: 'item.html'
+},
+{
+  quocgia: 'Sapa, Việt Nam',
+  ten: 'HOHOHO SaPa',
+  info: 'From the shores of the Aegean to the banks of the Grand Canal, a ski retreat in Les Trois Vallées to a Moroccan oasi',
+  image:'anhSp/vn-1.jpg',
+  dataCountry : "Vie",
   dataCategory:"nui",link: 'item.html'
 },
 {
-  id:1,
-  quocgia: 'hùydfdf, Thái Lan',
-  ten: 'HIHIHI',
+  quocgia: 'Đà Lạt, Việt Nam',
+  ten: 'hYadfgfdg LFAs',
   info: 'From the shores of the Aegean to the banks of the Grand Canal, a ski retreat in Les Trois Vallées to a Moroccan oasi',
-  image:'anh/sp-vn-1.jpg',
+  image:'anhSp/phi-3.jpg',
+  dataCountry : "Vie",
+  dataCategory:"villas",link: 'item.html'
+},
+{
+  //Thai lan 5
+  quocgia: 'KUKU, Thái Lan',
+  ten: 'LAP XUONG NGON',
+  info: 'From the shores of the Aegean to the banks of the Grand Canal, a ski retreat in Les Trois Vallées to a Moroccan oasi',
+  image:'anhSp/thai-1.jpg',
   dataCountry : "Thai",
-  dataCategory:"nui",link: 'item.html'
+  dataCategory:"tp",link: 'item.html'
 },
 {
-  id:1,
-  quocgia: 'CAMPUCHIA',
-  ten: 'HOHOHO',
+  quocgia: 'Ninh Com, Thái Lan',
+  ten: 'KIKIKIKI THAi',
   info: 'From the shores of the Aegean to the banks of the Grand Canal, a ski retreat in Les Trois Vallées to a Moroccan oasi',
-  image:'anh/sp-vn-1.jpg',
-  dataCountry : "Cam",
-  dataCategory:"nui",link: 'item.html'
+  image:'anhSp/thai-2.jpg',
+  dataCountry : "Thai",
+  dataCategory:"bien",link: 'item.html'
 },
 {
-  id:1,
-  quocgia: 'Indonesia',
-  ten: 'hYadfgfdg',
-  info: 'From the shores of the Aegean to the banks of the Grand Canal, a ski retreat in Les Trois Vallées to a Moroccan oasi',
-  image:'anh/sp-vn-1.jpg',
-  dataCountry : "Ind",
-  dataCategory:"nui",link: 'item.html'
-},
-{
-  id:1,
-  quocgia: 'Lào',
-  ten: 'HAHAHA',
-  info: 'From the shores of the Aegean to the banks of the Grand Canal, a ski retreat in Les Trois Vallées to a Moroccan oasi',
-  image:'anh/sp-vn-1.jpg',
-  dataCountry : "Lao",
-  dataCategory:"nui",link: 'item.html'
-},
-{
-  id:1,
-  quocgia: 'Ninh Bình, Việt Nam',
-  ten: 'KIKIKIKI',
-  info: 'From the shores of the Aegean to the banks of the Grand Canal, a ski retreat in Les Trois Vallées to a Moroccan oasi',
-  image:'anh/sp-vn-1.jpg',
-  dataCountry : "Vie",
-  dataCategory:"nui",link: 'item.html'
-},
-{
-  id:1,
   quocgia: 'Thái Lan',
-  ten: 'HAHAHA',
+  ten: 'CUP HI THAI',
   info: 'From the shores of the Aegean to the banks of the Grand Canal, a ski retreat in Les Trois Vallées to a Moroccan oasi',
-  image:'anh/sp-vn-1.jpg',
+  image:'anhSp/thai-3.jpg',
   dataCountry : "Thai",
-  dataCategory:"nui"
+  dataCategory:"dao"
   ,link: 'item.html'
 },
+{
+  quocgia: 'Thái Lan',
+  ten: 'KIKIKIKI THAi',
+  info: 'From the shores of the Aegean to the banks of the Grand Canal, a ski retreat in Les Trois Vallées to a Moroccan oasi',
+  image:'anhSp/thai-4.jpg',
+  dataCountry : "Thai",
+  dataCategory:"lehoi",link: 'item.html'
+},
+{
+  quocgia: 'Thái Lan',
+  ten: 'KIKIKIKI THAi',
+  info: 'From the shores of the Aegean to the banks of the Grand Canal, a ski retreat in Les Trois Vallées to a Moroccan oasi',
+  image:'anhSp/thai-5.jpg',
+  dataCountry : "Thai",
+  dataCategory:"villas",link: 'item.html'
+},
+{// Lào 3
+  quocgia: 'chonaodo, Lào',
+  ten: 'CUP HI <AO>',
+  info: 'From the shores of the Aegean to the banks of the Grand Canal, a ski retreat in Les Trois Vallées to a Moroccan oasi',
+  image:'anhSp/lao-1.jpg',
+  dataCountry : "Lao",
+  dataCategory:"dao"
+  ,link: 'item.html'
+},
+{
+  quocgia: 'chonaodo, Lào',
+  ten: 'KIKIKIKI LAO',
+  info: 'From the shores of the Aegean to the banks of the Grand Canal, a ski retreat in Les Trois Vallées to a Moroccan oasi',
+  image:'anhSp/lao-2.jpg',
+  dataCountry : "Lao",
+  dataCategory:"lehoi",link: 'item.html'
+},
+{
+  quocgia: 'chonaodo, Lào',
+  ten: 'KIKIKIKI LAO',
+  info: 'From the shores of the Aegean to the banks of the Grand Canal, a ski retreat in Les Trois Vallées to a Moroccan oasi',
+  image:'anhSp/lao-3.jpg',
+  dataCountry : "Lao",
+  dataCategory:"villas",link: 'item.html'
+},
+{// Cam 2
+  quocgia: 'chonaodo, Campuchia',
+  ten: 'CUP HI CAM',
+  info: 'From the shores of the Aegean to the banks of the Grand Canal, a ski retreat in Les Trois Vallées to a Moroccan oasi',
+  image:'anhSp/cam-1.jpg',
+  dataCountry : "Cam",
+  dataCategory:"dao"
+  ,link: 'item.html'
+},
+{
+  quocgia: 'chonaodo, Campuchia',
+  ten: 'KII CAM',
+  info: 'From the shores of the Aegean to the banks of the Grand Canal, a ski retreat in Les Trois Vallées to a Moroccan oasi',
+  image:'anhSp/cam-2.jpg',
+  dataCountry : "Cam",
+  dataCategory:"lehoi",link: 'item.html'
+},
+{// indo 3
+  quocgia: 'chonaodo, Indonexia',
+  ten: 'KIKIKfI IND',
+  info: 'From the shores of the Aegean to the banks of the Grand Canal, a ski retreat in Les Trois Vallées to a Moroccan oasi',
+  image:'anhSp/ind-1.jpg',
+  dataCountry : "Ind",
+  dataCategory:"villas",link: 'item.html'
+},
+{
+  quocgia: 'chonaodo, Indonexia',
+  ten: 'KIKKI IND',
+  info: 'From the shores of the Aegean to the banks of the Grand Canal, a ski retreat in Les Trois Vallées to a Moroccan oasi',
+  image:'anhSp/ind-2.jpg',
+  dataCountry : "Ind",
+  dataCategory:"lehoi",link: 'item.html'
+},
+{
+  quocgia: 'chonaodo, Indonexia',
+  ten: 'KIKKI IND',
+  info: 'From the shores of the Aegean to the banks of the Grand Canal, a ski retreat in Les Trois Vallées to a Moroccan oasi',
+  image:'anhSp/ind-3.jpg',
+  dataCountry : "Ind",
+  dataCategory:"villas",link: 'item.html'
+},
+{// Mas 3
+  quocgia: 'chonaodo, Malaisia',
+  ten: 'KIKIKI MALAI',
+  info: 'From the shores of the Aegean to the banks of the Grand Canal, a ski retreat in Les Trois Vallées to a Moroccan oasi',
+  image:'anhSp/mas-1.jpg',
+  dataCountry : "Mas",
+  dataCategory:"villas",link: 'item.html'
+},
+{
+  quocgia: 'chonaodo, Malaisia',
+  ten: 'KIKIKI MALAI',
+  info: 'From the shores of the Aegean to the banks of the Grand Canal, a ski retreat in Les Trois Vallées to a Moroccan oasi',
+  image:'anhSp/mas-2.jpg',
+  dataCountry : "Mas",
+  dataCategory:"lehoi",link: 'item.html'
+},
+{
+  quocgia: 'chonaodo, Malaisia',
+  ten: 'KIKIKI MALAI',
+  info: 'From the shores of the Aegean to the banks of the Grand Canal, a ski retreat in Les Trois Vallées to a Moroccan oasi',
+  image:'anhSp/mas-3.jpg',
+  dataCountry : "Mas",
+  dataCategory:"villas",link: 'item.html'
+},
+{// sin 2
+  quocgia: 'chonaodo, Singapor',
+  ten: 'KIKIKI Sin',
+  info: 'From the shores of the Aegean to the banks of the Grand Canal, a ski retreat in Les Trois Vallées to a Moroccan oasi',
+  image:'anhSp/sin-1.jpg',
+  dataCountry : "Sin",
+  dataCategory:"tp",link: 'item.html'
+},
+{
+  quocgia: 'chonaodo, Singapor',
+  ten: 'KIKIKI Sin',
+  info: 'From the shores of the Aegean to the banks of the Grand Canal, a ski retreat in Les Trois Vallées to a Moroccan oasi',
+  image:'anhSp/sin-2.jpg',
+  dataCountry : "Sin",
+  dataCategory:"tp",link: 'item.html'
+},
+{// Philippines 2
+  quocgia: 'chonaodo, Philippines',
+  ten: 'KIIKI Philippines',
+  info: 'From the shores of the Aegean to the banks of the Grand Canal, a ski retreat in Les Trois Vallées to a Moroccan oasi',
+  image:'anhSp/phi-1.jpg',
+  dataCountry : "Phi",
+  dataCategory:"bien",link: 'item.html'
+},
+{
+  quocgia: 'chonaodo, Philippines',
+  ten: 'Philippines',
+  info: 'From the shores of the Aegean to the banks of the Grand Canal, a ski retreat in Les Trois Vallées to a Moroccan oasi',
+  image:'anhSp/phi-2.jpg',
+  dataCountry : "Phi",
+  dataCategory:"bien",link: 'item.html'
+},
+{
+  quocgia: 'chonaodo, Philippines',
+  ten: 'Ho, Philippines',
+  info: 'From the shores of the Aegean to the banks of the Grand Canal, a ski retreat in Les Trois Vallées to a Moroccan oasi',
+  image:'anhSp/phi-3.jpg',
+  dataCountry : "Phi",
+  dataCategory:"tp",link: 'item.html'
+},
+{// Myanmar 2
+  quocgia: 'chonaodo, Myanmar',
+  ten: 'KIIKI Myanmar',
+  info: 'From the shores of the Aegean to the banks of the Grand Canal, a ski retreat in Les Trois Vallées to a Moroccan oasi',
+  image:'anhSp/mya-1.jpg',
+  dataCountry : "Mya",
+  dataCategory:"lehoi",link: 'item.html'
+},
+{
+  quocgia: 'chonaodo, Myanmar',
+  ten: 'Myanmar',
+  info: 'From the shores of the Aegean to the banks of the Grand Canal, a ski retreat in Les Trois Vallées to a Moroccan oasi',
+  image:'anhSp/mya-2.jpg',
+  dataCountry : "Mya",
+  dataCategory:"trai",link: 'item.html'
+},
+
+
 
 ]
 

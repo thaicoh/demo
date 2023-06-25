@@ -331,7 +331,7 @@ i{
           
          .footer{
             background-color: #FFFFFF !important;
-            color: #313131;
+            color: #313131 !important;
             margin-top: 7rem !important;
          }
             .footer h6{

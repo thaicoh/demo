@@ -229,21 +229,21 @@ a{
       position: absolute;
       bottom: 0px;
       left: 50%;
-      display: flex !important;
-      list-style: none !important;
+      display: flex ;
+      list-style: none ;
       align-items: center;
       justify-content: center;
       transform: translate(-50%, 80px);
-      width: 50% !important;
+      width: 50% ;
    }
       .slick-dots button{
-         width: 100% !important;
+         width: 100% ;
          border: none;
          border:0px !important;
          text-indent: -99999px;
          background:#c6c6c6;
          cursor: pointer;
-         padding: 0 4rem;
+         padding: 0 4rem ;
          height: 1px !important;
       
       }
@@ -485,10 +485,13 @@ a{
          color: #000000 !important;
          font-size: 2rem ;
       }
-   }
-
-
+      .slick-dots button {
+         padding: 0 2rem !important;
+     }}
  @media screen and (max-width: 767px) {
+   .slick-dots button {
+      padding: 0 1.2rem !important;
+  }
    body{
       line-height: 1.45;
       font-size: 1rem;

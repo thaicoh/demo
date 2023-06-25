@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <!-- <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+        <meta name="viewport" content="minimum-scale=1"/> -->
+        <meta name="viewport" content="height=device-height, 
+                      width=device-width, initial-scale=1.0, 
+                      minimum-scale=1.0, maximum-scale=1.0, 
+                      user-scalable=no, target-densitydpi=device-dpi">
+
+        <link href="css/boostrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="css/bootstrap.css"  rel="stylesheet" type="text/css"  />
+        <link href="dangki.css" rel="stylesheet" type="text/css" />
+        <link href="index.css" rel="stylesheet" type="text/css" />
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+        <!-- multiselect trên github  https://github.com/habibmhamadi/multi-select-tag   -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/css/multi-select-tag.css">
+        <link rel="stylesheet" href="fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/all.min.css">
+
+        <!-- slick slider -->
+        <link
+        rel="stylesheet"
+        type="text/css"
+        href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"
+        />
+
+
+    </head>
+    <body>
+<!--Thanh menu  -->
+        <div class="container-fluid maunen sticky-top z">
+            <nav class="m-0 p-0 navbar navbar-expand-lg navbar-light bg-light maunen">
+                <div class="row m-0 p-0 justify-content-between w-100">
+                    <div class="logo col-2 ">
+                        <a class="navbar-brand m-0 p-0" href="index.html">Logo</a>
+                    </div>
+                    <div class="toggler-btn text-right col-1">
+                        <buttom class="m-0 p-0" type="buttom" id="toggler">
+                            <span class="navbar-toggler-icon m-0 p-0"></span>
+                        </buttom>
+                    </div>
+                    <div class="col-lg-9 collapse navbar-collapse thanhmenu m-0 p-0 maunen ">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="navbar-item ">
+                                <a class="nav-link" href="index.html">Trang chủ</a>
+                                <span></span>
+                            </li>
+                            <li class="navbar-item">
+                                <a class="nav-link" href="sanpham.html">Khu nghỉ dưỡng</a>
+                                <span></span>
+                            </li>
+                            <li class="navbar-item">
+                                <a class="nav-link" href="khampha.html">Khám phá</a>
+                                <span></span>
+                            </li>
+                            <li class="navbar-item">
+                                <a class="nav-link" href="blog.html">Blog</a>
+                                <span></span>
+                            </li>
+                            <li class="navbar-item">
+                                <a class="nav-link" href="lienhe.html">Liên hệ</a>
+                                <span></span>
+                            </li>
+                        </ul>
+                        <div class="nav-item text-left col-lg-2 p-0 ml-3">
+                            <a class="nav-link p-0" href="dangnhap.html" ><buttom class="btn mx-auto w-100" style="background-color:#313131 ; color: white">Đăng nhập</buttom> </a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div class="thanhmenu text-center maunen " id="divMenu">
+                <div class="justify-content-center">
+                    <div class="logo">
+                        <a class="navbar-brand m-0 p-0" href="#">Logo</a>
+                    </div>
+                    <div class="toggler-btn">
+                        <buttom type="buttom" id="toggler2">
+                            <i class="fa-solid fa-x"></i>
+                        </buttom>
+                    </div>
+                </div>
+                <hr>
+                <ul class="text-center">
+                    <li class="">
+                        <a class="" href="index.html">Trang chủ</a>
+                    </li>
+                    <li class="">
+                        <a class="" href="sanpham.html">Khu nghỉ dưỡng</a>
+                    </li>
+                    <li class="">
+                        <a class="" href="khampha.html">Khám phá</a>
+                    </li>
+                    <li class="">
+                        <a class="" href="blog.html">Blog</a>
+                    </li>
+                    <li class="">
+                        <a class="" href="lienhe.html">Liên hệ</a>
+                    </li>
+                    <li>
+                        <a href="dangnhap.html" ><buttom class="btn">Đăng nhập</buttom> </a>
+                    </li>
+                </ul>
+        </div>
+
+        <form class="form_bg form_dn">
+            <div class="container">
+                <div class="row">
+                    <div class=" khungForm offset-lg-4 col-lg-4 offset-1 col-10 bg-white text-center bogoc ">
+                        <i class="fa-solid fa-circle-user"></i>
+                        <h1 class="">Đăng nhập</h1>
+                        <div class="control ">
+                            <input id="userName_dn" type="text" placeholder="Tên đăng nhập">
+                            <small></small>
+                            <span></span>
+                        </div>
+                        <div class="control ">
+                            <input id="password_dn" type="password" placeholder="Mật khẩu">
+                            <small></small>
+                            <span></span>
+                        </div>
+                        <button type="submit" class="btn">Đăng nhập</button> 
+                        <div class="link">
+                            Bạn chưa có tài khoảng?   <a href="dangki.html" class="">Đăng ký</a> <br>
+                            Bạn quên mật khậu?   <a href="test.html" class="">Quên mật khẩu</a>
+                        </div>     
+                    </div>
+                </div>
+            </div>
+        </form>
+
+
+        <!-- footer -->
+        <div class="container-fluid footer m-0 p-0 cach bg-white">
+            <footer
+                    class="text-center text-lg-start ">
+            <!-- Grid container -->
+            <div class="container-fluid p-4 pb-0">
+                <!-- Section: Links -->
+                <section class="">
+                <!--Grid row-->
+                <div class="row ">
+                    <!-- Grid column -->
+                    <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+                    <h6 class="text-uppercase mb-4 font-weight-bold">
+                        Company name
+                    </h6>
+                    <p>
+                        Here you can use rows and columns to organize your footer
+                        content. Lorem ipsum dolor sit amet, consectetur adipisicing
+                        elit.
+                    </p>
+                    </div>
+                    <!-- Grid column -->
+        
+                    <hr class="w-100 clearfix d-md-none" />
+        
+                    <!-- Grid column -->
+                    <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+                    <h6 class="text-uppercase mb-4 font-weight-bold">Products</h6>
+                    <p>
+                        <a class="text-white">MDBootstrap</a>
+                    </p>
+                    <p>
+                        <a class="text-white">MDWordPress</a>
+                    </p>
+                    <p>
+                        <a class="text-white">BrandFlow</a>
+                    </p>
+                    <p>
+                        <a class="text-white">Bootstrap Angular</a>
+                    </p>
+                    </div>
+                    <!-- Grid column -->
+        
+                    <hr class="w-100 clearfix d-md-none" />
+        
+                    <!-- Grid column -->
+                    <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
+                    <h6 class="text-uppercase mb-4 font-weight-bold">
+                        Useful links
+                    </h6>
+                    <p>
+                        <a class="text-white">Your Account</a>
+                    </p>
+                    <p>
+                        <a class="text-white">Become an Affiliate</a>
+                    </p>
+                    <p>
+                        <a class="text-white">Shipping Rates</a>
+                    </p>
+                    <p>
+                        <a class="text-white">Help</a>
+                    </p>
+                    </div>
+        
+                    <!-- Grid column -->
+                    <hr class="w-100 clearfix d-md-none" />
+        
+                    <!-- Grid column -->
+                    <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+                    <h6 class="text-uppercase mb-4 font-weight-bold">Contact</h6>
+                    <p><i class="fa-solid fa-location-dot"></i> New York, NY 10012, US</p>
+                    <p><i class="fas fa-envelope mr-3"></i> thaihoc1210@gmail.com</p>
+                    <p><i class="fa-solid fa-phone"></i> + 01 234 567 88</p>
+                    <p><i class="fa-solid fa-phone"></i> + 01 234 567 89</p>
+                    </div>
+                    <!-- Grid column -->
+                </div>
+                <!--Grid row-->
+                </section>
+                <!-- Section: Links -->
+        
+                <hr class="my-3">
+        
+                <!-- Section: Copyright -->
+                <section class="p-3 pt-0">
+                <div class="row d-flex align-items-center">
+                    <!-- Grid column -->
+                    <div class="col-md-7 col-lg-8 text-center text-md-start">
+                    <!-- Copyright -->
+                    <div class="p-3">
+                        © 2020 Copyright:
+                        <a class="text-white" href="https://mdbootstrap.com/"
+                        >MDBootstrap.com</a
+                        >
+                    </div>
+                    <!-- Copyright -->
+                    </div>
+                    <!-- Grid column -->
+        
+                    <!-- Grid column -->
+                    <div class="col-md-5 col-lg-4 ml-lg-0 text-center text-md-end"> 
+                    <!-- Facebook -->
+                    <a
+                        class="btn btn-outline-light btn-floating m-1"
+                        class="text-white"
+                        role="button"
+                        ><i class="fab fa-facebook-f"></i
+                        ></a>
+        
+                    <!-- Twitter -->
+                    <a
+                        class="btn btn-outline-light btn-floating m-1"
+                        class="text-white"
+                        role="button"
+                        ><i class="fab fa-twitter"></i
+                        ></a>
+        
+                    <!-- Google -->
+                    <a
+                        class="btn btn-outline-light btn-floating m-1"
+                        class="text-white"
+                        role="button"
+                        ><i class="fab fa-google"></i
+                        ></a>
+        
+                    <!-- Instagram -->
+                    <a
+                        class="btn btn-outline-light btn-floating m-1"
+                        class="text-white"
+                        role="button"
+                        ><i class="fab fa-instagram"></i
+                        ></a>
+                    </div>
+                    <!-- Grid column -->
+                </div>
+                </section>
+                <!-- Section: Copyright -->
+            </div>
+            <!-- Grid container -->
+            </footer>
+            <!-- Footer -->
+        </div>
+
+        <!-- back to top -->
+        <button class="backTop" onclick="scrollToTop()">
+        <i class="fa-solid fa-angles-up"></i>
+        </button>
+
+
+
+
+        <script>
+            
+// 
+            let userName_dn = document.querySelector('#userName_dn');
+            let password_dn = document.querySelector('#password_dn');
+            let form_dn = document.querySelector('.form_dn');
+
+            let savedUserName = '';
+            let savedPassword = '';
+
+            savedUserName = localStorage.getItem('userName');
+            savedPassword = localStorage.getItem('password');
+            
+            function showError(input, mess) {
+                let parent = input.parentElement;
+                let small = parent.querySelector('small');
+
+                parent.classList.add('error');
+                small.innerText = mess;
+            }
+            function showSuccess(input) {
+                let parent = input.parentElement;
+                let small = parent.querySelector('small');
+
+                parent.classList.remove('error');
+                small.innerText = ''
+            }
+            // kiem tra rong
+            function checkNull(listInput){
+                let isNULL = false;
+                listInput.forEach(input => {
+                    input.value = input.value.trim();
+                    if(!input.value){
+                        isNULL= true;
+                        showError(input, 'Không được để trống mục này!')
+                    }else{
+                        showSuccess(input)
+                    }
+                });
+                return isNULL;
+            }
+            // kiem tra email 
+            function checkEmail(input) {
+                const regexE = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,})+$/;
+                
+                input.value = input.value.trim();
+                let isEmailError = !regexE.test(input.value);
+                if (regexE.test(input.value)) {
+                showSuccess(input);
+                isEmailError = false; // Email hợp lệ
+                } else {
+                showError(input, 'Email không hợp lệ!');
+                isEmailError =  true; // Email không hợp lệ
+                }
+                return isEmailError;
+            }
+            // dangnhap 
+            function dangnhap(userName, password, savedUserName, savedPassword) {
+                    if (userName.value.trim() !== savedUserName) {
+                        console.log(userName.value);
+                        console.log(savedUserName);
+                    showError(userName, 'Tên người dùng không tồn tại!');
+                    return false;
+                    } else {
+                    if (password.value.trim() !== savedPassword) {
+                        showError(password, 'Sai mật khẩu!');
+                        console.log(password.value);
+                        console.log(savedPassword);
+                        return false;
+                    } else {
+                        return true;
+                    }
+                    }
+            }
+
+            form_dn.addEventListener('submit',function(e){
+                e.preventDefault();
+                let isNULL = checkNull([userName_dn, password_dn]);
+                if(isNULL){
+                    
+                } else {
+                    if(dangnhap(userName_dn,password_dn,savedUserName,savedPassword)){
+                        alert('Đăng nhập thành công!');
+                        window.location.href = "index.html";
+                    }
+                }
+            })
+            // backToTop
+            window.addEventListener('scroll', function() {
+            var backTopButton = document.querySelector('.backTop');
+            if (window.pageYOffset > 200) {
+                backTopButton.classList.add('show');
+            } else {
+                backTopButton.classList.remove('show');
+            }
+            });
+
+            function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+
+
+
+        </script>
+
+        <!-- slick slider -->
+        <script
+        type="text/javascript"
+        src="https://code.jquery.com/jquery-1.11.0.min.js"
+        ></script>
+        <script
+        type="text/javascript"
+        src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"
+        ></script>
+        <script
+        type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"
+        ></script>
+        <script src="dangki.js"></script>
+    
+    </body>
+</html>

@@ -1,7 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv = "Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8">
+        <!-- <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+        <meta name="viewport" content="minimum-scale=1"/> -->
+        <meta name="viewport" content="height=device-height, 
+                      width=device-width, initial-scale=1.0, 
+                      minimum-scale=1.0, maximum-scale=1.0, 
+                      user-scalable=no, target-densitydpi=device-dpi">
+
     <title>
 
     </title>
@@ -12,6 +19,7 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
      
+    <link rel="stylesheet" href="fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/all.min.css">
     <!-- multiselect trên github  https://github.com/habibmhamadi/multi-select-tag   -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/css/multi-select-tag.css">
     <!-- slick slider -->
@@ -20,77 +28,134 @@
     type="text/css"
     href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"
     />
+    <style>
 
+        .video video{
+            width: 100% !important;
+            height: 100% !important ;
+        }
+    </style>
 
 </head>
 
 <body class="" style="background-color: #F7F8F9">
  <!-- Thanh Navbar  -->
-    <nav class="row container-fluid navbar navbar-expand-md navbar-light bg-light sticky-top thanhmenu maunen justify-content-between pr-0">
-        <a class="navbar-brand ml-3" href="index.html">Logo</a>
-        <buttom class="navbar-toggler " type="buttom" data-toggle="collapse" data-target="#navbarResponsive">
-            <span class="navbar-toggler-icon"></span>
-        </buttom>
-        <div class="collapse navbar-collapse  col-lg-8 thanhmenu pr-0" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-                <li class="navbar-item mr-5">
-                    <a class="nav-link " href="index.html">Trang chủ</a>
+    <div class="container-fluid maunen sticky-top z">
+        <nav class="m-0 p-0 navbar navbar-expand-lg navbar-light bg-light maunen">
+            <div class="row m-0 p-0 justify-content-between w-100">
+                <div class="logo col-2 ">
+                    <a class="navbar-brand m-0 p-0" href="#">Logo</a>
+                </div>
+                <div class="toggler-btn text-right col-1">
+                    <buttom class="m-0 p-0" type="buttom" id="toggler">
+                        <span class="navbar-toggler-icon m-0 p-0"></span>
+                    </buttom>
+                </div>
+                <div class="col-lg-9 collapse navbar-collapse thanhmenu m-0 p-0 maunen ">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="navbar-item  ">
+                            <a class="nav-link" href="index.html">Trang chủ</a>
+                            <span></span>
+                        </li>
+                        <li class="navbar-item active">
+                            <a class="nav-link" href="sanpham.html">Khu nghỉ dưỡng</a>
+                            <span></span>
+                        </li>
+                        <li class="navbar-item">
+                            <a class="nav-link" href="khampha.html">Khám phá</a>
+                            <span></span>
+                        </li>
+                        <li class="navbar-item">
+                            <a class="nav-link" href="blog.html">Blog</a>
+                            <span></span>
+                        </li>
+                        <li class="navbar-item">
+                            <a class="nav-link" href="lienhe.html">Liên hệ</a>
+                            <span></span>
+                        </li>
+                    </ul>
+                    <div class="nav-item text-left col-lg-2 p-0 ml-3">
+                        <a class="nav-link p-0" href="dangnhap.html" ><buttom class="btn mx-auto w-100">Đăng nhập</buttom> </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="thanhmenu text-center maunen " id="divMenu">
+            <div class="justify-content-center">
+                <div class="logo">
+                    <a class="navbar-brand m-0 p-0" href="#">Logo</a>
+                </div>
+                <div class="toggler-btn">
+                    <buttom type="buttom" id="toggler2">
+                        <i class="fa-solid fa-x"></i>
+                    </buttom>
+                </div>
+            </div>
+            <hr>
+            <ul class="text-center">
+                <li class="">
+                    <a class=" " href="index.html">Trang chủ</a>
                 </li>
-                <li class="navbar-item mr-5">
-                    <a class="nav-link active" href="sanpham.html">Khu nghỉ dưỡng</a>
+                <li class="">
+                    <a class="active" href="sanpham.html">Khu nghỉ dưỡng</a>
                 </li>
-                <li class="navbar-item mr-5">
-                    <a class="nav-link" href="#">Khám phá</a>
+                <li class="">
+                    <a class="" href="khampha.html">Khám phá</a>
                 </li>
-                <li class="navbar-item mr-5">
-                    <a class="nav-link" href="#">Blog</a>
+                <li class="">
+                    <a class="" href="blog.html">Blog</a>
                 </li>
-                <li class="navbar-item mr-5">
-                    <a class="nav-link" href="#">Liên hệ</a>
+                <li class="">
+                    <a class="" href="lienhe.html">Liên hệ</a>
+                </li>
+                <li>
+                    <a href="dangnhap.html" ><buttom class="btn">Đăng nhập</buttom> </a>
                 </li>
             </ul>
-            <div class="nav-item text-left col-md-2 p-0">
-                <a class="nav-link p-0" href="login.html" ><buttom class="btn mx-auto w-100"> Đặt phòng </buttom> </a>
-            
-            </div>
+    </div>
+
+
+    <div class="container-fluid justify-content-center row m-0">
+        <h2 class="heading-h">
+            Singapor
+        </h2>
+        <div class="video col-lg-12">
+          <video src="video/duthuyen.mp4" autoplay controls></video>
         </div>
-    </nav>
+    </div>
 
     <div class="text-center cach">
-        <h2>Explore spring destinations</h2>
+        <h2>Khám phá Singapor cùng chúng tôi</h2>
         <p >Mùa này - khi những bông hoa đầu tiên của mùa xuân khơi dậy cảm giác hân hoan và đổi mới - chúng tôi tôn vinh những môi trường tự nhiên<br> đặc biệt trên toàn cầu mà Aman gọi là nhà.</p>
     </div>
 
-    <div class="container-fluid text-center">
-       <div class="row listSanPham justify-content-around">
-        <ul>
-            <li><a href="">All</a></li>
-            <li><a href="">Resort</a></li>
-            <li><a href="">Khách sạn</a></li>
-            <li><a href="">Tiện ích khác</a></li>
-        </ul>
-       </div>
-    </div>
+    
 
 <!-- Nút lọc  -->
     <div class="container-fluid">
         <div class="row justify-content-around">
-            <hr class="col-lg-10 col-10  ">
-            <div class="col-lg-1 col-1  text-right">
-                <button class="btn " id="locBtn">Lọc</button>
+            <hr class="col-lg-10 col-8  ">
+            <div class="col-lg-1 col-3 pl-0  text-right">
+                <button class="btn" id="locBtn">
+                    Lọc
+                    <i class="fa-solid fa-filter"></i>
+                    </button>
             </div>
         </div>
         <form class="row filter justify-content-end my-div m-0 p-0">
-                <div class="khungSelect rounded bg-white  m-0 p-0 ">
+                <div class="khungSelect bg-white  m-0 p-0 ">
                     <label for="countrySelect">Quốc gia:</label>
                     <select class="form-select" id="countrySelect" multiple>
-                      <option value="Vie">Việt Nam</option>
+                      <option value="Vie" >Việt Nam</option>
                       <option value="Thai" >Thái Lan</option>
                       <option value="Cam">Campuchia</option>
                       <option value="Sin" selected>Singapo</option>
-                      <option value="Lao" >Lào</option>
+                      <option value="Lao">Lào</option>
                       <option value="Mas">Malaysia</option>
                       <option value="Ind">Indonesia</option>
+                      <option value="Phi">Philippines</option>
+                      <option value="Mya">Myanma</option>
                     </select> <br>
                     <label for="categorySelect">Loại hình nghỉ dưỡng:</label>
                     <select class="form-select" id="categorySelect" multiple>
@@ -100,12 +165,12 @@
                       <option value="leHoi">Lễ Hội</option>
                       <option value="nui">Núi</option>
                       <option value="villas">Villas</option>
+                      <option value="dao">Đảo</option>
                     </select>
 
                     <div class="col-12 text-center">
-                        <button class="nutXem sanPham-loc bg-white rounded " id="locBtn2">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                             xem kết quả 
+                        <button class="nutXem btn sanPham-loc  " id="locBtn2">
+                            Lọc kết quả
                         </button>
                     </div>
                 </div>
@@ -127,95 +192,289 @@
     </div>
 <!-- div notFound  -->
     <div class="notFound col-lg-12 text-center  ">
+        <i class="fa-solid fa-filter-circle-xmark display-3 m-4"></i>
         <h3>Không tìm thấy kết quả phù hợp !</h3>
     </div>
 <!-- nút ẩn -->
     <div class=" col-lg-12 d-flex justify-content-center">
         <button id="nutSanPham" class=" btn mx-auto mt-4 p-0">Xem thêm</button>  
     </div>
-<!-- div du thuyền và máy bay -->
-    <div class="container-fluid duThuyen row cach">
-        <div class="col-lg-4 duThuyen-info p-0 justify-content-between">
-            <div>
-                <p>MEDITATION | MAY 2023</p>
-                <h3>At water's edge</h3>
-                <p>On the Dominican Republics serene north coast, Amanera rests on its own dramatic clifftop perch, backed by a jungle of palms and fronted by miles of golden sand. Continuing his visual journey across the Aman globe, Chris Colls captures the resorts extraordinary beauty and natural healing force - a welcome solace from the rest of the world.</p>
-            </div>
-            <div class="rMore">
-                <a href=""> read more</a>
-            </div>
-        </div>
-        <div class="col-lg-8 p-0">
-            <a href="">
-                <img src="anh/do_not_use_-_chris_colls_imagery_10.jpg" alt="" class="img-fluid w-100">
-            </a>
-        </div>
-
-
-    </div>
 <!-- điểm đến nổi bật -->
-    <div class=" container-fluid pr-0 diemDenNoiBat cach">
+    <div class="container-fluid text-center cach">
+        <h2 class="heading-h">Ưu đãi độc quyền nổi bật</h2>
+    </div>
+    <div class=" container-fluid pr-0 diemDenNoiBat mt-4">
+        <a href="item.html">
+            <div class="diemDenNoiBat-item m-0 p-0 text-center">
+                <img src="anhSp/noibat1.jpg" alt="">
+                <p class="subtitle">Ưu đãi độc quyền</p>
+                <h3 class="heading-h">Amanoi, Ninh Thuận</h3>
+                <div class="info-card">
+                    Nằm trên bán đảo Vinh Hy, resort Amanoi là một thiên đường nghỉ dưỡng giữa cảnh quan thiên nhiên hoang sơ. Với các biệt thự riêng tư, bể bơi vô cực hướng ra biển và trung tâm thể dục và spa cao cấp</div>
+            </div>
+        </a>
+        <a href="item.html">
+            <div class="diemDenNoiBat-item m-0 p-0 text-center">
+                <img src="anhSp/noibat2.jpg" alt="">
+                <p class="subtitle">Ưu đãi độc quyền</p>
+                <h3 class="heading-h">Bensley Collection, Sra'aem</h3>
+                <div class="info-card">
+                    Được thiết kế bởi kiến trúc sư Bill Bensley, resort Shinta Mani Wild - Bensley Collection tọa lạc giữa rừng núi Sra'aem và sông băng trong Vườn quốc gia Bokor. Với các căn hộ hoang dã tiện nghi.</div>
+            </div>
+        </a>
+        <a href="item.html">
+            <div class="diemDenNoiBat-item m-0 p-0 text-center">
+                <img src="anhSp/noibat3.jpg" alt="">
+                <p class="subtitle">Ưu đãi độc quyền</p>
+                <h3 class="heading-h">Song Saa Private Island</h3>
+                <div class="info-card">
+                    Nằm gần di tích nổi tiếng Borobudur, Amanjiwo là một kỳ quan kiến trúc với kiến trúc độc đáo và phong cách kiến trúc Javanese. Với các villa riêng tư, bể bơi vô cực, nhà hàng tuyệt vời.</div>
+            </div>
+        </a>
+        <a href="item.html">
+                <div class="diemDenNoiBat-item m-0 p-0 text-center">
+                    <img src="anhSp/noibat4.jpg" alt="">
+                    <p class="subtitle">Ưu đãi độc quyền</p>
+                    <h3 class="heading-h">Banyan Tree Phuket</h3>
+                    <div class="info-card">
+                        resort này nổi tiếng với không gian xanh mát và biển cát trắng. Khách hàng có thể tận hưởng các villa riêng tư, nhà hàng ẩm thực và các hoạt động thể thao ngoài trời.</div>
+                </div>
+        </a>
+       <a href="item.html">
         <div class="diemDenNoiBat-item m-0 p-0 text-center">
-            <img src="anh/bien.jpg" alt="">
-            <p class="subtitle">biển</p>
-            <h3 class="heading-h">By the coast</h3>
+            <img src="anhSp/noibat6.jpg" alt="">
+            <p class="subtitle">Ưu đãi độc quyền</p>
+            <h3 class="heading-h">Six Senses Ninh Van Bay</h3>
             <div class="info-card">
-                Fringing the ocean and embracing a freer pace of life, Aman’s coastal retreats are spring sanctuaries, whether seeking romance, reconnection or a serene time out.</div>
+                Tọa lạc trên vịnh Ninh Vân, resort Six Senses Ninh Van Bay mang đến không gian riêng tư và hòa mình vào thiên nhiên xanh mát. Các biệt thự ven biển, nhà hàng đa dạng.</div>
         </div>
-        <div class="diemDenNoiBat-item m-0 p-0 text-center">
-            <img src="anh/thanhpho.jpg" alt="">
-            <p class="subtitle">beach</p>
-            <h3 class="heading-h">By the coast</h3>
-            <div class="info-card">
-                Fringing the ocean and embracing a freer pace of life, Aman’s coastal retreats are spring sanctuaries, whether seeking romance, reconnection or a serene time out.</div>
-        </div>
-        <div class="diemDenNoiBat-item m-0 p-0 text-center">
-            <img src="anh/nui.jpg" alt="">
-            <p class="subtitle">beach</p>
-            <h3 class="heading-h">By the coast</h3>
-            <div class="info-card">
-                Fringing the ocean and embracing a freer pace of life, Aman’s coastal retreats are spring sanctuaries, whether seeking romance, reconnection or a serene time out.</div>
-        </div>
-        <div class="diemDenNoiBat-item m-0 p-0 text-center">
-            <img src="anh/amanyara_turks_caicos_-_villa.tif_26213_clean_1.jpg" alt="">
-            <p class="subtitle">beach</p>
-            <h3 class="heading-h">By the coast</h3>
-            <div class="info-card">
-                Fringing the ocean and embracing a freer pace of life, Aman’s coastal retreats are spring sanctuaries, whether seeking romance, reconnection or a serene time out.</div>
-        </div>
-        <div class="diemDenNoiBat-item m-0 p-0 text-center">
-            <img src="anh/trai.jpg" alt="">
-            <p class="subtitle">beach</p>
-            <h3 class="heading-h">By the coast</h3>
-            <div class="info-card">
-                Fringing the ocean and embracing a freer pace of life, Aman’s coastal retreats are spring sanctuaries, whether seeking romance, reconnection or a serene time out.</div>
-        </div>
-        <div class="diemDenNoiBat-item m-0 p-0 text-center">
-            <img src="anh/nui.jpg" alt="">
-            <p class="subtitle">beach</p>
-            <h3 class="heading-h">By the coast</h3>
-            <div class="info-card">
-                Fringing the ocean and embracing a freer pace of life, Aman’s coastal retreats are spring sanctuaries, whether seeking romance, reconnection or a serene time out.</div>
-        </div>
-        <div class="diemDenNoiBat-item m-0 p-0 text-center">
-            <img src="anh/amanyara_turks_caicos_-_villa.tif_26213_clean_1.jpg" alt="">
-            <p class="subtitle">beach</p>
-            <h3 class="heading-h">By the coast</h3>
-            <div class="info-card">
-                Fringing the ocean and embracing a freer pace of life, Aman’s coastal retreats are spring sanctuaries, whether seeking romance, reconnection or a serene time out.</div>
-        </div>
-        <div class="diemDenNoiBat-item m-0 p-0 text-center">
-            <img src="anh/trai.jpg" alt="">
-            <p class="subtitle">beach</p>
-            <h3 class="heading-h">By the coast</h3>
-            <div class="info-card">
-                Fringing the ocean and embracing a freer pace of life, Aman’s coastal retreats are spring sanctuaries, whether seeking romance, reconnection or a serene time out.</div>
-        </div>
+        </a>
+        
+        <a href="item.html">
+            <div class="diemDenNoiBat-item m-0 p-0 text-center">
+                <img src="anhSp/noibat1.jpg" alt="">
+                <p class="subtitle">Ưu đãi độc quyền</p>
+                <h3 class="heading-h">Misibis Bay, Albay</h3>
+                <div class="info-card">
+                    Fringing the ocean and embracing a freer pace of life, Aman’s coastal retreats are spring sanctuaries, whether seeking romance, reconnection or a serene time out.</div>
+            </div>
+        </a>
+        <a href="item.html">
+            <div class="diemDenNoiBat-item m-0 p-0 text-center">
+                <img src="anhSp/noibat2.jpg" alt="">
+                <p class="subtitle">Ưu đãi độc quyền</p>
+                <h3 class="heading-h">Eskaya Beach Resort</h3>
+                <div class="info-card">
+                    Fringing the ocean and embracing a freer pace of life, Aman’s coastal retreats are spring sanctuaries, whether seeking romance, reconnection or a serene time out.</div>
+            </div>
+        </a>
     </div>
 <!-- footer -->
-    <div class="container-fluid footer m-0 p-0 cach">
-        đây là footer
+    <div class="container-fluid footer m-0 p-0 cach bg-white">
+        <footer
+                class="text-center text-lg-start ">
+        <!-- Grid container -->
+        <div class="container-fluid p-4 pb-0">
+            <!-- Section: Links -->
+            <section class="">
+            <!--Grid row-->
+            <div class="row ">
+                <!-- Grid column -->
+                <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+                <h6 class="text-uppercase mb-4 font-weight-bold">
+                    Company name
+                </h6>
+                <p>
+                    Here you can use rows and columns to organize your footer
+                    content. Lorem ipsum dolor sit amet, consectetur adipisicing
+                    elit.
+                </p>
+                </div>
+                <!-- Grid column -->
+    
+                <hr class="w-100 clearfix d-md-none" />
+    
+                <!-- Grid column -->
+                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+                <h6 class="text-uppercase mb-4 font-weight-bold">Products</h6>
+                <p>
+                    <a class="text-white">MDBootstrap</a>
+                </p>
+                <p>
+                    <a class="text-white">MDWordPress</a>
+                </p>
+                <p>
+                    <a class="text-white">BrandFlow</a>
+                </p>
+                <p>
+                    <a class="text-white">Bootstrap Angular</a>
+                </p>
+                </div>
+                <!-- Grid column -->
+    
+                <hr class="w-100 clearfix d-md-none" />
+    
+                <!-- Grid column -->
+                <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
+                <h6 class="text-uppercase mb-4 font-weight-bold">
+                    Useful links
+                </h6>
+                <p>
+                    <a class="text-white">Your Account</a>
+                </p>
+                <p>
+                    <a class="text-white">Become an Affiliate</a>
+                </p>
+                <p>
+                    <a class="text-white">Shipping Rates</a>
+                </p>
+                <p>
+                    <a class="text-white">Help</a>
+                </p>
+                </div>
+    
+                <!-- Grid column -->
+                <hr class="w-100 clearfix d-md-none" />
+    
+                <!-- Grid column -->
+                <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+                <h6 class="text-uppercase mb-4 font-weight-bold">Contact</h6>
+                <p><i class="fa-solid fa-location-dot"></i> New York, NY 10012, US</p>
+                <p><i class="fas fa-envelope mr-3"></i> thaihoc1210@gmail.com</p>
+                <p><i class="fa-solid fa-phone"></i> + 01 234 567 88</p>
+                <p><i class="fa-solid fa-phone"></i> + 01 234 567 89</p>
+                </div>
+                <!-- Grid column -->
+            </div>
+            <!--Grid row-->
+            </section>
+            <!-- Section: Links -->
+    
+            <hr class="my-3">
+    
+            <!-- Section: Copyright -->
+            <section class="p-3 pt-0">
+            <div class="row d-flex align-items-center">
+                <!-- Grid column -->
+                <div class="col-md-7 col-lg-8 text-center text-md-start">
+                <!-- Copyright -->
+                <div class="p-3">
+                    © 2020 Copyright:
+                    <a class="text-white" href="https://mdbootstrap.com/"
+                    >MDBootstrap.com</a
+                    >
+                </div>
+                <!-- Copyright -->
+                </div>
+                <!-- Grid column -->
+    
+                <!-- Grid column -->
+                <div class="col-md-5 col-lg-4 ml-lg-0 text-center text-md-end"> 
+                <!-- Facebook -->
+                <a
+                    class="btn btn-outline-light btn-floating m-1"
+                    class="text-white"
+                    role="button"
+                    ><i class="fab fa-facebook-f"></i
+                    ></a>
+    
+                <!-- Twitter -->
+                <a
+                    class="btn btn-outline-light btn-floating m-1"
+                    class="text-white"
+                    role="button"
+                    ><i class="fab fa-twitter"></i
+                    ></a>
+    
+                <!-- Google -->
+                <a
+                    class="btn btn-outline-light btn-floating m-1"
+                    class="text-white"
+                    role="button"
+                    ><i class="fab fa-google"></i
+                    ></a>
+    
+                <!-- Instagram -->
+                <a
+                    class="btn btn-outline-light btn-floating m-1"
+                    class="text-white"
+                    role="button"
+                    ><i class="fab fa-instagram"></i
+                    ></a>
+                </div>
+                <!-- Grid column -->
+            </div>
+            </section>
+            <!-- Section: Copyright -->
+        </div>
+        <!-- Grid container -->
+        </footer>
+        <!-- Footer -->
     </div>
+
+<!-- back to top -->
+    <button class="backTop" onclick="scrollToTop()">
+    <i class="fa-solid fa-angles-up"></i>
+    </button>
+
+    <script>
+        let so_o;
+            if (window.innerWidth < 767) {
+            so_o  = 1.2; // Màn hình < 767px
+            } else if (window.innerWidth < 991) {
+            so_o = 1.5; // Màn hình < 991px
+            } else {
+            so_o  = 2.3; // Màn hình >= 992px
+            }
+        $(document).ready(function(){
+            $('.diemDenNoiBat').slick({
+                infinite: false,
+                slidesToShow: so_o,
+                slidesToScroll: 1,
+                autoplay: false,
+                autoplaySpeed: 2000,
+                arrows: false,
+                dots: true,
+            });
+            });
+
+    // backToTop
+            window.addEventListener('scroll', function() {
+            var backTopButton = document.querySelector('.backTop');
+            if (window.pageYOffset > 200) {
+                backTopButton.classList.add('show');
+            } else {
+                backTopButton.classList.remove('show');
+            }
+            });
+
+            function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+            // xu ly dung  video
+            const videoElements = document.querySelectorAll('video');
+
+            const options = {
+            root: null, // Sử dụng viewport làm root
+            rootMargin: '0px',
+            threshold: 0.1  // Chỉ chạy video khi 90% video hiển thị trên màn hình
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                entry.target.play(); // Chạy video khi nó hiển thị trên màn hình
+                } else {
+                entry.target.pause(); // Tạm dừng video khi nó không hiển thị trên màn hình
+                }
+            });
+            }, options);
+
+            videoElements.forEach((videoElement) => {
+            observer.observe(videoElement);
+            });
+
+    </script>
     
 
 
@@ -233,9 +492,9 @@
     type="text/javascript"
     src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"
     ></script>
-
-    <script src="app.js"></script>
     <script src="loc.js"></script>
+    <script src="app.js"></script>
+    
 
 
     <!-- multiselect trên github  https://github.com/habibmhamadi/multi-select-tag   -->

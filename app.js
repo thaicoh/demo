@@ -1,141 +1,138 @@
+// nav
+
+window.addEventListener('DOMContentLoaded', function() {
+  var bodyWidth = document.body.offsetWidth;
+  if (bodyWidth > 992) {
+    var navbar = document.querySelector('.navbar');
+    var scrollPosition = window.scrollY;
+
+    if (scrollPosition === 0) {
+      navbar.classList.add('large');
+    } else {
+      navbar.classList.remove('large');
+    }
+  }
+});
+
+window.addEventListener('scroll', function() {
+  var bodyWidth = document.body.offsetWidth;
+  if (bodyWidth > 992) {
+    var navbar = document.querySelector('.navbar');
+    var scrollPosition = window.scrollY;
+
+    if (scrollPosition === 0) {
+      navbar.classList.add('large');
+    } else {
+      navbar.classList.remove('large');
+    }
+  }
+});
+
+
+
+let nut = document.getElementById('toggler');
+let div = document.getElementById('divMenu');
+let nut2 = document.getElementById('toggler2');
+
+  nut.addEventListener('click', function(e){
+    e.preventDefault();
+    div.classList.toggle('show2');
+  });
+  nut2.addEventListener('click', function(e){
+    e.preventDefault();
+    div.classList.toggle('show2');
+  });
+
+
+ 
+
+
+
+
+
 // slick slider js
-$(document).ready(function(){
-    $('.diaDiemNoiBat').slick({
-        infinite: false,
-        slidesToShow: 2.3,
-        slidesToScroll: 1,
-        autoplay: false,
-        autoplaySpeed: 2000,
-        arrows: false,
-        dots: true,
-      });
-    });
-$(document).ready(function(){
-    $('.diemDenNoiBat').slick({
-        infinite: false,
-        slidesToShow: 2.3,
-        slidesToScroll: 1,
-        autoplay: false,
-        autoplaySpeed: 2000,
-        arrows: false,
-        dots: true,
-      });
-    });
+// let so_o;
+// if (window.innerWidth < 767) {
+//   so_o  = 1.2; // Màn hình < 767px
+// } else if (window.innerWidth < 991) {
+//   so_o = 1.5; // Màn hình < 991px
+// } else {
+//   so_o  = 2.3; // Màn hình >= 992px
+// }
 
 
+// $(document).ready(function(){
+//     $('.diaDiemNoiBat').slick({
+//         infinite: false,
+//         slidesToShow: so_o,
+//         slidesToScroll: 1,
+//         autoplay: false,
+//         autoplaySpeed: 2000,
+//         arrows: false,
+//         dots: true,
+//       });
+//     });
+// $(document).ready(function(){
+//     $('.diemDenNoiBat').slick({
+//         infinite: false,
+//         slidesToShow: 2.3,
+//         slidesToScroll: 1,
+//         autoplay: false,
+//         autoplaySpeed: 2000,
+//         arrows: false,
+//         dots: true,
+//       });
+//     });
 
 // Xem thêm và ẩn bớt quocgia
-$(document).ready(function() {
-  var showMore = 0;
-  function toggleProducts() {
-    if(showMore==0) {
-      $('.quocgia.hidden2').hide();
-      $('.quocgia.hidden').hide();
-      $('#toggleBtn').text('Xem thêm');
-    }
-     else if (showMore==1) {
-      $('.quocgia.hidden2').hide();
-      $('.quocgia.hidden').hide();
-      $('#toggleBtn').text('Xem thêm');
-      var targetElement = document.getElementById("quocgiaList");
-      targetElement.scrollIntoView();
-    } else if (showMore==2) {
-      $('.quocgia.hidden').show();
-      $('#toggleBtn').text('Xem thêm');
-    }
-    else
-    {
-      $('.quocgia.hidden2').show();
-      $('#toggleBtn').text('Ẩn bớt');
-    }
-    if(showMore==1||showMore==0){
-      showMore=2;
-    } else if(showMore==2){
-      showMore++;
+var items = document.querySelectorAll('.quocgia');
+let btn = document.getElementById('toggleBtn');
+
+let endIdex;
+let cong;
+if (window.innerWidth < 767) {
+   endIdex = cong = 2; // Màn hình < 767px
+} else if (window.innerWidth < 991) {
+   endIdex  = cong = 2; // Màn hình < 991px
+} else {
+   endIdex  = cong = 3; // Màn hình >= 992px
+}
+
+function show(items,endIdex){
+  if(endIdex<items.length){
+    for(i=0; i<endIdex; i++){
+      items[i].style.display = 'block';
+      }
+  }else{
+    for(i=0; i<items.length; i++){
+      items[i].style.display = 'block';
+      }
+  }
+  
+    if(endIdex<items.length){
+      btn.style.display='block';
     } else {
-      showMore=1;
+      btn.style.display='none';
     }
-  }
-  
-  toggleProducts();
-  
-  $('#toggleBtn').click(function() {
-    toggleProducts();
+}
+  show(items,endIdex);
+  document.getElementById('toggleBtn').addEventListener('click',function(e){
+    e.preventDefault();
+    endIdex+=cong;
+    show(items, endIdex);     
   });
+
+
+// backToTop
+window.addEventListener('scroll', function() {
+  var backTopButton = document.querySelector('.backTop');
+  if (window.pageYOffset > 200) {
+    backTopButton.classList.add('show');
+  } else {
+    backTopButton.classList.remove('show');
+  }
 });
 
-// xem anh slick slider
-
-
-// Item xử lý xem ảnh
-
-document.addEventListener("DOMContentLoaded", function() {
-  var imageList = document.querySelector(".image-list");
-  var fullImageContainer = document.querySelector(".full-image-container");
-  var fullImage = document.querySelector(".full-image");
-  var prevButton = document.querySelector(".prev-button");
-  var nextButton = document.querySelector(".next-button");
-  var images = Array.from(imageList.getElementsByTagName("img"));
-  var currentIndex = 0;
-
-  // Hiển thị ảnh phóng to
-  function showFullImage(index) {
-    currentIndex = index;
-    var imageUrl = images[currentIndex].src;
-    fullImage.src = imageUrl;
-    fullImageContainer.classList.add("show");
-  }
-
-  // Đóng ảnh phóng to
-  function closeFullImage() {
-    fullImageContainer.classList.remove("show");
-  }
-
-  // Xử lý sự kiện click trên danh sách ảnh
-  imageList.addEventListener("click", function(event) {
-    var clickedImage = event.target;
-    if (clickedImage.tagName === "IMG") {
-      var index = images.indexOf(clickedImage);
-      showFullImage(index);
-    }
-  });
-
-  // Xử lý sự kiện click nút prev
-  prevButton.addEventListener("click", function() {
-    currentIndex = (currentIndex - 1 + images.length) % images.length;
-    showFullImage(currentIndex);
-  });
-
-  // Xử lý sự kiện click nút next
-  nextButton.addEventListener("click", function() {
-    currentIndex = (currentIndex + 1) % images.length;
-    showFullImage(currentIndex);
-  });
-
-  // Xử lý sự kiện click để đóng ảnh phóng to
-  fullImageContainer.addEventListener("click", function(event) {
-    if (event.target === fullImageContainer) {
-      closeFullImage();
-    }
-  });
-
-  // Xử lý sự kiện phím bấm
-  document.addEventListener("keydown", function(event) {
-    if (event.key === "Escape") {
-      closeFullImage();
-    } else if (event.key === "ArrowLeft") {
-      currentIndex = (currentIndex - 1 + images.length) % images.length;
-      showFullImage(currentIndex);
-    } else if (event.key === "ArrowRight") {
-      currentIndex = (currentIndex + 1) % images.length;
-      showFullImage(currentIndex);
-    }
-  });
-  var closeButton = document.querySelector(".close-button");
-
-  // Xử lý sự kiện click nút đóng (close button)
-  closeButton.addEventListener("click", function() {
-    closeFullImage();
-});
-
-});
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}

@@ -297,6 +297,7 @@ body {
         .noiO a{
             font-size: 1.5rem;
             border-bottom: 2px solid black;
+            margin: 0px;
         }
             .tienNghi{
                 background-color: white !important;
@@ -307,11 +308,12 @@ body {
                height: 30rem;
             }
                     .item-info .subtitle{
-                        font-size: 1.2rem !important;
+                        font-size: 1rem !important;
                         margin-bottom: 5px;
                     }
                     .item-info .heading-h{
-                        font-size: 2rem !important;
+                        font-size: 1.6rem !important;
+                        
                     }
                         .item-info a{
                             font-size: 1.4rem;

@@ -238,6 +238,11 @@ i{
     }
 
     @media screen and (min-width: 300px) and (max-width: 768px)      {
+        h2.h2{
+            font-size: 1.7rem !important;
+            margin: 2rem 0rem !important;
+            font-weight: 540;
+        }
         body{
             line-height: 1.45;
             font-size: 1rem;

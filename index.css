@@ -40,9 +40,7 @@ a{
 
  } 
 
-
-
-                     /* css thanh menu */
+/* css thanh menu */
 .z{
    z-index: 9 !important;
 }
@@ -117,8 +115,6 @@ a{
 }
 
 
-
-
 .btn{
    box-shadow: none !important;
    font-size: large;
@@ -131,6 +127,81 @@ a{
 .btn:hover{
    background-color: rgb(255, 255, 255);
 }
+
+
+.backTop {
+   display: none;
+   position: fixed !important;
+   bottom: 20px;
+   right: 20px;
+   border: none;
+   color: rgb(126, 126, 126);
+   cursor: pointer;
+   background-color: #F3EEE7;
+   padding: 5px;
+   border-radius: 8px;
+ }
+ .backTop i{
+   font-size:xx-large;
+   z-index: 9999 !important;
+ }
+ .backTop:hover {
+   background-color: #313131;
+   color: #FFFFFF;
+ }
+ 
+ .backTop.show {
+   display: block !important;
+ }
+
+
+ #divMenu { 
+   position: fixed !important;
+   width: 100% !important;
+   height: 100%;
+   top:calc(0px);
+   padding-top: 1rem !important;
+   left: -100%; /* Ẩn phần tử bên ngoài màn hình */
+   transition: left 0.5s ease-in-out; /* Hiệu ứng chuyển động */
+   display: block;
+   z-index: 9999;
+ }
+ #divMenu .logo{
+   padding: 15px;
+   font-size: 2rem;
+ }
+ #divMenu #toggler2{
+   font-size: 2rem;
+   justify-content: center;
+   position: absolute;
+   right: 0px;
+   padding: 15px;
+   top: 1.8rem;
+ }
+
+ #divMenu .fa-solid, .fas {
+   font-weight: 100 !important;
+   border-width: 0px !important;
+
+ }
+ #divMenu i{
+   font-size: 2rem;
+   color: #919191;
+   border-width: 1px !important;
+
+ }
+
+
+ .show2 {
+   left: 0px !important; /* Hiển thị phần tử */
+   right: 0px !important;
+   bottom: 0px !important;
+ }
+
+
+
+
+
 .cach{
    margin-top: 5em !important;
 }
@@ -294,76 +365,6 @@ a{
    a.text-white{
       color: #313131 !important;
    }
-
-.backTop {
-   display: none;
-   position: fixed !important;
-   bottom: 20px;
-   right: 20px;
-   border: none;
-   color: rgb(126, 126, 126);
-   cursor: pointer;
-   background-color: #F3EEE7;
-   padding: 5px;
-   border-radius: 8px;
- }
- .backTop i{
-   font-size:xx-large;
-   z-index: 9999 !important;
- }
- .backTop:hover {
-   background-color: #313131;
-   color: #FFFFFF;
- }
- 
- .backTop.show {
-   display: block !important;
- }
-
-
- #divMenu { 
-   position: fixed !important;
-   width: 100% !important;
-   height: 100%;
-   top:calc(0px);
-   padding-top: 1rem !important;
-   left: -100%; /* Ẩn phần tử bên ngoài màn hình */
-   transition: left 0.5s ease-in-out; /* Hiệu ứng chuyển động */
-   display: block;
-   z-index: 9999;
- }
- #divMenu .logo{
-   padding: 15px;
-   font-size: 2rem;
- }
- #divMenu #toggler2{
-   font-size: 2rem;
-   justify-content: center;
-   position: absolute;
-   right: 0px;
-   padding: 15px;
-   top: 1.8rem;
- }
-
- #divMenu .fa-solid, .fas {
-   font-weight: 100 !important;
-   border-width: 0px !important;
-
- }
- #divMenu i{
-   font-size: 2rem;
-   color: #919191;
-   border-width: 1px !important;
-
- }
-
-
- .show2 {
-   left: 0px !important; /* Hiển thị phần tử */
-   right: 0px !important;
-   bottom: 0px !important;
- }
-
 
  @media screen and (max-width: 991px)  {
    body{

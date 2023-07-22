@@ -1,5 +1,4 @@
 // nav
-
 window.addEventListener('DOMContentLoaded', function() {
   var bodyWidth = document.body.offsetWidth;
   if (bodyWidth > 992) {
@@ -84,43 +83,43 @@ let nut2 = document.getElementById('toggler2');
 //       });
 //     });
 
-// Xem thêm và ẩn bớt quocgia
-var items = document.querySelectorAll('.quocgia');
-let btn = document.getElementById('toggleBtn');
+  // Xem thêm và ẩn bớt quocgia
+  var items = document.querySelectorAll('.quocgia');
+  let btn = document.getElementById('toggleBtn');
 
-let endIdex;
-let cong;
-if (window.innerWidth < 767) {
-   endIdex = cong = 2; // Màn hình < 767px
-} else if (window.innerWidth < 991) {
-   endIdex  = cong = 2; // Màn hình < 991px
-} else {
-   endIdex  = cong = 3; // Màn hình >= 992px
-}
+  let endIdex;
+  let cong;
+  if (window.innerWidth < 767) {
+    endIdex = cong = 2; // Màn hình < 767px
+  } else if (window.innerWidth < 991) {
+    endIdex  = cong = 2; // Màn hình < 991px
+  } else {
+    endIdex  = cong = 3; // Màn hình >= 992px
+  }
 
-function show(items,endIdex){
-  if(endIdex<items.length){
-    for(i=0; i<endIdex; i++){
-      items[i].style.display = 'block';
-      }
-  }else{
-    for(i=0; i<items.length; i++){
-      items[i].style.display = 'block';
+  function show(items,endIdex){
+    if(endIdex<items.length){
+      for(i=0; i<endIdex; i++){
+        items[i].style.display = 'block';
+        }
+    }else{
+      for(i=0; i<items.length; i++){
+        items[i].style.display = 'block';
+        }
+    }
+    
+      if(endIdex<items.length){
+        btn.style.display='block';
+      } else {
+        btn.style.display='none';
       }
   }
-  
-    if(endIdex<items.length){
-      btn.style.display='block';
-    } else {
-      btn.style.display='none';
-    }
-}
-  show(items,endIdex);
-  document.getElementById('toggleBtn').addEventListener('click',function(e){
-    e.preventDefault();
-    endIdex+=cong;
-    show(items, endIdex);     
-  });
+    show(items,endIdex);
+    document.getElementById('toggleBtn').addEventListener('click',function(e){
+      e.preventDefault();
+      endIdex+=cong;
+      show(items, endIdex);     
+    });
 
 
 // backToTop

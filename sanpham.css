@@ -121,7 +121,7 @@ i{
     flex-direction: column;
     padding: 30px !important;
     font-size: 1.2rem;
-    height: 37rem;
+    box-sizing: border-box;
 }
 .duThuyen h3{
     font-size: 2.3rem !important;
@@ -133,7 +133,6 @@ i{
 }
  .video video{
      width: 100% !important;
-     height: 37rem;
 
  }
  h2.heading-h{
@@ -349,7 +348,7 @@ i{
             .footer i{
                color: #313131 !important;
                font-size: 1.5rem !important;
-            }
+        }
     }
 
  

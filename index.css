@@ -607,6 +607,12 @@ a{
       color: #313131 !important;
       font-size: 1.3rem ;
    }
+   .p-5-dt{
+      padding: 15px 5px;
+   }
+   .gioithieu-dt{
+      padding: 0px 4px !important;
+   }
 }
 
 @media screen and (min-width: 992px)  {

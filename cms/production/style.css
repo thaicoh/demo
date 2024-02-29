@@ -1,0 +1,55 @@
+tbody tr:hover .thaotac {
+    opacity: 1 !important;
+}
+
+tbody tr:hover {
+    background-color: rgb(179, 213, 243) !important;
+}
+
+tr .thaotac {
+    opacity: 0 !important;
+
+}
+
+.upload tr td {
+    
+}
+
+.btn .disabled_btn {
+    background-color: #e0e0e0 !important;
+}
+
+.modal-body .bootbox-body {
+    font-size: large !important;
+}
+
+.loading-gif {
+    width: 30px;
+    height: 30px;
+
+}
+.pagenumbernv{
+    display: flex;
+    justify-content: center;
+}
+
+.click_loaihoa{
+    cursor: pointer;
+}
+
+.click_loaihoa:hover{
+    background-color: rgb(179, 213, 243) !important;
+}
+
+.click_khuyenmai{
+    cursor: pointer;
+}
+
+.click_khuyenmai:hover{
+    background-color: rgb(179, 213, 243) !important;
+}
+
+#sel2{
+    width: 100% !important;
+}
+

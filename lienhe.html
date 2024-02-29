@@ -1,493 +1,516 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <!-- <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+<head>
+    <meta charset="utf-8">
+    <!-- <meta content="width=device-width, initial-scale=1.0" name="viewport" />
         <meta name="viewport" content="minimum-scale=1"/> -->
-        <meta name="viewport" content="height=device-height, 
+    <meta name="viewport" content="height=device-height, 
                       width=device-width, initial-scale=1.0, 
                       minimum-scale=1.0, maximum-scale=1.0, 
                       user-scalable=no, target-densitydpi=device-dpi">
 
-        <link href="css/boostrap.min.css" rel="stylesheet" type="text/css" />
-        <link href="css/bootstrap.css"  rel="stylesheet" type="text/css"  />
-        <link href="index.css" rel="stylesheet" type="text/css" />
-        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
-        
+    <link href="css/boostrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="index.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+        crossorigin="anonymous"></script>
 
-        <!-- slick slider -->
-        <link
-            rel="stylesheet"
-            type="text/css"
-            href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"
-            />
-        <!-- select 2 -->
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
-        <link rel="stylesheet" href="fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/all.min.css">
-        <style>
-         i{
+
+    <!-- slick slider -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <!-- select 2 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <link rel="stylesheet" href="fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/all.min.css">
+    <style>
+        i {
             font-size: xx-large
-         }
-         #mess{
+        }
+
+        #mess {
             height: 200px;
-         }
-         input{
+        }
+
+        input {
             height: 40px;
-         }
-         .control.error small{
+        }
+
+        .control.error small {
             color: #B31919;
         }
-        .control.error > input{
+
+        .control.error>input {
             border: 1.5px solid #B31919 !important;
         }
-        .control.error > textarea{
+
+        .control.error>textarea {
             border: 1.5px solid #B31919 !important;
         }
 
 
-        small{
+        small {
             position: absolute;
             bottom: -18px;
             width: 100%;
             left: 20px;
             font-size: small;
         }
-        .control{
+
+        .control {
             position: relative;
         }
-        .form_bg .btn{
+
+        .form_bg .btn {
             background-color: #313131;
             color: white;
             width: 10%;
         }
-        .form_bg .btn:hover{
+
+        .form_bg .btn:hover {
             background-color: #f0efef;
             color: rgb(0, 0, 0);
         }
 
-        @media screen and (min-width: 768px) and (max-width: 992px)  {
-            i,p{
+        @media screen and (min-width: 768px) and (max-width: 992px) {
+
+            i,
+            p {
                 font-size: 250%;
             }
-            h6{
-                font-size:2rem;
+
+            h6 {
+                font-size: 2rem;
             }
-            .control{
+
+            .control {
                 height: 150%;
             }
-            input{
+
+            input {
                 height: 3.5rem;
             }
-            .send{
+
+            .send {
                 width: 35% !important;
                 font-size: 1.6rem !important;
             }
-            .footer p{
+
+            .footer p {
                 font-size: 1rem;
             }
-            .footer a{
+
+            .footer a {
                 font-size: 1rem;
             }
         }
-        @media screen and (min-width: 300px) and (max-width: 767px)  {
-            .send{
+
+        @media screen and (min-width: 300px) and (max-width: 767px) {
+            .send {
                 width: 50% !important;
                 font-size: 1.6rem !important;
             }
-            img{
+
+            img {
                 height: 165 px;
             }
 
         }
-        </style>
-    </head>
-    <body >
-<!--Thanh menu  -->
-        <div class="container-fluid maunen sticky-top z">
-            <nav class="m-0 p-0 navbar navbar-expand-lg navbar-light bg-light maunen">
-                <div class="row m-0 p-0 justify-content-between w-100">
-                    <div class="logo col-2 ">
-                        <a class="navbar-brand m-0 p-0" href="index.html">Logo</a>
+    </style>
+</head>
+
+<body>
+    <!--Thanh menu  -->
+    <div class="container-fluid maunen sticky-top z">
+        <nav class="m-0 p-0 navbar navbar-expand-lg navbar-light bg-light maunen">
+            <div class="row m-0 p-0 justify-content-between w-100">
+                <div class="logo col-2 ">
+                    <a class="navbar-brand m-0 p-0" href="index.html">Logo</a>
+                </div>
+                <div class="toggler-btn text-right col-1">
+                    <buttom class="m-0 p-0" type="buttom" id="toggler">
+                        <span class="navbar-toggler-icon m-0 p-0"></span>
+                    </buttom>
+                </div>
+                <div class="col-lg-9 collapse navbar-collapse thanhmenu m-0 p-0 maunen ">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="navbar-item  active">
+                            <a class="nav-link" href="index.html">Trang chủ</a>
+                            <span></span>
+                        </li>
+                        <li class="navbar-item">
+                            <a class="nav-link" href="sanpham.html">Khu nghỉ dưỡng</a>
+                            <span></span>
+                        </li>
+                        <li class="navbar-item">
+                            <a class="nav-link" href="khampha.html">Khám phá</a>
+                            <span></span>
+                        </li>
+                        <li class="navbar-item">
+                            <a class="nav-link" href="blog.html">Blog</a>
+                            <span></span>
+                        </li>
+                        <li class="navbar-item">
+                            <a class="nav-link" href="lienhe.html">Liên hệ</a>
+                            <span></span>
+                        </li>
+                    </ul>
+                    <div class="nav-item nav-btn text-left col-lg-2 p-0 ml-3 ">
+                        <a class="nav-link p-0 " href="dangnhap.html">
+                            <buttom class="btn mx-auto w-100 ">Đăng nhập</buttom>
+                        </a>
                     </div>
-                    <div class="toggler-btn text-right col-1">
-                        <buttom class="m-0 p-0" type="buttom" id="toggler">
-                            <span class="navbar-toggler-icon m-0 p-0"></span>
-                        </buttom>
-                    </div>
-                    <div class="col-lg-9 collapse navbar-collapse thanhmenu m-0 p-0 maunen ">
-                        <ul class="navbar-nav ml-auto">
-                            <li class="navbar-item  ">
-                                <a class="nav-link" href="index.html">Trang chủ</a>
-                                <span></span>
-                            </li>
-                            <li class="navbar-item">
-                                <a class="nav-link" href="sanpham.html">Khu nghỉ dưỡng</a>
-                                <span></span>
-                            </li>
-                            <li class="navbar-item">
-                                <a class="nav-link" href="khampha.html">Khám phá</a>
-                                <span></span>
-                            </li>
-                            <li class="navbar-item">
-                                <a class="nav-link" href="blog.html">Blog</a>
-                                <span></span>
-                            </li>
-                            <li class="navbar-item active">
-                                <a class="nav-link" href="lienhe.html">Liên hệ</a>
-                                <span></span>
-                            </li>
-                        </ul>
-                        <div class="nav-item text-left col-lg-2 p-0 ml-3">
-                            <a class="nav-link p-0" href="dangnhap.html" ><buttom class="btn mx-auto w-100">Đăng nhập</buttom> </a>
+                    <div class="nav-item nav-avt text-right col-lg-1 p-0 ml-3 hidden">
+                        <div class="avtUser">
+                            <img src="anh/avtUser.png" alt="">
+                            <div class="dropdown-menu menu-user">
+                                <h3>Resort DNA<br /><span>Website Designer</span></h3>
+                                <ul>
+                                    <li>
+                                        <img src="./assets/icons/user.png" /><a href="#">Tài khoảng của tôi</a>
+                                    </li>
+                                    <li>
+                                        <img src="./assets/icons/history.png" /><a href="#">Lịch sử</a>
+                                    </li>
+                                    <li><img src="./assets/icons/png-save.png" /><a href="#">Đã lưu</a></li>
+                                    <li>
+                                        <img src="./assets/icons/envelope.png" /><a href="#">Thông báo</a>
+                                    </li>
+                                    <li>
+                                        <img src="./assets/icons/settings.png" /><a href="#">Cài đặt</a>
+                                    </li>
+                                    <li class="logout">
+                                        <img src="./assets/icons/log-out.png" /><a href="#">Đăng xuất</a>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </nav>
-        </div>
-        <div class="thanhmenu text-center maunen " id="divMenu">
-                <div class="justify-content-center">
-                    <div class="logo">
-                        <a class="navbar-brand m-0 p-0" href="#">Logo</a>
-                    </div>
-                    <div class="toggler-btn">
-                        <buttom type="buttom" id="toggler2">
-                            <i class="fa-solid fa-x"></i>
-                        </buttom>
-                    </div>
-                </div>
-                <hr>
-                <ul class="text-center">
-                    <li class="">
-                        <a class=" " href="index.html">Trang chủ</a>
-                    </li>
-                    <li class="">
-                        <a class="" href="sanpham.html">Khu nghỉ dưỡng</a>
-                    </li>
-                    <li class="">
-                        <a class="" href="khampha.html">Khám phá</a>
-                    </li>
-                    <li class="">
-                        <a class="" href="blog.html">Blog</a>
-                    </li>
-                    <li class="">
-                        <a class="active" href="lienhe.html">Liên hệ</a>
-                    </li>
-                    <li>
-                        <a href="dangnhap.html" ><buttom class="btn">Đăng nhập</buttom> </a>
-                    </li>
-                </ul>
-        </div>
-        <div class="container-fluid">
-            <img src="anh2/Screenshot 2023-06-22 164110.png" alt="" class="w-100">
-        </div>
-        <div class="container-fluid cach">
-            <div class="row justify-content-center">
-                <div class="col-lg-4 text-center">
-                    <div>
-                        <i class="fa-solid fa-location-dot"></i>
-                        <p> Địa chỉ văn phòng: <br> <br>    
-                            29 Antinoros Str, PA 116 34, Athens Hy Lạp
-                        </p>
-                    </div>                   
-                </div>
-                <div class="col-lg-4 text-center">
-                    <div>
-                        <i class="fa-solid fa-phone"></i>
-                        <p>Điện thoại<br>
-                            Văn phòng chính: +30 2107295925 | 09:00 - 17:00 <br>
-                            Đặt chỗ: +30 6973439787 | 09:00 - 21:00
-                        </p>
-                    </div>                   
-                </div>  
-                <div class="col-lg-4 text-center">
-                    <div>
-                        <i class="fa-regular fa-envelope"></i>
-                        <p>E-mail <br>
-                            info@hestia-apartments.com
-                        </p>
-                    </div>                   
-                </div> 
+            </div>
+        </nav>
+    </div>
+    <div class="thanhmenu text-center maunen " id="divMenu">
+        <div class="justify-content-center">
+            <div class="logo">
+                <a class="navbar-brand m-0 p-0" href="#">Logo</a>
+            </div>
+            <div class="toggler-btn">
+                <buttom type="buttom" id="toggler2">
+                    <i class="fa-solid fa-x"></i>
+                </buttom>
             </div>
         </div>
+        <hr>
+        <ul class="text-center">
+            <li class="">
+                <a class=" active" href="index.html">Trang chủ</a>
+            </li>
+            <li class="">
+                <a class="" href="sanpham.html">Khu nghỉ dưỡng</a>
+            </li>
+            <li class="">
+                <a class="" href="khampha.html">Khám phá</a>
+            </li>
+            <li class="">
+                <a class="" href="blog.html">Blog</a>
+            </li>
+            <li class="">
+                <a class="" href="lienhe.html">Liên hệ</a>
+            </li>
+            <li>
+                <a href="dangnhap.html">
+                    <buttom class="btn">Đăng nhập</buttom>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="container-fluid">
+        <img src="anh2/Screenshot 2023-06-22 164110.png" alt="" class="w-100">
+    </div>
+    <div class="container-fluid cach">
+        <div class="row justify-content-center">
+            <div class="col-lg-4 text-center">
+                <div>
+                    <i class="fa-solid fa-location-dot"></i>
+                    <p> Địa chỉ văn phòng: <br> <br>
+                        29 Antinoros Str, PA 116 34, Athens Hy Lạp
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-4 text-center">
+                <div>
+                    <i class="fa-solid fa-phone"></i>
+                    <p>Điện thoại<br>
+                        Văn phòng chính: +30 2107295925 | 09:00 - 17:00 <br>
+                        Đặt chỗ: +30 6973439787 | 09:00 - 21:00
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-4 text-center">
+                <div>
+                    <i class="fa-regular fa-envelope"></i>
+                    <p>E-mail <br>
+                        info@hestia-apartments.com
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
 
-            <div class="container-fluid cach">
-                <form class="form_bg " id="form_lienHe">
-                            <div class=" row maunen justify-content-center">
-                                <div class="control col-lg-5 col-12 mt-4">
-                                    <h6>Tên của bạn (Bắt buộc):</h6>
-                                    <input class="w-100" id="ten" type="text" placeholder="">
-                                    <small></small>
-                                </div>
-                                <div class="control col-lg-6 col-12 mt-4">
-                                    <h6>Gmail (Bắt buộc):</h6>
-                                    <input class="w-100" id="email" type="text" placeholder="">
-                                    <small></small>
-                                </div>
-                                <div class="control col-lg-11 col-12 mt-4">
-                                    <h6>Chủ đề:</h6>
-                                    <input class="w-100" id="chude" type="text" placeholder="">
-                                    <small></small>
-                                </div>
-                                <div class="control col-lg-11 col-12 mt-4 ">
-                                    <h6>Tin nhắn:</h6>
-                                    <textarea type="text" class="w-100" id="mess" rows="6"></textarea>
-                                    <small></small>
-                                </div>
-                                <div class="control col-lg-12 text-center">
-                                    <button type="submit" class="btn send mt-4">Send</button> 
-                                </div>
+    <div class="container-fluid cach">
+        <form class="form_bg " id="form_lienHe">
+            <div class=" row maunen justify-content-center">
+                <div class="control col-lg-5 col-12 mt-4">
+                    <h6>Tên của bạn (Bắt buộc):</h6>
+                    <input class="w-100" id="ten" type="text" placeholder="">
+                    <small></small>
+                </div>
+                <div class="control col-lg-6 col-12 mt-4">
+                    <h6>Gmail (Bắt buộc):</h6>
+                    <input class="w-100" id="email" type="text" placeholder="">
+                    <small></small>
+                </div>
+                <div class="control col-lg-11 col-12 mt-4">
+                    <h6>Chủ đề:</h6>
+                    <input class="w-100" id="chude" type="text" placeholder="">
+                    <small></small>
+                </div>
+                <div class="control col-lg-11 col-12 mt-4 ">
+                    <h6>Tin nhắn:</h6>
+                    <textarea type="text" class="w-100" id="mess" rows="6"></textarea>
+                    <small></small>
+                </div>
+                <div class="control col-lg-12 text-center">
+                    <button type="submit" class="btn send mt-4">Send</button>
+                </div>
 
-                            </div>
-                            
-                            
-                </form>
             </div>
 
 
+        </form>
+    </div>
 
 
-<!-- footer -->
-        <div class="container-fluid footer m-0 p-0 cach bg-white">
-            <footer
-                    class="text-center text-lg-start ">
+
+
+    <!-- footer -->
+    <div class="container-fluid footer m-0 p-0 cach bg-white">
+        <footer class="text-center text-lg-start ">
             <!-- Grid container -->
             <div class="container-fluid p-4 pb-0">
                 <!-- Section: Links -->
                 <section class="">
-                <!--Grid row-->
-                <div class="row ">
-                    <!-- Grid column -->
-                    <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
-                    <h6 class="text-uppercase mb-4 font-weight-bold">
-                        Company name
-                    </h6>
-                    <p>
-                        Here you can use rows and columns to organize your footer
-                        content. Lorem ipsum dolor sit amet, consectetur adipisicing
-                        elit.
-                    </p>
+                    <!--Grid row-->
+                    <div class="row ">
+                        <!-- Grid column -->
+                        <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+                            <h6 class="text-uppercase mb-4 font-weight-bold">
+                                Company name
+                            </h6>
+                            <p>
+                                Here you can use rows and columns to organize your footer
+                                content. Lorem ipsum dolor sit amet, consectetur adipisicing
+                                elit.
+                            </p>
+                        </div>
+                        <!-- Grid column -->
+
+                        <hr class="w-100 clearfix d-md-none" />
+
+                        <!-- Grid column -->
+                        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+                            <h6 class="text-uppercase mb-4 font-weight-bold">Products</h6>
+                            <p>
+                                <a class="text-white">MDBootstrap</a>
+                            </p>
+                            <p>
+                                <a class="text-white">MDWordPress</a>
+                            </p>
+                            <p>
+                                <a class="text-white">BrandFlow</a>
+                            </p>
+                            <p>
+                                <a class="text-white">Bootstrap Angular</a>
+                            </p>
+                        </div>
+                        <!-- Grid column -->
+
+                        <hr class="w-100 clearfix d-md-none" />
+
+                        <!-- Grid column -->
+                        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
+                            <h6 class="text-uppercase mb-4 font-weight-bold">
+                                Useful links
+                            </h6>
+                            <p>
+                                <a class="text-white">Your Account</a>
+                            </p>
+                            <p>
+                                <a class="text-white">Become an Affiliate</a>
+                            </p>
+                            <p>
+                                <a class="text-white">Shipping Rates</a>
+                            </p>
+                            <p>
+                                <a class="text-white">Help</a>
+                            </p>
+                        </div>
+
+                        <!-- Grid column -->
+                        <hr class="w-100 clearfix d-md-none" />
+
+                        <!-- Grid column -->
+                        <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+                            <h6 class="text-uppercase mb-4 font-weight-bold">Contact</h6>
+                            <p><i class="fa-solid fa-location-dot"></i> New York, NY 10012, US</p>
+                            <p><i class="fas fa-envelope mr-3"></i> thaihoc1210@gmail.com</p>
+                            <p><i class="fa-solid fa-phone"></i> + 01 234 567 88</p>
+                            <p><i class="fa-solid fa-phone"></i> + 01 234 567 89</p>
+                        </div>
+                        <!-- Grid column -->
                     </div>
-                    <!-- Grid column -->
-        
-                    <hr class="w-100 clearfix d-md-none" />
-        
-                    <!-- Grid column -->
-                    <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
-                    <h6 class="text-uppercase mb-4 font-weight-bold">Products</h6>
-                    <p>
-                        <a class="text-white">MDBootstrap</a>
-                    </p>
-                    <p>
-                        <a class="text-white">MDWordPress</a>
-                    </p>
-                    <p>
-                        <a class="text-white">BrandFlow</a>
-                    </p>
-                    <p>
-                        <a class="text-white">Bootstrap Angular</a>
-                    </p>
-                    </div>
-                    <!-- Grid column -->
-        
-                    <hr class="w-100 clearfix d-md-none" />
-        
-                    <!-- Grid column -->
-                    <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
-                    <h6 class="text-uppercase mb-4 font-weight-bold">
-                        Useful links
-                    </h6>
-                    <p>
-                        <a class="text-white">Your Account</a>
-                    </p>
-                    <p>
-                        <a class="text-white">Become an Affiliate</a>
-                    </p>
-                    <p>
-                        <a class="text-white">Shipping Rates</a>
-                    </p>
-                    <p>
-                        <a class="text-white">Help</a>
-                    </p>
-                    </div>
-        
-                    <!-- Grid column -->
-                    <hr class="w-100 clearfix d-md-none" />
-        
-                    <!-- Grid column -->
-                    <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
-                    <h6 class="text-uppercase mb-4 font-weight-bold">Contact</h6>
-                    <p><i class="fa-solid fa-location-dot"></i> New York, NY 10012, US</p>
-                    <p><i class="fas fa-envelope mr-3"></i> thaihoc1210@gmail.com</p>
-                    <p><i class="fa-solid fa-phone"></i> + 01 234 567 88</p>
-                    <p><i class="fa-solid fa-phone"></i> + 01 234 567 89</p>
-                    </div>
-                    <!-- Grid column -->
-                </div>
-                <!--Grid row-->
+                    <!--Grid row-->
                 </section>
                 <!-- Section: Links -->
-        
+
                 <hr class="my-3">
-        
+
                 <!-- Section: Copyright -->
                 <section class="p-3 pt-0">
-                <div class="row d-flex align-items-center">
-                    <!-- Grid column -->
-                    <div class="col-md-7 col-lg-8 text-center text-md-start">
-                    <!-- Copyright -->
-                    <div class="p-3">
-                        © 2020 Copyright:
-                        <a class="text-white" href="https://mdbootstrap.com/"
-                        >MDBootstrap.com</a
-                        >
+                    <div class="row d-flex align-items-center">
+                        <!-- Grid column -->
+                        <div class="col-md-7 col-lg-8 text-center text-md-start">
+                            <!-- Copyright -->
+                            <div class="p-3">
+                                © 2020 Copyright:
+                                <a class="text-white" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+                            </div>
+                            <!-- Copyright -->
+                        </div>
+                        <!-- Grid column -->
+
+                        <!-- Grid column -->
+                        <div class="col-md-5 col-lg-4 ml-lg-0 text-center text-md-end">
+                            <!-- Facebook -->
+                            <a class="btn btn-outline-light btn-floating m-1" class="text-white" role="button"><i
+                                    class="fab fa-facebook-f"></i></a>
+
+                            <!-- Twitter -->
+                            <a class="btn btn-outline-light btn-floating m-1" class="text-white" role="button"><i
+                                    class="fab fa-twitter"></i></a>
+
+                            <!-- Google -->
+                            <a class="btn btn-outline-light btn-floating m-1" class="text-white" role="button"><i
+                                    class="fab fa-google"></i></a>
+
+                            <!-- Instagram -->
+                            <a class="btn btn-outline-light btn-floating m-1" class="text-white" role="button"><i
+                                    class="fab fa-instagram"></i></a>
+                        </div>
+                        <!-- Grid column -->
                     </div>
-                    <!-- Copyright -->
-                    </div>
-                    <!-- Grid column -->
-        
-                    <!-- Grid column -->
-                    <div class="col-md-5 col-lg-4 ml-lg-0 text-center text-md-end"> 
-                    <!-- Facebook -->
-                    <a
-                        class="btn btn-outline-light btn-floating m-1"
-                        class="text-white"
-                        role="button"
-                        ><i class="fab fa-facebook-f"></i
-                        ></a>
-        
-                    <!-- Twitter -->
-                    <a
-                        class="btn btn-outline-light btn-floating m-1"
-                        class="text-white"
-                        role="button"
-                        ><i class="fab fa-twitter"></i
-                        ></a>
-        
-                    <!-- Google -->
-                    <a
-                        class="btn btn-outline-light btn-floating m-1"
-                        class="text-white"
-                        role="button"
-                        ><i class="fab fa-google"></i
-                        ></a>
-        
-                    <!-- Instagram -->
-                    <a
-                        class="btn btn-outline-light btn-floating m-1"
-                        class="text-white"
-                        role="button"
-                        ><i class="fab fa-instagram"></i
-                        ></a>
-                    </div>
-                    <!-- Grid column -->
-                </div>
                 </section>
                 <!-- Section: Copyright -->
             </div>
             <!-- Grid container -->
-            </footer>
-            <!-- Footer -->
-        </div>
-<!-- back to top -->
-        <button class="backTop" onclick="scrollToTop()">
+        </footer>
+        <!-- Footer -->
+    </div>
+    <!-- back to top -->
+    <button class="backTop" onclick="scrollToTop()">
         <i class="fa-solid fa-angles-up"></i>
-        </button>
+    </button>
 
 
-        <script>
-            // backToTop
-            window.addEventListener('scroll', function() {
+    <script>
+        // backToTop
+        window.addEventListener('scroll', function () {
             var backTopButton = document.querySelector('.backTop');
             if (window.pageYOffset > 200) {
                 backTopButton.classList.add('show');
             } else {
                 backTopButton.classList.remove('show');
             }
-            });
+        });
 
-            function scrollToTop() {
+        function scrollToTop() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        // check form
+        let form_lienHe = document.querySelector('#form_lienHe');
+        let ten = document.querySelector('#ten');
+        let mail = document.querySelector('#email');
+        let chude = document.querySelector('#chude');
+        let mess = document.querySelector('#mess');
+
+        form_lienHe.addEventListener('submit', function (e) {
+            e.preventDefault();
+            let isNULL = checkNull([ten, mail, chude, mess]);
+            let isEmailError = checkEmail(mail);
+
+            if (isNULL || isEmailError) {
+            } else {
+                alert(`Cảm ơn ${ten.value.trim()} ,Chúng tôi đã nhận tin nhắn của bạn!`);
             }
-            // check form
-            let form_lienHe = document.querySelector('#form_lienHe');
-            let ten = document.querySelector('#ten');
-            let mail = document.querySelector('#email');
-            let chude = document.querySelector('#chude');
-            let mess = document.querySelector('#mess');
+        })
 
-            form_lienHe.addEventListener('submit',function(e){
-                e.preventDefault();
-                let isNULL = checkNull([ten,mail,chude,mess]);
-                let isEmailError = checkEmail(mail);
+        function showError(input, mess) {
+            let parent = input.parentElement;
+            let small = parent.querySelector('small');
 
-                if(isNULL||isEmailError){   
+            parent.classList.add('error');
+            small.innerText = mess;
+        }
+        function showSuccess(input) {
+            let parent = input.parentElement;
+            let small = parent.querySelector('small');
+
+            parent.classList.remove('error');
+            small.innerText = ''
+        }
+        // kiem tra rong
+        function checkNull(listInput) {
+            let isNULL = false;
+            listInput.forEach(input => {
+                input.value.trim();
+                if (!input.value) {
+                    isNULL = true;
+                    showError(input, 'Không được để trống mục này!')
                 } else {
-                        alert(`Cảm ơn ${ten.value.trim()} ,Chúng tôi đã nhận tin nhắn của bạn!`);
+                    showSuccess(input)
                 }
-            })
+            });
+            return isNULL;
+        }
+        // kiem tra email 
+        function checkEmail(input) {
+            const regexE = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,})+$/;
 
-            function showError(input, mess) {
-                let parent = input.parentElement;
-                let small = parent.querySelector('small');
-            
-                parent.classList.add('error');
-                small.innerText = mess;
-            }
-            function showSuccess(input) {
-                let parent = input.parentElement;
-                let small = parent.querySelector('small');
-            
-                parent.classList.remove('error');
-                small.innerText = ''
-            }
-            // kiem tra rong
-            function checkNull(listInput){
-                let isNULL = false;
-                listInput.forEach(input => {
-                    input.value.trim();
-                    if(!input.value){
-                        isNULL= true;
-                        showError(input, 'Không được để trống mục này!')
-                    }else{
-                        showSuccess(input)
-                    }
-                });
-                return isNULL;
-            }
-            // kiem tra email 
-            function checkEmail(input) {
-                const regexE = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,})+$/;
-                
-                input.value = input.value.trim();
-                let isEmailError = !regexE.test(input.value);
-                if (regexE.test(input.value)) {
+            input.value = input.value.trim();
+            let isEmailError = !regexE.test(input.value);
+            if (regexE.test(input.value)) {
                 showSuccess(input);
                 isEmailError = false; // Email hợp lệ
-                } else {
+            } else {
                 showError(input, 'Email không hợp lệ!');
-                isEmailError =  true; // Email không hợp lệ
-                }
-                return isEmailError;
+                isEmailError = true; // Email không hợp lệ
             }
+            return isEmailError;
+        }
 
-        </script>
-        
+    </script>
 
-        <script
-        type="text/javascript"
-        src="https://code.jquery.com/jquery-1.11.0.min.js"
-        ></script>
-        <script
-        type="text/javascript"
-        src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"
-        ></script>
-        <script
-        type="text/javascript"
-        src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"
-        ></script>
-        <script src="app.js"></script>
-        <!-- <script src="dangki.js"></script> -->
-    </body>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script src="app.js"></script>
+    <!-- <script src="dangki.js"></script> -->
+</body>
+
 </html>

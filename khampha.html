@@ -76,80 +76,110 @@
 
     <body >
 <!--Thanh menu  -->
-    <div class="container-fluid maunen sticky-top z">
-        <nav class="m-0 p-0 navbar navbar-expand-lg navbar-light bg-light maunen">
-            <div class="row m-0 p-0 justify-content-between w-100">
-                <div class="logo col-2 ">
-                    <a class="navbar-brand m-0 p-0" href="index.html">Logo</a>
+<div class="container-fluid maunen sticky-top z">
+    <nav class="m-0 p-0 navbar navbar-expand-lg navbar-light bg-light maunen">
+        <div class="row m-0 p-0 justify-content-between w-100">
+            <div class="logo col-2 ">
+                <a class="navbar-brand m-0 p-0" href="index.html">Logo</a>
+            </div>
+            <div class="toggler-btn text-right col-1">
+                <buttom class="m-0 p-0" type="buttom" id="toggler">
+                    <span class="navbar-toggler-icon m-0 p-0"></span>
+                </buttom>
+            </div>
+            <div class="col-lg-9 collapse navbar-collapse thanhmenu m-0 p-0 maunen ">
+                <ul class="navbar-nav ml-auto">
+                    <li class="navbar-item  active">
+                        <a class="nav-link" href="index.html">Trang chủ</a>
+                        <span></span>
+                    </li>
+                    <li class="navbar-item">
+                        <a class="nav-link" href="sanpham.html">Khu nghỉ dưỡng</a>
+                        <span></span>
+                    </li>
+                    <li class="navbar-item">
+                        <a class="nav-link" href="khampha.html">Khám phá</a>
+                        <span></span>
+                    </li>
+                    <li class="navbar-item">
+                        <a class="nav-link" href="blog.html">Blog</a>
+                        <span></span>
+                    </li>
+                    <li class="navbar-item">
+                        <a class="nav-link" href="lienhe.html">Liên hệ</a>
+                        <span></span>
+                    </li>
+                </ul>
+                <div class="nav-item nav-btn text-left col-lg-2 p-0 ml-3 ">
+                    <a class="nav-link p-0 " href="dangnhap.html">
+                        <buttom class="btn mx-auto w-100 ">Đăng nhập</buttom>
+                    </a>
                 </div>
-                <div class="toggler-btn text-right col-1">
-                    <buttom class="m-0 p-0" type="buttom" id="toggler">
-                        <span class="navbar-toggler-icon m-0 p-0"></span>
-                    </buttom>
-                </div>
-                <div class="col-lg-9 collapse navbar-collapse thanhmenu m-0 p-0 maunen ">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="navbar-item  ">
-                            <a class="nav-link" href="index.html">Trang chủ</a>
-                            <span></span>
-                        </li>
-                        <li class="navbar-item">
-                            <a class="nav-link" href="sanpham.html">Khu nghỉ dưỡng</a>
-                            <span></span>
-                        </li>
-                        <li class="navbar-item active">
-                            <a class="nav-link " href="khampha.html">Khám phá</a>
-                            <span></span>
-                        </li>
-                        <li class="navbar-item">
-                            <a class="nav-link" href="blog.html">Blog</a>
-                            <span></span>
-                        </li>
-                        <li class="navbar-item">
-                            <a class="nav-link" href="lienhe.html">Liên hệ</a>
-                            <span></span>
-                        </li>
-                    </ul>
-                    <div class="nav-item text-left col-lg-2 p-0 ml-3">
-                        <a class="nav-link p-0" href="dangnhap.html" ><buttom class="btn mx-auto w-100">Đăng nhập</buttom> </a>
+                <div class="nav-item nav-avt text-right col-lg-1 p-0 ml-3 hidden">
+                    <div class="avtUser">
+                        <img src="anh/avtUser.png" alt="">
+                        <div class="dropdown-menu menu-user">
+                            <h3>Resort DNA<br /><span>Website Designer</span></h3>
+                            <ul>
+                                <li>
+                                    <img src="./assets/icons/user.png" /><a href="#">Tài khoảng của tôi</a>
+                                </li>
+                                <li>
+                                    <img src="./assets/icons/history.png" /><a href="#">Lịch sử</a>
+                                </li>
+                                <li><img src="./assets/icons/png-save.png" /><a href="#">Đã lưu</a></li>
+                                <li>
+                                    <img src="./assets/icons/envelope.png" /><a href="#">Thông báo</a>
+                                </li>
+                                <li>
+                                    <img src="./assets/icons/settings.png" /><a href="#">Cài đặt</a>
+                                </li>
+                                <li class="logout">
+                                    <img src="./assets/icons/log-out.png" /><a href="#">Đăng xuất</a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
-        </nav>
+        </div>
+    </nav>
+</div>
+<div class="thanhmenu text-center maunen " id="divMenu">
+    <div class="justify-content-center">
+        <div class="logo">
+            <a class="navbar-brand m-0 p-0" href="#">Logo</a>
+        </div>
+        <div class="toggler-btn">
+            <buttom type="buttom" id="toggler2">
+                <i class="fa-solid fa-x"></i>
+            </buttom>
+        </div>
     </div>
-    <div class="thanhmenu text-center maunen " id="divMenu">
-            <div class="justify-content-center">
-                <div class="logo">
-                    <a class="navbar-brand m-0 p-0" href="#">Logo</a>
-                </div>
-                <div class="toggler-btn">
-                    <buttom type="buttom" id="toggler2">
-                        <i class="fa-solid fa-x"></i>
-                    </buttom>
-                </div>
-            </div>
-            <hr>
-            <ul class="text-center">
-                <li class="">
-                    <a class=" " href="index.html">Trang chủ</a>
-                </li>
-                <li class="">
-                    <a class="" href="sanpham.html">Khu nghỉ dưỡng</a>
-                </li>
-                <li class="">
-                    <a class="active" href="khampha.html">Khám phá</a>
-                </li>
-                <li class="">
-                    <a class="" href="blog.html">Blog</a>
-                </li>
-                <li class="">
-                    <a class="" href="lienhe.html">Liên hệ</a>
-                </li>
-                <li>
-                    <a href="dangnhap.html" ><buttom class="btn">Đăng nhập</buttom> </a>
-                </li>
-            </ul>
-    </div>
+    <hr>
+    <ul class="text-center">
+        <li class="">
+            <a class=" active" href="index.html">Trang chủ</a>
+        </li>
+        <li class="">
+            <a class="" href="sanpham.html">Khu nghỉ dưỡng</a>
+        </li>
+        <li class="">
+            <a class="" href="khampha.html">Khám phá</a>
+        </li>
+        <li class="">
+            <a class="" href="blog.html">Blog</a>
+        </li>
+        <li class="">
+            <a class="" href="lienhe.html">Liên hệ</a>
+        </li>
+        <li>
+            <a href="dangnhap.html">
+                <buttom class="btn">Đăng nhập</buttom>
+            </a>
+        </li>
+    </ul>
+</div>
 <!-- slides banner -->
         <div class="container-fluid cach text-center">
             <h1>Những cuộc hành trình cùng với </h1>

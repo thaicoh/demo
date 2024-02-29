@@ -1,0 +1,1323 @@
+/**
+ * ----------------------------------------------------------
+ *  Loader for Google Tag Manager
+ * ----------------------------------------------------------
+ */
+(function(w,d){
+    this.d = d, this.w = w,this.qrs = queryStr(),this.hotel=this.qrs.hotel,this.chain=this.qrs.chain,this.handleChains=false,this.test_container='GTM-5LWK7DQ';
+
+    /**
+     * Mapping for GTM Container IDs
+     */
+    w.pilot_gtm_map = {}
+
+    /**
+     * Parse variables over query string
+     * @return object
+     */
+    function queryStr(){
+        var match,
+            prms   = {},
+            pl     = /\+/g,  // Regex for replacing addition symbol with a space;
+            search = /([^&=]+)=?([^&]*)/g,
+            decode = function (w) { return decodeURIComponent(w.replace(pl, " ")); },
+            query  = w.location.search.substring(1);
+
+        while (match = search.exec(query))
+            prms[decode(match[1]).toLowerCase()] = decode(match[2]);
+
+        return prms;
+    }
+
+    /**
+     * Remove HTML tags from string
+     * @param string $input
+     * @param string $allowed
+     * @see http://locutus.io/php/strings/strip_tags/
+     * @return string
+     */
+    function strip_tags(input, allowed){
+        allowed = (((allowed || '') + '').toLowerCase().match(/<[a-z][a-z0-9]*>/g) || []).join('')
+        var tags = /<\/?([a-z][a-z0-9]*)\b[^>]*>/gi
+        var commentsAndPhpTags = /<!--[\s\S]*?-->|<\?(?:php)?[\s\S]*?\?>/gi
+        return input.replace(commentsAndPhpTags, '').replace(tags, function ($0, $1) {
+            return allowed.indexOf('<' + $1.toLowerCase() + '>') > -1 ? $0 : ''
+        })
+    }
+
+    /**
+     * creates an object with an item_category property with index for each category code
+     * @param categoryCodes
+     * @returns {{}}
+     */
+    function getItemCategoriesObject(categoryCodes) {
+        if (!categoryCodes) {
+            return {};
+        }
+
+        const itemCategoriesObject = {};
+
+        for(let idx=0; idx < categoryCodes.length; idx++) {
+            if (idx === 0) {
+                itemCategoriesObject['item_category'] = categoryCodes[idx];
+            } else {
+                itemCategoriesObject['item_category' + (idx + 1)] = categoryCodes[idx];
+            }
+        }
+
+        return itemCategoriesObject;
+    }
+
+    /**
+     * Load a GTM conatiner id
+     * @param string $container_id an ID GTM Container to load
+     * @return void
+     */
+    function gtmContainer(container_id){
+        // load only if there is no dataLayer detected;
+        if(container_id && !this.w.dataLayer)
+            try{
+                console.log('dxgtm: No dataLayer, loading GTM has been suspended.');
+            }catch(e){console.log('dxgtm: Error loading GTM');}
+
+        /**
+         * Create and assign a GTM container subscription here for DataStream
+         */
+        this.w.dataStream.subscribe('dxgtm',[
+            'hotels','hotels.select','hotel.select','hotels.details','app',
+            'rooms','rooms.add','rooms.remove','rooms.edit','rooms.quickview','rooms.details',
+            'addons','addons.add','addons.edit','addons.remove',
+            'addons-click','addons-details','addons.click','addons.details',
+            'checkout',
+            'confirmation','confirmation.update','confirmation.cancel',
+            'signin',
+            'reservations',
+            'profile','profile.create','profile.update',
+            'timeout','product.expand','review','landing',
+            'upsell','upsell.details','upsell.add','currency','language',
+            'category.expand',
+            'search-results', 'modification', 'modification-start', 'contact-consent',
+            'retailProducts.productList', 'retailProducts.productDetail',
+            'retailProducts.filterEvent.search', 'retailProducts.filterEvent.category', 'retailProducts.filterEvent.attribute',
+            'retailProducts.productAdd', 'retailProducts.click', 'retailProducts.productRemove'
+        ],function(data,event){
+
+            console.log('dxgtm: No dataLayer, loading GTM');
+
+            /**
+             * start putting together a common set of event data for the dataLayer;
+             */
+            d = data,d.event=event,d.subscriber='dxgtm',
+                this.w.dataLayer = this.w.dataLayer || [], this.w.dataLayer.push(data);
+            var common_data = {
+                'arrivalDate': data.ArrivalDtMMDDYYYY,
+                'departureDate': data.DepartDtMMDDYYYY,
+                'ecommerce': {
+                    'currencyCode': data.CurrCode,
+                    'currency': data.CurrCode
+                }
+            };
+
+            /**
+             * Create a tracking object for RI to emulate the old Global Tokens element from RBE;
+             */
+            window._GlobalTokens = {};
+
+            if(event=='landing' || event=='rooms' || event=='confirmation')
+                window._GlobalTokens = {
+                    'ViewName'      : null,
+                    'HName'       : data.HName,
+                    'PromoCode'     : data.PromoCode,
+                    'GroupCode'     : data.GroupCode,
+                    'ArrivalDtYYYYMMDD' : data.ArrivalDtYYYYMMDD,
+                    'DepartDtYYYYMMDD'  : data.DepartDtYYYYMMDD,
+                    'TemplateCode'    : 'NGBE',
+                    'TemplateType'    : 1013,
+                    'CHAIN_ID'      : data.CHAIN_ID,
+                    'HOTEL_ID'      : data.HOTEL_ID,
+                    'LangCode'      : data.LangCode,
+                    'AvailProducts'   : data.AvailRooms,
+                    'DaysToCheckIn'   : data.DaysToCheckIn,
+                    'ConfirmNo'     : null,
+                    'CurrCode'      : data.CurrCode,
+                    'TotalCost'     : 0,
+                    'DailyRate'     : null,
+                    'RateName'      : null,
+                    'RateTypCd'     : null,
+                    'NightsQty'     : data.NightsQty,
+                    'RmQty'       : null,
+                    'RoomName'      : null,
+                    'RmTypCd'     : null
+                };
+
+            if(event=='rooms' || event=='landing')
+                window._GlobalTokens.ViewName = 'Availability Results';
+
+            if(event=='confirmation')
+                window._GlobalTokens.ViewName = 'Confirmation';
+
+            /**
+             * Customizations for Ecommerce and RI Tracking
+             */
+            switch(event){
+                /*
+                 * Impression Event (rooms)
+                 */
+                case 'rooms' :
+                  //UA Room Results
+                    common_data.event = 'impressionLoad';
+                    common_data.ecommerce.impressions = [];
+                    for(var i=0,l=(r=data.AvailableRooms).length; i<l; i++)
+                        common_data.ecommerce.impressions.push({
+                            'name'    : r[i].RoomName,
+                            'id'    : [data.HOTEL_ID, r[i].RoomCode, r[i].RateCode].join(' - '),
+                            'price'   : r[i].Price,
+                            'brand'   : [data.HName, data.HOTEL_ID, data.ChainNm].join(' - '),
+                            'category'  : ['Rooms',r[i].RateName, r[i].RoomName].join(' / '),
+                            'variant' : r[i].RateName,
+                            'list'    : 'Room Results',
+                            'position'  : i+1
+                        });
+                  //GA4 Room Results
+                      common_data.ecommerce.items = [];
+                      for(var i=0,l=(r=data.AvailableRooms).length; i<l; i++)
+                           common_data.ecommerce.items.push({
+                               'item_name'      : r[i].RoomName,
+                               'item_id'        : r[i].RoomCode,
+                               'price'     : r[i].Price,
+                               'item_brand'     : [data.HOTEL_ID, data.HName].join(' - '),
+                               'item_category'  : r[i].RateName,
+                               'item_category2'   : r[i].RateCode,
+                               'item_list_name'      : 'Rooms',
+                               'index'  : i+1
+                      });
+
+                    this.w.dataLayer.push(common_data);
+                    window.dataLayer.push({event: 'view_item_list'});
+
+                    //Retailing Insights
+
+                    (_gInstanceRef={}).shops = [];
+                    _gInstanceRef.shops.push({
+                        'act':0,
+                        'cid':0,
+                        'template':'NGBE',
+                        'type':'look'
+                    });
+
+                    (function(s,a,b,r,e){
+                        var en = [a.CHAIN_ID,a.HOTEL_ID].join(','),
+                            sc = document.getElementsByTagName('script')[0],
+                            _ri = document.createElement('script');
+                            _ri.type = 'text/javascript',
+                            _ri.async = true,
+                            _ri.src = ('https:' == document.location.protocol ? 'https:' : 'http:') + (script = '//gatag.it/v2/#'+en);
+                        sc.parentNode.insertBefore(_ri, sc);
+                    })(
+                        window,
+                        document,
+                        typeof _gInstanceRef==='undefined' ? {} : _gInstanceRef,
+                        typeof window._GlobalTokens==='undefined' ? {'CHAIN_ID':0,'HOTEL_ID':0} : window._GlobalTokens
+                    );
+
+
+                    break;
+
+                case 'landing' :
+                    (_gInstanceRef={}).shops = [];
+                    _gInstanceRef.shops.push({
+                        'act':0,
+                        'cid':0,
+                        'template':'NGBE',
+                        'type':'look'
+                    });
+
+                    (function(s,a,b,r,e){
+                        var en = [a.CHAIN_ID,a.HOTEL_ID].join(','),
+                            sc = document.getElementsByTagName('script')[0],
+                            _ri = document.createElement('script');
+                            _ri.type = 'text/javascript',
+                            _ri.async = true,
+                            _ri.src = ('https:' == document.location.protocol ? 'https:' : 'http:') + (script = '//gatag.it/v2/#'+en);
+                        sc.parentNode.insertBefore(_ri, sc);
+                    })(
+                        window,
+                        document,
+                        typeof _gInstanceRef==='undefined' ? {} : _gInstanceRef,
+                        typeof window._GlobalTokens==='undefined' ? {'CHAIN_ID':0,'HOTEL_ID':0} : window._GlobalTokens
+                    );
+                    break;
+
+                //  Note add Quantity for all of these so they are uniform/normalized;
+
+                /*
+                case 'product.expand':
+                    var r = data.SelectedAddon;
+                    common_data.event = 'productClick';
+                    (common_data.ecommerce.click = {}).products = [{
+                        'name'    : r.RoomName,
+                        'id'    : [data.HOTEL_ID, r.AddonCode, r.PricePer].join(' - '),
+                        'price'   : r.Price,
+                        'brand'   : [data.HName, data.HOTEL_ID, data.ChainNm].join(' - '),
+                        'category'  : ['Rooms',r.RateName, r.RoomName].join(' / '),
+                        'variant' : r.RateName,
+                        'position'  : 1
+                    }];
+                    common_data.ecommerce.click.actionField={'list': 'Room Results' , 'action' : 'click'};
+
+                    this.w.dataLayer.push(common_data);
+
+                    delete common_data.ecommerce.click;
+
+                    common_data.event = 'detailView';
+                    (common_data.ecommerce.detail = {}).products = [{
+                        'name'    : r.RoomName,
+                        'id'    : [data.HOTEL_ID, r.AddonCode, r.PricePer].join(' - '),
+                        'price'   : r.Price,
+                        'brand'   : [data.HName, data.HOTEL_ID, data.ChainNm].join(' - '),
+                        'category'  : ['Rooms',r.RateName, r.RoomName].join(' / '),
+                        'variant' : r.RateName
+                    }];
+
+                    this.w.dataLayer.push(common_data);
+                break;
+                */
+
+                case 'rooms.details' :
+                dataLayer.push({ecommerce: null});
+                //UA Room Details
+                  window.dataLayer.push({
+                    ecommerce: {
+                      currencyCode: data.CurrCode,
+                      currency: data.CurrCode,
+                      detail: {
+                        actionField: {
+                          list: 'Room Results'
+                        }
+                      }
+                    }
+                  });
+                  var r = data.SelectedRoom;
+                  common_data.event = 'eec.detail';
+                  (common_data.ecommerce = {}).products = [{
+                    'name'    : r.RoomName ,
+                    'id'    : [data.HOTEL_ID, r.RmTypCd, r.RateTypCd].join(' - '),
+                    'price'   : r.Price,
+                    'brand'   : [data.HName, data.HOTEL_ID, data.ChainNm].join(' - '),
+                    'category'  : ['Rooms',r.RateName, r.RoomName].join(' / '),
+                    'variant' : r.RateName,
+                    'quantity'  : data.RmQty
+               }];
+
+               this.w.dataLayer.push(common_data);
+
+               //GA4 Room Details
+                (common_data.ecommerce = {}).items = [{
+                  'item_name'      : r.RoomName,
+                  'item_id'        : r.RmTypCd,
+                  'price'     : r.Price,
+                  'item_brand'     : [data.HOTEL_ID, data.HName].join(' - '),
+                  'item_category'  : r.RateName,
+                  'item_category2'   : r.RateTypCd,
+                  'item_list_name'  : 'Rooms'
+                   }];
+
+               this.w.dataLayer.push(common_data);
+               window.dataLayer.push({event: 'view_item'});
+
+               break;
+
+
+
+                case 'rooms.add' :
+                dataLayer.push({ecommerce: null});
+                window.dataLayer.push({
+                  ecommerce: {
+                    currencyCode: data.CurrCode,
+                    currency: data.CurrCode,
+                    add: {
+                      actionField: {
+                        list: 'Shopping Cart'
+                      }
+                    }
+                  }
+                });
+                  //UA Add to Cart Rooms
+                    var r = data.SelectedRoom;
+                    common_data.event = 'addToCart';
+                    (common_data.ecommerce.add = {}).products = [{
+                        'name'    : r.RoomName ,
+                        'id'    : [data.HOTEL_ID, r.RoomCode, r.RateCode].join(' - '),
+                        'price'   : r.DailyPrice,
+                        'brand'   : [data.HName, data.HOTEL_ID, data.ChainNm].join(' - '),
+                        'category'  : ['Rooms',r.RateName, r.RoomName].join(' / '),
+                        'variant' : r.RateName,
+                        'quantity'  : r.NightsQty
+                    }];
+
+                    this.w.dataLayer.push(common_data);
+
+                  //GA4 Add to Cart Rooms
+                  (common_data.ecommerce = {}).items = [{
+                    'item_name'      : r.RoomName,
+                    'item_id'        : r.RateCode,
+                    'price'     : r.DailyPrice,
+                    'item_brand'     : [data.HOTEL_ID, data.HName].join(' - '),
+                    'item_category'  : r.RateName,
+                    'item_category2'   : r.RateCode,
+                    'quantity'  : r.NightsQty,
+                    'item_list_name'  : 'Rooms'
+                     }];
+
+                 this.w.dataLayer.push(common_data);
+                 window.dataLayer.push({event: 'add_to_cart'});
+
+                break;
+
+                case 'addons':
+                dataLayer.push({ecommerce: null});
+                window.dataLayer.push({
+                  ecommerce: {
+                    currencyCode: data.CurrCode,
+                    currency: data.CurrCode
+                  }
+                });
+                  //UA Addons Impressions
+                    var r = data.AvailableAddOns
+                    common_data.event = 'impressionLoad';
+                    common_data.ecommerce.impressions = [];
+                    for(var i=0,l=r.length; i<l; i++)
+                        common_data.ecommerce.impressions.push({
+                            'name'    : r[i].name,
+                            'id'    : [data.HOTEL_ID, r[i].code, r[i].chargeFrequency].join(' - '),
+                            'price'   : r[i].Price,
+                            'brand'   : [data.HName, data.HOTEL_ID, data.ChainNm].join(' - '),
+                            'category'  : ['Addons',data.RateName, data.RoomName, r[i].name].join(' / '),
+                            'variant' : r[i].chargeFrequency,
+                            'list'    : 'Addons',
+                            'position'  : i+1
+                        });
+
+                    this.w.dataLayer.push(common_data);
+
+                  //GA4 Add Ons Results
+                    common_data.ecommerce.items = [];
+                    for(var i=0,l=r.length; i<l; i++)
+                        common_data.ecommerce.items.push({
+                            'item_name'     : r[i].name,
+                            'item_id'       : r[i].code,
+                            'price'     : r[i].price,
+                            'item_brand'        : [data.HOTEL_ID, data.HName].join(' - '),
+                            'item_category' : r[i].category.Code,
+                            'item_category2'   : r[i].chargeFrequency,
+                            'item_list_name'     : 'Addons',
+                            'index' : i+1
+                        });
+
+                    this.w.dataLayer.push(common_data);
+                    window.dataLayer.push({event: 'view_item_list'});
+
+                    break;
+
+                    case 'retailproducts.productlist':
+
+                    dataLayer.push({ecommerce: null});
+                    window.dataLayer.push({
+                      ecommerce: {
+                        currencyCode: data.CurrCode,
+                        currency: data.CurrCode
+                      }
+                    });
+                      //UA Retail Products Impressions
+                        var r = data.RetailProducts;
+                        common_data.event = 'impressionLoad';
+                        common_data.ecommerce.impressions = [];
+                        for(var i=0,l=r.length; i<l; i++)
+                            common_data.ecommerce.impressions.push({
+                                'name'    : r[i].name,
+                                'id'    : [data.HOTEL_ID, r[i].code].join(' - '),
+                                'price'   : r[i].unitPrice,
+                                'brand'   : [data.HName, data.HOTEL_ID, data.ChainNm].join(' - '),
+                                'category'  : ['RetailProduct',r[i].categoryCodes[0]].join(' - '),
+                                'variant' : [r[i].chargeType, r[i].chargeFrequency].join(' - '),
+                                'list'    : 'RetailProducts',
+                                'position'  : i+1
+                            });
+
+                        this.w.dataLayer.push(common_data);
+
+                        //GA4 Retail Products List
+                        common_data.ecommerce.items = [];
+                        for(var i=0,l=r.length; i<l; i++) {
+                            const itemCategories = getItemCategoriesObject(r[i].categoryCodes);
+                            const productItem = Object.assign({
+                                'item_name'     : r[i].name,
+                                'item_id'       : r[i].code,
+                                'price'     : r[i].unitPrice,
+                                'item_brand'        : [data.HOTEL_ID, data.HName].join(' - '),
+                                'item_chargeType' : r[i].chargeType,
+                                'item_chargeFrequency' : r[i].chargeFrequency,
+                                'item_serviceDateStart' : r[i].serviceDateStart,
+                                'item_serviceDateEnd' : r[i].serviceDateEnd,
+                                'item_list_name'     : 'RetailProducts',
+                                'index' : i+1
+                            }, itemCategories);
+                            common_data.ecommerce.items.push(productItem);
+                          }
+
+                        this.w.dataLayer.push(common_data);
+                        window.dataLayer.push({event: 'view_item_list'});
+
+                    break;
+
+                /*
+                case 'addons.click':
+                    var r = data.SelectedAddon;
+                    common_data.event = 'productClick';
+                    (common_data.ecommerce.click = {}).products = [{
+                        'name'    : r.AddonName,
+                        'id'    : [data.HOTEL_ID, r.AddonCode, r.PricePer].join(' - '),
+                        'price'   : r.Price,
+                        'brand'   : [data.HName, data.HOTEL_ID, data.ChainNm].join(' - '),
+                        'category'  : ['Addons',data.RateName, data.RoomName, r.AddonName].join(' / '),
+                        'variant' : r.PricePer,
+                        'position'  : 1
+                    }];
+                    common_data.ecommerce.click.actionField={'list': 'Addons' , 'action' : 'click'};
+
+                    this.w.dataLayer.push(common_data);
+
+                    delete common_data.ecommerce.click;
+
+                    common_data.event = 'detailView';
+                    (common_data.ecommerce.detail = {}).products = [{
+                        'name'    : r.AddonName,
+                        'id'    : [data.HOTEL_ID, r.AddonCode, r.PricePer].join(' - '),
+                        'price'   : r.Price,
+                        'brand'   : [data.HName, data.HOTEL_ID, data.ChainNm].join(' - '),
+                        'category'  : ['Addons',data.RateName, data.RoomName, r.AddonName].join(' / '),
+                        'variant' : r.PricePer
+                    }];
+
+                    this.w.dataLayer.push(common_data);
+
+                break;
+                */
+
+                case 'retailproducts.productdetail' :
+
+                dataLayer.push({ecommerce: null});
+                  window.dataLayer.push({
+                    ecommerce: {
+                      currencyCode: data.CurrCode,
+                      currency: data.CurrCode,
+                      detail: {
+                        actionField: {
+                          list: 'RetailProducts'
+                        }
+                      }
+                    }
+                  });
+                  var r = data.SelectedRetailProduct;
+                  //UA Retail Product Detail View
+                  common_data.event = 'eec.detail';
+                  (common_data.ecommerce = {}).products = [{
+                    'name'    : r.name,
+                    'id'    : [data.HOTEL_ID, r.code].join(' - '),
+                    'price'   : r.unitPrice,
+                    'brand'   : [data.HName, data.HOTEL_ID, data.ChainNm].join(' - '),
+                    'category'  : ['RetailProduct',r.categoryCodes[0]].join(' - '),
+                    'variant' : [r.chargeType,r.chargeFrequency].join(' - '),
+                    'dimension1'  : r.serviceDateStart,
+                    'dimension2'  : r.serviceDateEnd
+               }];
+
+               this.w.dataLayer.push(common_data);
+
+               //GA4 Retail Product Detail View
+               const productDetailItemCategories = getItemCategoriesObject(r.categoryCodes);
+               const productDetailItem = Object.assign({
+                   'item_name'      : r.name,
+                   'item_id'        : [data.HOTEL_ID, r.code].join(' - '),
+                   'price'     : r.unitPrice,
+                   'item_brand'     : [data.HOTEL_ID, data.HName].join(' - '),
+                   'item_chargeType' : r.chargeType,
+                   'item_chargeFrequency' : r.chargeFrequency,
+                   'item_serviceDateStart' : r.serviceDateStart,
+                   'item_serviceDateEnd' : r.serviceDateEnd,
+                   'item_list_name'  : 'RetailProducts',
+                   'item_productType' : r.productType,
+                   'item_productSubType' : r.productSubType
+               }, productDetailItemCategories);
+                (common_data.ecommerce = {}).items = [productDetailItem];
+
+               this.w.dataLayer.push(common_data);
+               window.dataLayer.push({event: 'view_item'});
+
+               break;
+
+               case 'retailproducts.click' :
+               console.log('product click');
+               dataLayer.push({ecommerce: null});
+                 window.dataLayer.push({
+                   ecommerce: {
+                     currencyCode: data.CurrCode,
+                     currency: data.CurrCode,
+                     click: {
+                       actionField: {
+                         list: 'RetailProducts'
+                       }
+                     }
+                   }
+                 });
+                 var r = data.SelectedRetailProduct;
+                 //UA Retail Product Click
+                 common_data.event = 'eec.impressionClick';
+                 (common_data.ecommerce = {}).products = [{
+                   'name'    : r.name,
+                   'id'    : [data.HOTEL_ID, r.code].join(' - '),
+                   'price'   : r.unitPrice,
+                   'brand'   : [data.HName, data.HOTEL_ID, data.ChainNm].join(' - '),
+                   'category'  : ['RetailProduct',r.categoryCodes[0]].join(' - '),
+                   'variant' : [r.chargeType,r.chargeFrequency].join(' - '),
+                   'dimension1'  : r.serviceDateStart,
+                   'dimension2'  : r.serviceDateEnd
+              }];
+
+              this.w.dataLayer.push(common_data);
+
+              //GA4 Retail Product Click
+              const productClickItemCategories = getItemCategoriesObject(r.categoryCodes);
+              const productClickItem = Object.assign({
+                  'item_name'      : r.name,
+                  'item_id'        : [data.HOTEL_ID, r.code].join(' - '),
+                  'price'     : r.unitPrice,
+                  'item_brand'     : [data.HOTEL_ID, data.HName].join(' - '),
+                  'item_chargeType' : r.chargeType,
+                  'item_chargeFrequency' : r.chargeFrequency,
+                  'item_serviceDateStart' : r.serviceDateStart,
+                  'item_serviceDateEnd' : r.serviceDateEnd,
+                  'item_list_name'  : 'RetailProducts'
+              }, productClickItemCategories);
+               (common_data.ecommerce = {}).items = [productClickItem];
+
+              this.w.dataLayer.push(common_data);
+              window.dataLayer.push({event: 'select_item'});
+
+               break;
+
+               //Retail Product Attribute Filter
+              case 'retailproducts.filterevent.attribute' :
+                  var filters = data.OfferAttributeFilter;
+                  var groupsArray = [];
+                  var namesArray = [];
+                  var codesArray = [];
+                     for (let i = 0; i < filters.length; i++) {
+                       groupsArray.push(filters[i].attributeGroup);
+                       namesArray.push(filters[i].attributeName);
+                       codesArray.push(filters[i].attributeCode);
+                     }
+                     let attributeGroups = groupsArray.join();
+                     let attributeNames = namesArray.join();
+                     let attributeCodes = codesArray.join();
+                     window.dataLayer.push({
+                       event: 'retailproduct_attribute_filter',
+                       retailFilterAttributeGroups: attributeGroups,
+                       retailFilterAttributeNames: attributeNames,
+                       retailFilterAttributeCodes: attributeCodes
+                     });
+
+              break;
+
+
+                case 'addons.add' :
+
+                dataLayer.push({ecommerce: null});
+                window.dataLayer.push({
+                  ecommerce: {
+                    currencyCode: data.CurrCode,
+                    currency: data.CurrCode,
+                    add: {
+                      actionField: {
+                        list: 'Shopping Cart'
+                      }
+                    }
+                  }
+                });
+                    //UA Addons Add to Cart
+                    //var r = data.EditAddOn;
+                    var r = data.SelectedAddon;
+                    common_data.event = 'addToCart';
+                    (common_data.ecommerce.add = {}).products = [{
+                        'name'    : r.AddonName,
+                        'id'    : [data.HOTEL_ID, r.AddonCode, r.PricePer].join(' - '),
+                        'price'   : r.Price,
+                        'brand'   : [data.HName, data.HOTEL_ID, data.ChainNm].join(' - '),
+                        'category'  : ['Addons',data.RateName, data.RoomName, r.AddonName].join(' / '),
+                        'variant' : r.PricePer,
+                        'quantity'  : r.Quantity
+                    }];
+
+                    this.w.dataLayer.push(common_data);
+
+                    //GA4 Addons Add to Cart
+                    (common_data.ecommerce = {}).items = [{
+                      'item_name'      : r.AddonName,
+                      'item_id'        : r.AddonCode,
+                      'price'     : r.Price,
+                      'item_brand'     : [data.HOTEL_ID, data.HName].join(' - '),
+                      'item_category'  : r.AddonCategoryCode,
+                      'item_category2'   : r.PricePer,
+                      'quantity'  : r.Quantity,
+                      'item_list_name' : 'Addons'
+                       }];
+
+                   this.w.dataLayer.push(common_data);
+                   window.dataLayer.push({event: 'add_to_cart'});
+
+                   break;
+
+              case 'retailproducts.productadd' :
+              dataLayer.push({ecommerce: null});
+              window.dataLayer.push({
+                ecommerce: {
+                  currencyCode: data.CurrCode,
+                  currency: data.CurrCode,
+                  add: {
+                    actionField: {
+                      list: 'Shopping Cart'
+                    }
+                  }
+                }
+              });
+
+              //UA Retail Products Add to Cart
+              var r = data.AddedRetailProduct;
+              common_data.event = 'addToCart';
+              (common_data.ecommerce.add = {}).products = [{
+                  'name'    : r.name,
+                  'id'    : [data.HOTEL_ID, r.code].join(' - '),
+                  'price'   : r.avgPrice,
+                  'brand'   : [data.HName, data.HOTEL_ID, data.ChainNm].join(' - '),
+                  'category'  : ['RetailProducts',data.RateName, data.RoomName, r.name].join(' / '),
+                  'variant' : [r.chargeType, r.chargeFrequency].join(' - '),
+                  'quantity'  : r.quantity
+              }];
+
+              this.w.dataLayer.push(common_data);
+
+              //GA4 Retail Products Add to Cart
+            const productAddItemCategories = getItemCategoriesObject(r.categoryCodes);
+            const productAddItem = Object.assign({
+                'item_name'      : r.name,
+                'item_id'        : [data.HOTEL_ID, r.code].join(' - '),
+                'price'     : r.avgPrice,
+                'item_brand'     : [data.HOTEL_ID, data.HName].join(' - '),
+                'item_chargeType' : r.chargeType,
+                'item_chargeFrequency' : r.chargeFrequency,
+                'item_serviceDateStart' : r.serviceDateStart,
+                'item_serviceDateEnd' : r.serviceDateEnd,
+                'quantity' : r.quantity,
+                'item_list_name'  : 'RetailProducts',
+                'item_productType' : r.productType,
+                'item_productSubType' : r.productSubType
+            }, productAddItemCategories);
+              (common_data.ecommerce = {}).items = [productAddItem];
+
+             this.w.dataLayer.push(common_data);
+             window.dataLayer.push({event: 'add_to_cart'});
+
+              break;
+
+                case 'rooms.remove' :
+                dataLayer.push({ecommerce: null});
+                window.dataLayer.push({
+                  ecommerce: {
+                    currencyCode: data.CurrCode,
+                    currency: data.CurrCode,
+                  }
+                });
+
+                  //UA Rooms Remove from Cart
+                    var r = data.RemovedRoom;
+                    common_data.event = 'removeFromCart';
+                    (common_data.ecommerce.remove = {}).products = [{
+                        'name'    : r.RoomName,
+                        'id'    : [data.HOTEL_ID, r.RoomCode, r.RateCode].join(' - '),
+                        'price'   : r.TotalPrice,
+                        'brand'   : [data.HName, data.HOTEL_ID, data.ChainNm].join(' - '),
+                        'category'  : ['Rooms',r.RateName, r.RoomName].join(' / '),
+                        'variant' : r.RateName,
+                        'quantity'  : r.NightsQty
+                    }];
+
+                    this.w.dataLayer.push(common_data);
+
+                  //GA4 Rooms Remove from Cart
+                  (common_data.ecommerce = {}).items = [{
+                    'item_name'      : r.RoomName,
+                    'item_id'        : r.RateCode,
+                    'price'     : r.DailyPrice,
+                    'item_brand'     : [data.HOTEL_ID, data.HName].join(' - '),
+                    'item_category'  : r.RateName,
+                    'item_category2'   : r.RateCode,
+                    'quantity'  : r.NightsQty,
+                    'item_list_name' :  'Rooms'
+                     }];
+
+                    this.w.dataLayer.push(common_data);
+                    window.dataLayer.push({event: 'remove_from_cart'});
+
+                    break;
+
+                case 'addons.remove' :
+
+                  dataLayer.push({ecommerce: null});
+                  window.dataLayer.push({
+                    ecommerce: {
+                      currencyCode: data.CurrCode,
+                      currency: data.CurrCode,
+                    }
+                  });
+
+                  var r = data.RemoveAddOn;
+
+                  //UA Addons Remove from Cart
+                    var r = data.RemoveAddOn;
+                    common_data.event = 'removeFromCart';
+                    (common_data.ecommerce.remove = {}).products = [{
+                        'name'    : r.AddonName,
+                        'id'    : [data.HOTEL_ID, r.AddonCode, r.PricePer].join(' - '),
+                        'price'   : r.Price,
+                        'brand'   : [data.HName, data.HOTEL_ID, data.ChainNm].join(' - '),
+                        'category'  : ['Addons',data.RateName, data.RoomName, r.AddonName].join(' / '),
+                        'variant' : r.PricePer,
+                        'quantity'  : r.Quantity
+                    }];
+
+                    this.w.dataLayer.push(common_data);
+
+                    //GA4 Addons Remove from Cart
+                    (common_data.ecommerce = {}).items = [{
+                      'item_name'      : r.AddonName,
+                      'item_id'        : r.AddonCode,
+                      'price'     : r.Price,
+                      'item_brand'     : [data.HOTEL_ID, data.HName].join(' - '),
+                      'item_category'  : r.AddonCategoryCode,
+                      'item_category2'   : r.PricePer,
+                      'quantity'  : r.Quantity,
+                      'item_list_name'  : 'Addons'
+                       }];
+
+                   this.w.dataLayer.push(common_data);
+                   window.dataLayer.push({event: 'remove_from_cart'});
+
+                break;
+
+                case 'retailproducts.productremove' :
+
+                    dataLayer.push({ecommerce: null});
+                    window.dataLayer.push({
+                      ecommerce: {
+                        currencyCode: data.CurrCode,
+                        currency: data.CurrCode,
+                      }
+                    });
+
+                    var r = data.RemovedRetailProduct;
+
+                    //UA Retail Product Remove from Cart
+                    common_data.event = 'removeFromCart';
+                    (common_data.ecommerce.remove = {}).products = [{
+                      'name'    : r.name,
+                      'id'    : [data.HOTEL_ID, r.code].join(' - '),
+                      'price'   : r.avgPrice,
+                      'brand'   : [data.HName, data.HOTEL_ID, data.ChainNm].join(' - '),
+                      'category'  : ['RetailProducts',data.RateName, data.RoomName, r.name].join(' / '),
+                      'variant' : [r.chargeType, r.chargeFrequency].join(' - '),
+                      'quantity'  : r.quantity
+                    }];
+
+                    this.w.dataLayer.push(common_data);
+
+                    //GA4 Retail Products Remove from Cart
+                    (common_data.ecommerce = {}).items = [{
+                      'item_name'      : r.name,
+                      'item_id'        : [data.HOTEL_ID, r.code].join(' - '),
+                      'price'     : r.avgPrice,
+                      'item_brand'     : [data.HOTEL_ID, data.HName].join(' - '),
+                      'item_chargeType' : r.chargeType,
+                      'item_chargeFrequency' : r.chargeFrequency,
+                      'item_serviceDateStart' : r.serviceDateStart,
+                      'item_serviceDateEnd' : r.serviceDateEnd,
+                      'quantity' : r.quantity,
+                      'item_list_name'  : 'RetailProducts',
+                      'item_productType' : r.productType,
+                      'item_productSubType' : r.productSubType
+                       }];
+
+                   this.w.dataLayer.push(common_data);
+                   window.dataLayer.push({event: 'remove_from_cart'});
+
+                break;
+
+                case 'checkout' :
+                  dataLayer.push({ecommerce: null});
+                  window.dataLayer.push({
+                    ecommerce: {
+                    currencyCode: data.CurrCode,
+                    currency: data.CurrCode,
+                    }
+                  });
+                    var r = data.Cart;
+
+                    //UA Checkout
+                    common_data.event = 'checkoutLoad';
+                    (common_data.ecommerce.checkout = {}).products = [];
+                    common_data.ecommerce.checkout.actionField={'step': 1};
+                    for(var i=0,l=(r=data.Cart).length; i<l; i++){
+                        common_data.arrivalDate = r[i].ArrivalDtMMDDYYYY;
+                        common_data.departureDate = r[i].DepartDtMMDDYYYY;
+                        common_data.ecommerce.checkout.products.push({
+                            'name'    : r[i].RoomName,
+                            'id'    : [data.HOTEL_ID, r[i].RoomCode, r[i].RateCode].join(' - '),
+                            'price'   : r[i].DailyRate,
+                            'brand'   : [data.HName, data.HOTEL_ID, data.ChainNm].join(' - '),
+                            'category'  : ['Rooms',r[i].RateName, r[i].RoomName].join(' / '),
+                            'variant' : r[i].RateName,
+                            'quantity'  : r[i].NightsQty
+                        });
+                        // include addons;
+                        if(r[i].Addons)
+                            for(var a=0,al=(addon=r[i].Addons).length; a<al; a++)
+                                common_data.ecommerce.checkout.products.push({
+                                    'name'    : addon[a].AddonName,
+                                    'id'    : [data.HOTEL_ID, addon[a].AddonCode, addon[a].PricePer].join(' - '),
+                                    'price'   : addon[a].Price,
+                                    'brand'   : [data.HName, data.HOTEL_ID, data.ChainNm].join(' - '),
+                                    'category'  : ['Addons',r[i].RateName, r[i].RoomName, addon[a].AddonName].join(' / '),
+                                    'variant' : addon[a].PricePer,
+                                    'quantity'  : addon[a].Quantity
+                                });
+                        // include Retail Products;
+                        if(r[i].AddedRetailProducts)
+                            for(var p=0,pl=(product=r[i].AddedRetailProducts).length; p<pl; p++)
+                                common_data.ecommerce.checkout.products.push({
+                                    'name'    : product[p].name,
+                                    'id'    : [data.HOTEL_ID, product[p].code].join(' - '),
+                                    'price'   : product[p].avgPrice,
+                                    'brand'   : [data.HName, data.HOTEL_ID, data.ChainNm].join(' - '),
+                                    'category'  : ['RetailProducts',r[i].RateName, r[i].RoomName, product[p].name].join(' / '),
+                                    'variant' : [product[p].chargeType, product[p].chargeFrequency].join(' - '),
+                                    'quantity'  : product[p].quantity
+                                });
+                    }
+
+                    this.w.dataLayer.push(common_data);
+
+                    //GA4 Checkout
+                    common_data.ecommerce.items = [];
+                    for(var i=0,l=(r=data.Cart).length; i<l; i++){
+                        common_data.ecommerce.items.push({
+                            'item_name'      : r[i].RoomName,
+                            'item_id'        : r[i].RoomCode,
+                            'price'     : r[i].DailyRate,
+                            'item_brand'     : [data.HOTEL_ID, data.HName].join(' - '),
+                            'item_category'  : r[i].RateName,
+                            'item_category2'   : r[i].RateCode,
+                            'item_category3' : r[i]._id,
+                            'quantity' : r[i].NightsQty,
+                            'item_list_name'  : 'Rooms'
+                        });
+                        // include addons;
+                        if(r[i].Addons)
+                            for(var a=0,al=(addon=r[i].Addons).length; a<al; a++)
+                                common_data.ecommerce.items.push({
+                                    'item_name'      : addon[a].AddonName,
+                                    'item_id'        : addon[a].AddonCode,
+                                    'price'     : addon[a].Price,
+                                    'item_brand'     : [data.HOTEL_ID, data.HName].join(' - '),
+                                    'item_category'  : addon[a].AddonCategoryCode,
+                                    'item_category2'   : addon[a].PricePer,
+                                    'item_category3' : r[i]._id,
+                                    'quantity'  : addon[a].Quantity,
+                                    'item_list_name'  : 'Addons'
+                                });
+                        //include Retail Products
+                        if(r[i].AddedRetailProducts)
+                            for(var p=0,pl=(product=r[i].AddedRetailProducts).length; p<pl; p++) {
+                            const itemCategories = getItemCategoriesObject(product[p].categoryCodes);
+                            const productItem = Object.assign({
+                                'item_name'     : product[p].name,
+                                'item_id'       : product[p].code,
+                                'price'     : product[p].avgPrice,
+                                'item_brand'        : [data.HOTEL_ID, data.HName].join(' - '),
+                                'item_chargeType' : product[p].chargeType,
+                                'item_chargeFrequency' : product[p].chargeFrequency,
+                                'item_serviceDateStart' : product[p].serviceDateStart,
+                                'item_serviceDateEnd' : product[p].serviceDateEnd,
+                                'quantity' : product[p].quantity,
+                                'item_list_name'     : 'RetailProducts'
+                            }, itemCategories);
+                            common_data.ecommerce.items.push(productItem);
+                          }
+
+                            this.w.dataLayer.push(common_data);
+                        }
+
+                        window.dataLayer.push({event: 'begin_checkout'});
+                    break;
+
+                case 'review' :
+                    common_data.event = 'checkoutLoad';
+                    (common_data.ecommerce.checkout = {}).products = [];
+                    common_data.ecommerce.checkout.actionField={'step': 2};
+                    for(var i=0,l=(r=data.Cart).length; i<l; i++){
+                        common_data.arrivalDate = r[i].ArrivalDtMMDDYYYY;
+                        common_data.departureDate = r[i].DepartDtMMDDYYYY;
+                        common_data.ecommerce.checkout.products.push({
+                            'name'    : r[i].RoomName,
+                            'id'    : [data.HOTEL_ID, r[i].RoomCode, r[i].RateCode].join(' - '),
+                            'price'   : r[i].DailyRate,
+                            'brand'   : [data.HName, data.HOTEL_ID, data.ChainNm].join(' - '),
+                            'category'  : ['Rooms',r[i].RateName, r[i].RoomName].join(' / '),
+                            'variant' : r[i].RateName,
+                            'quantity': r[i].NightsQty
+                        });
+                        // include addons;
+                        if(r[i].Addons)
+                            for(var a=0,al=(addon=r[i].Addons).length; a<al; a++)
+                                common_data.ecommerce.checkout.products.push({
+                                    'name'    : addon[a].AddonName,
+                                    'id'    : [data.HOTEL_ID, addon[a].AddonCode, addon[a].PricePer].join(' - '),
+                                    'price'   : addon[a].Price,
+                                    'brand'   : [data.HName, data.HOTEL_ID, data.ChainNm].join(' - '),
+                                    'category'  : ['Addons',r[i].RateName, r[i].RoomName, addon[a].AddonName].join(' / '),
+                                    'variant' : addon[a].PricePer,
+                                    'quantity'  : addon[a].Quantity
+                                });
+                    }
+
+                    this.w.dataLayer.push(common_data);
+
+                    break;
+
+                case 'confirmation' :
+                dataLayer.push({ecommerce: null});
+                window.dataLayer.push({
+                  ecommerce: {
+                  currencyCode: data.CurrCode
+                  }
+                });
+                    // For enhanced ecommerce;
+                    common_data.event = 'confirmationLoad';
+                    (common_data.ecommerce.purchase = {}).products = [];
+                    common_data.ecommerce.purchase.actionField={
+                        'id': [data.HOTEL_ID, data.ItineraryNo].join(' - '), // Unique transaction ID. Required for purchases.
+                        'affiliation': [data.HName, data.HOTEL_ID, data.ChainNm].join(' - '),
+                        'revenue': data.TotalCost, // Transaction value (exclude tax and fees)
+                        'tax': data.Taxes,
+                        'shipping': 0, // Fees if available
+                        'coupon': data.PromoCode // Promo Code.
+                    };
+
+                    for(var i=0,l=(r=data.Cart).length; i<l; i++){
+                        common_data.ecommerce.purchase.products.push({
+                            'name'    : r[i].RoomName,
+                            'id'    : [r[i].HOTEL_ID, r[i].RoomCode, r[i].RateCode].join(' - '),
+                            'price'   : r[i].DailyRate,
+                            'brand'   : [r[i].HName, r[i].HOTEL_ID, data.ChainNm].join(' - '),
+                            'category'  : ['Rooms', r[i].RateName, r[i].RoomName ].join(' / '),
+                            'variant' : r[i].RateName,
+                            'quantity': r[i].NightsQty
+                        });
+                        // include addons;
+                        if(r[i].Addons)
+                            for(var a=0,al=(addon=r[i].Addons).length; a<al; a++)
+                                common_data.ecommerce.purchase.products.push({
+                                    'name'    : addon[a].AddonName,
+                                    'id'    : [data.HOTEL_ID, addon[a].AddonCode, addon[a].PricePer].join(' - '),
+                                    'price'   : addon[a].Price,
+                                    'brand'   : [data.HName, data.HOTEL_ID, data.ChainNm].join(' - '),
+                                    'category'  : ['Addons',r[i].RateName, r[i].RoomName, addon[a].AddonName].join(' / '),
+                                    'variant' : addon[a].PricePer,
+                                    'quantity'  : addon[a].Quantity
+                                });
+                    }
+
+                    this.w.dataLayer.push(common_data);
+
+                    //  Standard Old-school GA;
+                    /*
+                    (trans = {
+                        'event'         : 'confirmation_ga',
+                        'transactionId'     : [data.HOTEL_ID, data.ItineraryNo].join(' - '),
+                        'transactionAffiliation': [data.HName, data.HOTEL_ID, data.ChainNm].join(' - '),
+                        'transactionTotal'    : data.TotalCost, // Transaction value (exclude tax and fees)
+                        'transactionTax'    : data.Taxes,
+                        'transactionShipping' : 0, // Fees if available
+                    }).transactionProducts = [];
+
+                    for(var i=0,l=(r=data.Cart).length; i<l; i++){
+                        var hotel_id = (r[i].hasOwnProperty('HOTEL_ID') ? r[i].HOTEL_ID : data.HOTEL_ID);
+                        trans.transactionProducts.push({
+                            'sku'   : [hotel_id, r[i].RoomCode, r[i].RateCode].join(' - '),
+                            'name'    : (r[i].RoomName ? r[i].RoomName : r[i].RoomCode),
+                            'category'  : ('Rooms',r[i].RateName ? r[i].RateName : r[i].RateCode),
+                            'price'   : r[i].DailyRate,
+                            'quantity'  : r[i].NightsQty
+                        });
+                        if(r[i].Addons)
+                            for(var a=0,al=(addon=r[i].Addons).length; a<al; a++)
+                                trans.transactionProducts.push({
+                                    'sku'   : [hotel_id, addon[a].AddonCode, addon[a].PricePer].join(' - '),
+                                    'name'    : addon[a].AddonName,
+                                    'category'  : ['Addons',r[i].RateName, r[i].RoomName, addon[a].AddonName].join(' / '),
+                                    'price'   : addon[a].Price,
+                                    'quantity'  : addon[a].Quantity
+                                });
+                    }
+
+                    this.w.dataLayer.push(trans);
+                    */
+
+                    // GTM Room Purchase
+                    dataLayer.push({ecommerce: null});
+
+                    var r = data.Cart;
+                    var currencyCode = data.CurrCode;
+                    for (i = 0; i < r.length; i++) {
+                        var hotel_id = r[i].HOTEL_ID;
+                        var products = [];
+                        var ga4_products = [];
+                        var addOnsTotalCost = 0;
+
+                        //UA Products
+                        products.push({
+                            'name': (r[i].RoomName),
+                            'id': [hotel_id, r[i].RoomCode, r[i].RateCode].join(' - '),
+                            'price': r[i].DailyRate,
+                            'brand': [r[i].HName, hotel_id, r[i].ChainNm].join(' - '),
+                            'category': ['Rooms', (r[i].RateName ? r[i].RateName : r[i].RateCode), (r[i].RoomName ? r[i].RoomName : r[i].RoomCode)].join(' / '),
+                            'variant': (r[i].RateName ? r[i].RateName : r[i].RateCode),
+                            'quantity': r[i].NightsQty
+                        });
+                        if (r[i].Addons) {
+                            for (var a = 0, al = (addon = r[i].Addons).length; a < al; a++) {
+                                addOnsTotalCost = addOnsTotalCost + addon[a].PriceTotal;
+                                products.push({
+                                    'name': addon[a].AddonName,
+                                    'id': [hotel_id, addon[a].AddonCode, addon[a].PricePer].join(' - '),
+                                    'price': addon[a].Price,
+                                    'brand': [r[i].HName, hotel_id, r[i].ChainNm].join(' - '),
+                                    'category': ['Addons', r[i].RateName, r[i].RoomName, addon[a].AddonName].join(' / '),
+                                    'variant': addon[a].PricePer,
+                                    'quantity': addon[a].Quantity
+                                });
+                            }
+                        }
+                        if (r[i].AddedRetailProducts) {
+                            for (var p = 0, pl = (product = r[i].AddedRetailProducts).length; p < pl; p++) {
+                                products.push({
+                                 'name'    : product[p].name,
+                                 'id'    : [data.HOTEL_ID, product[p].code].join(' - '),
+                                 'price'   : product[p].avgPrice,
+                                 'brand'   : [data.HName, data.HOTEL_ID, data.ChainNm].join(' - '),
+                                 'category'  : ['RetailProducts',r[i].RateName, r[i].RoomName, product[p].name].join(' / '),
+                                 'variant' : [product[p].chargeType, product[p].chargeFrequency].join(' - '),
+                                 'quantity'  : product[p].quantity
+                                });
+                            }
+                        }
+
+                        //GA4 Products
+                        ga4_products.push({
+                              'item_name'      : r[i].RoomName,
+                              'item_id'        : r[i].RoomCode,
+                              'price'     : r[i].DailyRate,
+                              'item_brand'     : [data.HOTEL_ID, data.HName].join(' - '),
+                              'item_category'  : r[i].RateName,
+                              'item_category2'   : r[i].RateCode,
+                              'item_category3' : r[i]._id,
+                              'item_list_name'  : 'Rooms',
+                              'quantity'  : r[i].NightsQty
+                        });
+                        if (r[i].Addons) {
+                            for (var a = 0, al = (addon = r[i].Addons).length; a < al; a++) {
+                                addOnsTotalCost = addOnsTotalCost + addon[a].PriceTotal;
+                                ga4_products.push({
+                                  'item_name'      : addon[a].AddonName,
+                                  'item_id'        : addon[a].AddonCode,
+                                  'price'     : addon[a].Price,
+                                  'item_brand'     : [data.HOTEL_ID, data.HName].join(' - '),
+                                  'item_category'  : addon[a].AddonCategoryCode,
+                                  'item_category2'   : addon[a].PricePer,
+                                  'item_category3' :r[i]._id,
+                                  'item_list_name'  : 'Addons',
+                                  'quantity'  : addon[a].Quantity
+                              });
+                            }
+                        }
+
+                        if (r[i].AddedRetailProducts) {
+                            for (var p = 0, pl = (product = r[i].AddedRetailProducts).length; p < pl; p++) {
+                            const itemCategories = getItemCategoriesObject(product[p].categoryCodes);
+                            const productItem = Object.assign({
+                                 'item_name'     : product[p].name,
+                                 'item_id'       : product[p].code,
+                                 'price'     : product[p].avgPrice,
+                                 'item_brand'        : [data.HOTEL_ID, data.HName].join(' - '),
+                                 'item_chargeType' : product[p].chargeType,
+                                 'item_chargeFrequency'  : product[p].chargeFrequency,
+                                 'item_serviceDateStart' : product[p].serviceDateStart,
+                                 'item_serviceDateEnd' : product[p].serviceDateEnd,
+                                 'quantity' : product[p].quantity,
+                                 'item_list_name'     : 'RetailProducts'
+                             }, itemCategories);
+                             ga4_products.push(productItem);
+                           }
+                        }
+
+
+
+                        // Sum up the total revenue of the products for the booking w/o taxes
+                        var hotelRevenue = products.reduce(function (rev, product) {
+                            return rev + (product.price * product.quantity);
+                        }, 0);
+                        var cartKeys = Object.keys(r[i]);
+                        var cartObjectForRoomPurchaseEvent = cartKeys.reduce(function(obj, currKey) {
+                            obj[`rp${currKey}`] = r[i][currKey]
+                            return obj
+                        }, {});
+
+                        //UA Room Purchase
+                        dataLayer.push({ecommerce: null});
+                        var roomPurchase = Object.assign(cartObjectForRoomPurchaseEvent, {
+                            'event': 'roomPurchase',
+                            'ecommerce': {
+                                'currencyCode': currencyCode,
+                                'purchase': {
+                                    'actionField': {
+                                        'id': r[i]._id,
+                                        'affiliation': [r[i].HName, hotel_id, r[i].ChainNm].join(' - '),
+                                        'revenue': hotelRevenue,
+                                        'tax': r[i].Taxes,
+                                        'roomPurchaseTotalPlusTaxes': hotelRevenue + r[i].Taxes,
+                                        'shipping': '',
+                                        'coupon': ''
+                                    },
+                                    'products': products
+                                },
+                                'currency' : r[i].CurrCode,
+                                'value' : hotelRevenue,
+                                'tax'     : r[i].Taxes,
+                                'value including taxes' : hotelRevenue + r[i].Taxes,
+                                'affiliation' : [r[i].HName, hotel_id, r[i].ChainNm].join(' - '),
+                                'transaction_id' : r[i].ConfirmNo,
+                                'items' : ga4_products
+                            }
+                        });
+
+                        this.w.dataLayer.push(roomPurchase);
+
+                        var cartObjectForGA4PurchaseEvent = cartKeys.reduce(function(obj, currKey) {
+                            obj[`rp${currKey}`] = r[i][currKey]
+                            return obj
+                        }, {});
+
+                        //GA4 Room Purchase
+                        dataLayer.push({ecommerce: null});
+
+                        var ga4roomPurchase = Object.assign(cartObjectForGA4PurchaseEvent, {
+                            'event': 'purchase',
+                            'ecommerce': {
+                              'currency' : r[i].CurrCode,
+                              'value' : hotelRevenue,
+                              'tax'     : r[i].Taxes,
+                              'value including taxes' : hotelRevenue + r[i].Taxes,
+                              'affiliation' : [r[i].HName, hotel_id, r[i].ChainNm].join(' - '),
+                              'transaction_id' : r[i].ConfirmNo,
+                              'items' : ga4_products
+                            }
+                        });
+
+                        this.w.dataLayer.push(ga4roomPurchase);
+
+                    }
+
+                    //  trigger a load for RI;
+                    (_gInstanceRef={}).shops = [];
+                    for(var i=0,l=(r=data.Cart).length; i<l; i++) {
+                        var addonsTotal = r[i].Addons.reduce(function (rev, product) {
+                            return rev + (product.Price * product.Quantity);
+                        }, 0);
+
+                        _gInstanceRef.shops.push({
+                            'act':0,
+                            'cid':0,
+                            'chain':data.CHAIN_ID,
+                            'hotel':(r[i].hasOwnProperty('HOTEL_ID') ? r[i].HOTEL_ID : data.HOTEL_ID),
+                            'name':r[i].HName,
+                            'template':'NGBE',
+                            'type':'book',
+                            'confirmation':r[i].ConfirmNo,
+                            'promo':data.PromoCode,
+                            'language':data.LangCode,
+                            'arrival':r[i].ArrivalDtYYYYMMDD,
+                            'nights':r[i].NightsQty,
+                            'rooms':data.Cart.length,
+                            'total': r[i].TotalCost + addonsTotal,
+                            'dailyrate':r[i].DailyRate,
+                            'currency':data.CurrCode,
+                            'ratetype':r[i].RateName,
+                            'ratetypec':r[i].RateCode,
+                            'roomtype':r[i].RoomName,
+                            'roomtypec':r[i].RoomCode
+                        });
+                    }
+                    (function(s,a,b,r,e){
+                        var en = [a.CHAIN_ID,a.HOTEL_ID].join(','),
+                            sc = document.getElementsByTagName('script')[0],
+                            _ri = document.createElement('script');
+                            _ri.type = 'text/javascript',
+                            _ri.async = true,
+                            _ri.src = ('https:' == document.location.protocol ? 'https:' : 'http:') + (script = '//gatag.it/v2/#'+en);
+                        sc.parentNode.insertBefore(_ri, sc);
+                    })(
+                        window,
+                        document,
+                        typeof _gInstanceRef==='undefined' ? {} : _gInstanceRef,
+                        typeof window._GlobalTokens==='undefined' ? {'CHAIN_ID':0,'HOTEL_ID':0} : window._GlobalTokens
+                    );
+
+                    break;
+
+                // end switch;
+            }
+        });
+    }
+
+    /**
+     * If the hotel is one of the ones that is already mapped,
+     *  loop through and load the GTM containers and handlers
+     */
+    if(this.hotel && this.chain && w.pilot_gtm_map[this.chain]){
+        var tag_manager_ids = w.pilot_gtm_map[this.chain][(h=(w.pilot_gtm_map[this.chain][this.hotel] !== 'undefined' && w.pilot_gtm_map[this.chain][this.hotel] ? this.hotel : 'default'))];
+        for(var i=0,l=tag_manager_ids.length, n=tag_manager_ids[i]; i<l; i++){
+            if(this.handleChains===false && h=='default')
+                break;
+            switch(tag_manager_ids[i].type.toLowerCase()){
+                default:
+                case 'gtm':
+                    gtmContainer(w.pilot_gtm_map[this.chain].live ? n.value : this.test_container);// A function that loads GTM;
+                    break;
+
+                case 'adobe':
+                    // A function that loads Adobe;
+                    break;
+            }
+        }
+    }else{// otherwise just trigger a default subscription for dataLayer.push;
+        gtmContainer(null);
+    }
+})(window,document);

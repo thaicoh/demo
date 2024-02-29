@@ -1,0 +1,135 @@
+!function (t, e) {
+    var s = "dataStream";
+    this.oe = t[s] && t[s].el ? t[s].el : [], this.events_ = {}, this.su = t[s] && t[s].su ? t[s].su : {}, this.eventData_ = {}, this.dx = !t[s] || !t[s].hasOwnProperty("dx") || t[s].dx, this._events = t[s] && t[s].hasOwnProperty("_events") ? t[s]._events : [], this.eventWrappers_ = {}, this.eventLogs = this.oe, this.audience = [], t[s] = this, delete this.oe, this.pluggins = {}, this.plugginsQ = [], this.plugginsTl = {}, this.plugginsL, this.registerEvent = function (t, e) {
+        var s = this.isArray(t) ? t : [t], i = 0, n = s.length;
+        for (s[i]; i < n; i++) this.eventData_[s[i]] = this.eventData_[s[i]] || {detail: e}, this.events_[s[i]] = this.events_[s[i]] || this.customEvent(s[i], this.eventData_[s[i]]), this.audience[s[i]] = this.audience[s[i]] || []
+    }, this.subscribe = this.listen = function (e, i, n, o, a) {
+        for (var r = a || [], l = (a = [], {}), d = this.isArray(i) ? i : [i], c = this, h = 0, u = r.length; h < u; h++) !0 == !!~this.registeredPluggins.indexOf(r[h]) && (a.push(r[h]), this.plugginsTl[r[h]] = !0, t[s].pluggins[r[h]] && !0 === t[s].pluggins[r[h]].loaded && (l[r[h]] = t[s].pluggins[r[h]]["public"]));
+        delete r;
+        for (var p = 0, g = d.length; p < g; p++) a.length && Object.keys(l).length != a.length ? this.plugginsQ.push({
+            s: e,
+            n: d[p],
+            m: n,
+            p: a
+        }) : (n = n || function (t) {
+            return t
+        }, this.eventWrappers_[d[p]] = function (t) {
+            c.audience[t.type].push(e);
+            try {
+                n(t.detail, t.type.toLowerCase(), l)
+            } catch (t) {
+                console.log("Error, Subscriber " + e, t)
+            }
+        }, t.addEventListener(d[p], this.eventWrappers_[d[p]], !1), !1 !== o && this.binge(e, d[p], n, l))
+    }, this.binge = function (t, e, s, i) {
+        if (i = i || {}, this.eventLogs[e]) for (var n = 0, o = this.eventLogs[e].length; n < o; n++) if (!1 == !!~this.eventLogs[e][n].s.indexOf(t)) {
+            try {
+                s(this.eventLogs[e][n].d, e.toLowerCase(), i)
+            } catch (e) {
+                console.log("Error, Subscriber " + t, e)
+            }
+            this.eventLogs[e][n].s.push(t)
+        }
+    }, this.unsubscribe = function (e) {
+        for (var s = this.isArray(e) ? e : [e], i = 0, n = s.length; i < n; i++) this.events_[s[i]] && (t.removeEventListener(s[i], this.eventWrappers_[s[i]]), delete this.events_[s[i]], delete this.eventData_[s[i]])
+    }, this.send = function (e, s) {
+        for (var i = this.isArray(e) ? e : [e], n = 0, o = i.length; n < o; n++) this.events_[i[n]] && (s = s || {}, s = this.merge(this.eventData_[i[n]].detail, s), this.events_[i[n]] = this.customEvent(i[n], {detail: s}), this.eventData_[i[n]].detail = s, t.dispatchEvent(this.events_[i[n]]), this.eventLogs[i[n]] = this.eventLogs[i[n]] || [], this.eventLogs[i[n]].push({
+            t: (new Date).getTime(),
+            s: this.audience[i[n]],
+            d: s
+        }), this.audience[i[n]] = [])
+    }, this.customEvent = function (s, i) {
+        if ("function" == typeof t.CustomEvent) return new CustomEvent(s, i);
+        var n = e.createEvent("CustomEvent");
+        return n.initCustomEvent(s, !1, !1, i.detail || void 0), n
+    }, this.merge = function (t, e) {
+        var s = {};
+        for (var i in t) s[i] = t[i];
+        for (var i in e) s[i] = e[i];
+        return s
+    }, this.isArray = function () {
+        if (Array.isArray) return Array.isArray;
+        var t = Object.prototype.toString, e = t.call([]);
+        return function (s) {
+            return t.call(s) === e
+        }
+    }(), importScript = function (t, s, i) {
+        proto = t.indexOf("http") > -1 ? "" : e.location.protocol, b = e.createElement("script"), b.type = "text/javascript", b.async = !0, rzt = e.getElementsByTagName("head")[0], b.id = i, b.src = proto + t;
+        b.onload = b.onreadystatechange = function () {
+            if (!b.readyState || "complete" == b.readyState || "loaded" == b.readyState) try {
+                b.onload = b.onreadystatechange = null
+            } catch (t) {
+            }
+        }, rzt.appendChild(b)
+    }, this["import"] = importScript, jsonp = {
+        send: function (s, i) {
+            var n = i.callbackName || "callback", o = i.success || function () {
+            }, a = i.fail || function () {
+            }, r = i.timeout || 10;
+            console.log("loading " + s + " callback name:" + n);
+            var l = t.setTimeout(function () {
+                t[n] = function () {
+                }, a()
+            }, 1e3 * r);
+            window[n] = function (e) {
+                t.clearTimeout(l), o(e)
+            };
+            var d = e.createElement("script");
+            d.type = "text/javascript", d.async = !0, d.src = s + (s.indexOf("?") < 0 ? "?" : "&") + "callback=" + n, e.getElementsByTagName("head")[0].appendChild(d)
+        }
+    }, pluggin = function (t) {
+        this.loaded = t.loaded || !1, this.id = t.id, this.src = t.src || null, this.type = t.type || "json", this.data, this["public"] = t["public"] || {}, this.loading = !1, this.load = function (t) {
+            var e = this;
+            console.log('loading the pluggin "' + e.id + '" type: ' + this.type), this.loaded ? t(e, e["public"].data) : "json" == this.type ? jsonp.send(this.src, {
+                callbackName: e.id,
+                success: function (s) {
+                    e.loaded = !0, e.loading = !1, e.data = s, e["public"].data = s, t(e, s)
+                },
+                fail: function () {
+                    console.log(e.id + " Timed out")
+                }
+            }) : "script" == this.type || "inline" == this.type && (e.loaded = !0, e["public"].data = {}, t(e, e["public"].data))
+        }
+    }, this.registerPluggin = function (e) {
+        !0 == !!~this.registeredPluggins.indexOf(e.id) && (t[s].pluggins[e.id] = new pluggin(e))
+    }, this.registeredPluggins = ["currency", "holidays"], this.registerPluggin({
+        id: "currency",
+        src: "//a-rates.sabrecdn.com/rates/?format=jsonp",
+        "public": {
+            convert: function (t, e, s) {
+                return e = e.toUpperCase(), s = s.toUpperCase(), this.data[e] ? this.data[s] ? parseFloat(t / this.data[e] * this.data[s]).toFixed(5) : (console.log(s + " not supported"), t) : (console.log(e + " not supported"), t)
+            }, rate: function (t) {
+                return t = t.toUpperCase(), this.data[t] || console.log(t + " not supported"), this.data[t]
+            }
+        }
+    }), this.registerPluggin({
+        id: "holidays",
+        type: "inline",
+        "public": {
+            uri: "//a-rates.sabrecdn.com/rates/?format=jsonp", checkRange: function (t, e, s, i) {
+                var n = ["start=" + t, "end=" + e, "countries=" + (s = s || "us")];
+                jsonp.send(this.uri + "?" + n.join("&"), {
+                    callbackName: "holidays1", success: i, fail: function () {
+                        console.log("Holidays Timed out")
+                    }
+                })
+            }
+        }
+    }), this.dx ? this.registerEvent(["hotels", "hotels.select", "hotel.select", "hotels.details", "app", "rooms", "rooms.add", "rooms.remove", "rooms.edit", "rooms.quickview", "rooms.details", "addons", "addons.add", "addons.edit", "addons.remove", "addons-click", "addons-details", "addons.click", "addons.details", "checkout", "confirmation", "confirmation.update", "confirmation.cancel", "signin", "reservations", "profile", "profile.create", "profile.update", "timeout", "product.expand", "review", "landing", "upsell", "upsell.details", "upsell.add", "currency", "language", "category.expand", "search-results", "modification", "modification-start", "contact-consent", "retailProducts.productList", "retailProducts.productDetail", "retailProducts.filterEvent.search", "retailProducts.filterEvent.category", "retailProducts.filterEvent.attribute", "retailProducts.productAdd", "retailProducts.click", "retailProducts.productRemove"], {}) : this._events && this._events.length && this.registerEvent(this._events, {});
+    for (var i in this.su) for (var n = 0, o = this.su[i].length; n < o; n++) this.subscribe(i, this.su[i][n].e, this.su[i][n].m, this.su[i][n].b, this.su[i][n].c);
+    delete this.su;
+    for (var n in this.plugginsTl) t[s].pluggins[n].load(function (e, i) {
+        for (var n = this.plugginsQ, o = 0, a = n.length; o < a; o++) {
+            loaded = 0;
+            for (var r = 0, l = n[o].p.length; r < l; r++) !0 === t[s].pluggins[n[o].p[r]].loaded && loaded++;
+            loaded >= n[o].p.length && this.subscribe(n[o].s, n[o].n, n[o].m, !0, n[o].p)
+        }
+    });
+    if (this.dx && (t[s].subscribe("console", ["hotels", "hotels.select", "hotel.select", "hotels.details", "app", "rooms", "rooms.add", "rooms.remove", "rooms.edit", "rooms.quickview", "rooms.details", "addons", "addons.add", "addons.edit", "addons.remove", "addons-click", "addons-details", "addons.click", "addons.details", "checkout", "confirmation", "confirmation.update", "confirmation.cancel", "signin", "reservations", "profile", "profile.create", "profile.update", "timeout", "product.expand", "review", "landing", "upsell", "upsell.details", "upsell.add", "currency", "language", "category.expand", "search-results", "modification", "modification-start", "contact-consent", "retailProducts.productList", "retailProducts.productDetail", "retailProducts.filterEvent.search", "retailProducts.filterEvent.category", "retailProducts.filterEvent.attribute", "retailProducts.productAdd", "retailProducts.click", "retailProducts.productRemove"], function (t, e) {
+        console.log("Stream Event (" + e + ")", t)
+    }), location.hostname.toLowerCase().indexOf(".sabre.com") < 0 || location.hostname.toLowerCase().indexOf("shdvltxcrngb01.sgdcelab.sabre.com") >= 0 || location.hostname.toLowerCase().indexOf(".asc.sabre.com") >= 0)) {
+        var a = "/public/js/dxgtm.js";
+        t[s]["import"](a, function () {
+        }, "dx_gtm_containers")
+    }
+}(window, document);

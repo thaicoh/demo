@@ -275,7 +275,7 @@
     <script src="app.js"></script>
     <script>
 
-        // 
+        // Tài khoảng admin
         let adminUser = [
             {
                 email: "nthoc2017.thcsbth@gmail.com",
@@ -285,6 +285,20 @@
             {
                 email: "thaicoh1210@gmail.com",
                 userName: "Minh",
+                password: "11111111"
+            }
+        ]
+
+        // Tài khoảng người dùng
+        let Users = [
+            {
+                email: "nthoc2017.thcsbth@gmail.com",
+                userName: "Huy123",
+                password: "11111111"
+            },
+            {
+                email: "thaicoh1210@gmail.com",
+                userName: "ThaiHoc123",
                 password: "11111111"
             }
         ]
@@ -344,23 +358,34 @@
         }
         // dangnhap 
         function dangnhap(userName, password, savedUserName, savedPassword) {
-            adminUser.forEach(e => {
 
-                console.log(e, "e")
+            // Kiểm tra tài khoảng admin
+            adminUser.forEach(e => {
+                //console.log(e, "e")
                 if (userName.value.trim() == e.userName && password.value.trim() == e.password) {
                     console.log("chao admin")
                     window.location.href = "cms/production/index.html";
+                    localStorage.setItem('isLoggedIn', 'true');
                 }
             });
 
+            // Kiểm tra tài khoảng người dùng
+            Users.forEach(e => {
+                console.log(e, "e")
+                if (userName.value.trim() == e.userName && password.value.trim() == e.password) {
+                    console.log("Đăng nhập thành công")
+                    window.location.href = "index.html";
+                    localStorage.setItem('isLoggedIn', 'true');
+                }
+            })
 
-            if (userName.value.trim() !== savedUserName) {
+            if (userName.value.trim() !== savedUserName && !localStorage.getItem('isLoggedIn')) {
                 console.log(userName.value);
                 console.log(savedUserName);
                 showError(userName, 'Tên người dùng không tồn tại!');
                 return false;
             } else {
-                if (password.value.trim() !== savedPassword) {
+                if (password.value.trim() !== savedPassword && !localStorage.getItem('isLoggedIn')) {
                     showError(password, 'Sai mật khẩu!');
                     console.log(password.value);
                     console.log(savedPassword);
@@ -381,7 +406,7 @@
                     alert('Đăng nhập thành công!');
                     dadangnhap = 1;
                     localStorage.setItem('isLoggedIn', 'true');
-                    
+
                     window.location.href = "index.html";
                 }
             }

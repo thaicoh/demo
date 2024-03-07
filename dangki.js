@@ -4,9 +4,66 @@ let password = document.querySelector('#password');
 let re_password = document.querySelector('#re_password');
 let form = document.querySelector('.form');
 
+// Hàm kiểm tra email đã tồn tại hay chưa
+function KiemTraTaiKhoanTonTai(gmail) {
+    return new Promise(function (resolve, reject) {
+        // Dữ liệu chuẩn bị gửi lên server
+        var datasend = {
+            gmail: gmail
+        };
+
+        // Gửi yêu cầu AJAX đến máy chủ
+        queryDataPost("php/dangki_kiemtratontai.php", datasend, function (res) {
+            // Kết quả trả về từ máy chủ
+            resolve(res.exists); // Giải quyết Promise với kết quả từ máy chủ
+        });
+    });
+}
+
+// Hàm thêm tài khoảng
+function ThemTaiKhoang(gmail, name, pass) {
+    return new Promise(function (resolve, reject) {
+        var datasend = {
+            gmail: gmail,
+            name: name,
+            pass: pass
+        };
+
+        // Gửi yêu cầu AJAX đến máy chủ
+        queryDataPost("php/insert_user.php", datasend, function (res) {
+            // Kết quả trả về từ máy chủ
+            console.log("res.status", res.status)
+            console.log("res.mess", res.message)
+
+            resolve(res.status); // Giải quyết Promise với kết quả từ máy chủ
+        });
+    })
+}
+
+// Hàm kiểm tra đăng nhập
+function DangNhap(gmail, pass) {
+    return new Promise(function (resolve, reject) {
+        var datasend = {
+            gmail: gmail,
+            pass: pass
+        };
+
+        // Gửi yêu cầu AJAX đến máy chủ
+        queryDataPost("php/dangnhap.php", datasend, function (res) {
+            // Kết quả trả về từ máy chủ
+            console.log("res.status", res.status)
+            console.log("res.mess", res.message)
+
+            resolve(res.status); // Giải quyết Promise với kết quả từ máy chủ
+        });
+    })
+}
 
 
 
+
+
+// show lỗi
 function showError(input, mess) {
     let parent = input.parentElement;
     let small = parent.querySelector('small');
@@ -73,6 +130,7 @@ function checkMatchPasswork(input, re_input) {
     return false;
 }
 
+
 form.addEventListener('submit', function (e) {
     e.preventDefault();
     let isNULL = checkNull([userName, email, password, re_password]);
@@ -81,62 +139,31 @@ form.addEventListener('submit', function (e) {
     let isPasswordLengthError = checkLength(password, 8, 25);
     let isRe_passwordLengthError = checkLength(re_password, 8, 25);
     let isPasswordError = checkMatchPasswork(password, re_password);
+
+
+
     if (isNULL || isUserNameLengthError || isEmailError || isPasswordLengthError || isRe_passwordLengthError || isPasswordError) {
         //sai
     } else {
-        //thanh cong
-        alert('Bạn đã đăng ký thành công!');
-        localStorage.setItem('userName', userName.value);
-        localStorage.setItem('password', password.value);
-        window.location.href = "dangnhap.html";
-    }
-})
-
-// 
-let userName_dn = document.querySelector('#userName_dn');
-let password_dn = document.querySelector('#password_dn');
-let form_dn = document.querySelector('.form_dn');
-
-let savedUserName = '';
-let savedPassword = '';
-
-// local 
-savedUserName = localStorage.getItem('userName');
-savedPassword = localStorage.getItem('password');
-
-// dangnhap 
-function dangnhap(userName, password, savedUserName, savedPassword) {
-    if (userName.value.trim() !== savedUserName) {
-        console.log(userName.value);
-        console.log(savedUserName);
-        showError(userName, 'Tên người dùng không tồn tại!');
-        return false;
-    } else {
-        if (password.value.trim() !== savedPassword) {
-            showError(password, 'Sai mật khẩu!');
-            console.log(password.value);
-            console.log(savedPassword);
-            return false;
-        } else {
-            return true;
-        }
-    }
-}
-
-form_dn.addEventListener('submit', function (e) {
-    e.preventDefault();
-    
-    let isNULL = checkNull([userName_dn, password_dn]);
-    if (isNULL) {
-
-    } else {
-        if (dangnhap(userName_dn, password_dn, savedUserName, savedPassword)) {
-            alert('Đăng nhập thành công!');
-            window.location.href = "index.html";
-        }
-        
-        
-
+        // Kiểm tra email tồn tại
+        KiemTraTaiKhoanTonTai(email.value)
+            .then(function (exists) {
+                if (exists) {
+                    showError(email, "Email này đã được sử dụng!");
+                } else {
+                    showSuccess(email);
+                    ThemTaiKhoang(email.value, userName.value, password.value).then(function (e) {
+                        console.log(e)
+                    })
+                    alert('Bạn đã đăng ký thành công!');
+                    localStorage.setItem('userName', email.value);
+                    localStorage.setItem('password', password.value);
+                    window.location.href = "dangnhap.html";
+                }
+            })
+            .catch(function (error) {
+                console.error("Lỗi kiểm tra email:", error);
+            });
     }
 })
 
@@ -159,5 +186,6 @@ form_lienHe.addEventListener('submit', function (e) {
         alert(`Cảm ơn ${ten.value.trim()} ,Chúng tôi đã nhận tin nhắn của bạn!`);
     }
 })
+
 
 

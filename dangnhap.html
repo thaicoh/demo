@@ -120,7 +120,7 @@
                     <i class="fa-solid fa-circle-user"></i>
                     <h1 class="">Đăng nhập</h1>
                     <div class="control ">
-                        <input id="userName_dn" type="text" placeholder="Tên đăng nhập">
+                        <input id="userName_dn" type="email" placeholder="Email đăng nhập">
                         <small></small>
                         <span></span>
                     </div>
@@ -272,145 +272,41 @@
 
 
 
-    <script src="app.js"></script>
+
+    <!-- <script src="app.js"></script> -->
     <script>
 
-        // Tài khoảng admin
-        let adminUser = [
-            {
-                email: "nthoc2017.thcsbth@gmail.com",
-                userName: "Hoc123",
-                password: "11111111"
-            },
-            {
-                email: "thaicoh1210@gmail.com",
-                userName: "Minh",
-                password: "11111111"
-            }
-        ]
+        // // Tài khoảng admin
+        // let adminUser = [
+        //     {
+        //         email: "nthoc2017.thcsbth@gmail.com",
+        //         userName: "Hoc123",
+        //         password: "11111111"
+        //     },
+        //     {
+        //         email: "thaicoh1210@gmail.com",
+        //         userName: "Minh",
+        //         password: "11111111"
+        //     }
+        // ]
 
-        // Tài khoảng người dùng
-        let Users = [
-            {
-                email: "nthoc2017.thcsbth@gmail.com",
-                userName: "Huy123",
-                password: "11111111"
-            },
-            {
-                email: "thaicoh1210@gmail.com",
-                userName: "ThaiHoc123",
-                password: "11111111"
-            }
-        ]
+        // // Tài khoảng người dùng
+        // let Users = [
+        //     {
+        //         email: "nthoc2017.thcsbth@gmail.com",
+        //         userName: "Huy123",
+        //         password: "11111111"
+        //     },
+        //     {
+        //         email: "thaicoh1210@gmail.com",
+        //         userName: "ThaiHoc123",
+        //         password: "11111111"
+        //     }
+        // ]
 
-        let userName_dn = document.querySelector('#userName_dn');
-        let password_dn = document.querySelector('#password_dn');
-        let form_dn = document.querySelector('.form_dn');
+        
 
-        let savedUserName = '';
-        let savedPassword = '';
 
-        savedUserName = localStorage.getItem('userName');
-        savedPassword = localStorage.getItem('password');
-
-        function showError(input, mess) {
-            let parent = input.parentElement;
-            let small = parent.querySelector('small');
-
-            parent.classList.add('error');
-            small.innerText = mess;
-        }
-        function showSuccess(input) {
-            let parent = input.parentElement;
-            let small = parent.querySelector('small');
-
-            parent.classList.remove('error');
-            small.innerText = ''
-        }
-        // kiem tra rong
-        function checkNull(listInput) {
-            let isNULL = false;
-            listInput.forEach(input => {
-                input.value = input.value.trim();
-                if (!input.value) {
-                    isNULL = true;
-                    showError(input, 'Không được để trống mục này!')
-                } else {
-                    showSuccess(input)
-                }
-            });
-            return isNULL;
-        }
-        // kiem tra email 
-        function checkEmail(input) {
-            const regexE = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,})+$/;
-
-            input.value = input.value.trim();
-            let isEmailError = !regexE.test(input.value);
-            if (regexE.test(input.value)) {
-                showSuccess(input);
-                isEmailError = false; // Email hợp lệ
-            } else {
-                showError(input, 'Email không hợp lệ!');
-                isEmailError = true; // Email không hợp lệ
-            }
-            return isEmailError;
-        }
-        // dangnhap 
-        function dangnhap(userName, password, savedUserName, savedPassword) {
-
-            // Kiểm tra tài khoảng admin
-            adminUser.forEach(e => {
-                //console.log(e, "e")
-                if (userName.value.trim() == e.userName && password.value.trim() == e.password) {
-                    console.log("chao admin")
-                    window.location.href = "cms/production/index.html";
-                    localStorage.setItem('isLoggedIn', 'true');
-                }
-            });
-
-            // Kiểm tra tài khoảng người dùng
-            Users.forEach(e => {
-                console.log(e, "e")
-                if (userName.value.trim() == e.userName && password.value.trim() == e.password) {
-                    console.log("Đăng nhập thành công")
-                    window.location.href = "index.html";
-                    localStorage.setItem('isLoggedIn', 'true');
-                }
-            })
-
-            if (userName.value.trim() !== savedUserName && !localStorage.getItem('isLoggedIn')) {
-                console.log(userName.value);
-                console.log(savedUserName);
-                showError(userName, 'Tên người dùng không tồn tại!');
-                return false;
-            } else {
-                if (password.value.trim() !== savedPassword && !localStorage.getItem('isLoggedIn')) {
-                    showError(password, 'Sai mật khẩu!');
-                    console.log(password.value);
-                    console.log(savedPassword);
-                    return false;
-                } else {
-                    return true;
-                }
-            }
-        }
-
-        form_dn.addEventListener('submit', function (e) {
-            e.preventDefault();
-            let isNULL = checkNull([userName_dn, password_dn]);
-            if (isNULL) {
-
-            } else {
-                if (dangnhap(userName_dn, password_dn, savedUserName, savedPassword)) {
-                    alert('Đăng nhập thành công!');
-                    dadangnhap = 1;
-                    localStorage.setItem('isLoggedIn', 'true');
-
-                    window.location.href = "index.html";
-                }
-            }
-        })
         // backToTop
         window.addEventListener('scroll', function () {
             var backTopButton = document.querySelector('.backTop');
@@ -425,16 +321,15 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-
-
-
     </script>
 
     <!-- slick slider -->
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-    <script src="dangki.js"></script>
+    
+    <script src="js/common.js"></script>
+    <script src="dangnhap.js"></script>
 
 </body>
 

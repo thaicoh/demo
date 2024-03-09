@@ -33,7 +33,7 @@ function DangNhap(gmail, pass) {
 
         // Gửi yêu cầu AJAX đến máy chủ
         queryDataPost("php/dangnhap.php", datasend, function (res) {
-            
+
             console.log("res.status", res.status)
             console.log("res.mess", res.message)
 
@@ -131,12 +131,8 @@ function checkEmail(input) {
 
 form_dn.addEventListener('submit', function (e) {
     e.preventDefault();
-
-
     console.log("ấn")
     let isNULL = checkNull([userName_dn, password_dn]);
-
-
 
     if (isNULL) {
 
@@ -170,7 +166,6 @@ form_dn.addEventListener('submit', function (e) {
             .catch(function (error) {
                 console.error("Lỗi kiểm tra email:", error);
             });
-
 
 
     }

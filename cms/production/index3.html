@@ -20,7 +20,7 @@
   <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
   <!-- NProgress -->
   <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
-  <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">  <!-- iCheck -->
+  <link href="../vendors/nprogress/nprogress.css" rel="stylesheet"> <!-- iCheck -->
   <link href="style.css" rel="stylesheet">
 
   <meta charset="utf-8">
@@ -261,7 +261,7 @@
           <div class="col-md-12 col-sm-12 ">
             <div class="row">
               <div class="col-md-12 col-sm-12 ">
-                <div class="x_panel"> 
+                <div class="x_panel">
                   <div class="x_title">
                     <h2>Cập Nhật Quốc Gia<small></small></h2>
                     <ul class="nav navbar-right panel_toolbox">
@@ -301,29 +301,65 @@
                         </label>
                         <div class="col-md-6 col-sm-6 ">
                           <input type="text" id="txttenhoa" name="last-name" required="required" class="form-control">
-              
+
                         </div>
                       </div>
                       <div class="item form-group">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="txttenhoa">Giới Thiệu Quốc Gia <span
-                            class="required">*</span>
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="txttenhoa">Giới Thiệu Quốc Gia
+                          <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                          <textarea type="text" id="des" name="des" rows="10" style="height: 150px;" class="form-control"></textarea> 
+                          <textarea type="text" id="des" name="des" rows="10" style="height: 150px;"
+                            class="form-control"></textarea>
                         </div>
                       </div>
-                      
+
                       <div class="item form-group">
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="img">Ảnh Loại Quốc Gia<span
                             class="required">*</span>
                         </label>
-                        <div class="col-md-6 col-sm-6 ">
-                          <input type="file" id="img" data-anh=""></input>
 
-                          <div>
-                            <img src="" alt="">
-                          </div>
+                        <input type="file" id="uploadInput" accept="image/*">
+                        <div id="previewContainer">
+                          <img id="previewImage" style="max-width: 50%;" src="#" alt="Preview">
+                          <button id="chooseAgainButton">Chọn lại</button>
+                          <button id="deleteImageButton">Xóa ảnh</button>
                         </div>
+
+                        <script>
+                          document.getElementById("uploadInput").addEventListener("change", function (event) {
+                            var input = event.target;
+                            var reader = new FileReader();
+                            reader.onload = function () {
+                              var previewImage = document.getElementById("previewImage");
+                              previewImage.src = reader.result;
+                              document.getElementById("chooseAgainButton").style.display = "inline";
+                              document.getElementById("deleteImageButton").style.display = "inline";
+                            };
+                            reader.readAsDataURL(input.files[0]);
+                          });
+
+                          document.getElementById("chooseAgainButton").addEventListener("click", function () {
+                            // Đặt lại giá trị của trường input
+                            document.getElementById("uploadInput").value = "";
+                            // Đặt lại ảnh xem trước
+                            document.getElementById("previewImage").src = "#";
+                            // Ẩn nút chọn lại và nút xóa ảnh
+                            document.getElementById("chooseAgainButton").style.display = "none";
+                            document.getElementById("deleteImageButton").style.display = "none";
+                          });
+
+                          document.getElementById("deleteImageButton").addEventListener("click", function () {
+                            // Đặt lại giá trị của trường input
+                            document.getElementById("uploadInput").value = "";
+                            // Đặt lại ảnh xem trước
+                            document.getElementById("previewImage").src = "#";
+                            // Ẩn nút chọn lại và nút xóa ảnh
+                            document.getElementById("chooseAgainButton").style.display = "none";
+                            document.getElementById("deleteImageButton").style.display = "none";
+                          });
+                        </script>
+
                       </div>
 
 
@@ -388,12 +424,12 @@
                         </tr>
                       </thead>
                       <tbody class="loadhoa">
-                        <tr>
+                        <!-- <tr>
                           <th scope="row">1</th>
                           <td></td>
                           <td>G001</td>
                           <td>Tây Ban Nha</td>
-                          
+
                           <td class="d-flex justify-content-between">Châu Âu
                             <div class="thaotac ">
                               <button class="btn-danger"><i class="fa fa-pencil-square-o mr-1"> </i>Sửa</button>
@@ -407,7 +443,7 @@
                           <td></td>
                           <td>G002</td>
                           <td>Indo</td>
-                          
+
                           <td class="d-flex justify-content-between">Châu Á
                             <div class="thaotac ">
                               <button class="btn-danger"><i class="fa fa-pencil-square-o mr-1"> </i>Sửa</button>
@@ -421,7 +457,7 @@
                           <td></td>
                           <td>G003</td>
                           <td>Thái Lan</td>
-                          
+
                           <td class="d-flex justify-content-between">Châu Á
                             <div class="thaotac ">
                               <button class="btn-danger"><i class="fa fa-pencil-square-o mr-1"> </i>Sửa</button>
@@ -429,7 +465,7 @@
                                 </i>Xóa</button>
                             </div>
                           </td>
-                        </tr>
+                        </tr> -->
                       </tbody>
                     </table>
 

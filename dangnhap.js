@@ -17,7 +17,7 @@ function KiemTraTaiKhoanTonTai(gmail) {
         // Gửi yêu cầu AJAX đến máy chủ
         queryDataPost("php/dangki_kiemtratontai.php", datasend, function (res) {
             // Kết quả trả về từ máy chủ
-            resolve(res.exists); // Giải quyết Promise với kết quả từ máy chủ
+            resolve(res.exists);
         });
     });
 }

@@ -2,7 +2,7 @@
 $hostname='localhost';
 $username='root';
 $password='';
-$dbname="csdlcnpm";
+$dbname="qlresort2";
 $port=3306;
 $conn=mysqli_connect($hostname,$username,$password,$dbname,$port);
 if(!$conn){

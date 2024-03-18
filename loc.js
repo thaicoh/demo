@@ -1,10 +1,26 @@
 
+// Hàm load dữ liệu khu nghỉ dưỡng
+function LoadDataKhuNghiDuong() {
+  return new Promise(function (resolve, reject) {
+    // Dữ liệu chuẩn bị gửi lên server
+    var datasend = {
+    };
+
+    // Gửi yêu cầu AJAX đến máy chủ
+    queryDataPost("php/load_data_khunghiduong.php", datasend, function (response) {
+      // Kết quả trả về từ máy chủ
+      console.log("response.data", response.data)
+
+      resolve(response.data);
+    });
+  });
+}
+
 // Nút Loc chứa div select
 $(document).ready(function () {
   $('#locBtn').click(function () {
     $('.my-div').toggleClass('show');
   });
-
 });
 $(document).ready(function () {
   $('#locBtn2').click(function () {
@@ -16,6 +32,27 @@ $(document).ready(function () {
 // Khai báo mảng các object item  
 let list = document.getElementById('list')
 let filter = document.querySelector('.filter')
+
+console.log("LoadDataKhuNghiDuong chay")
+LoadDataKhuNghiDuong()
+  .then(function (data) {
+    let i = 0;
+    data.forEach(element => {
+      console.log(element)
+      listProducts[i] = element;
+      i++;
+    });
+    productsFilter = listProducts;
+
+    console.log(listProducts[0])
+    // hàm tạo và show các item
+    showProduct(productsFilter, endIndex);
+
+    console.log(data)
+  })
+  .catch(function (error) {
+    console.error("Lỗi kiểm tra email:", error);
+  });
 
 let listProducts = [
   {
@@ -263,8 +300,8 @@ let canLoadMore = true;
 
 // hàm tạo và show các item
 showProduct(productsFilter, endIndex);
-function showProduct(productsFilter, endIndex) {
 
+function showProduct(productsFilter, endIndex) {
 
   list.innerHTML = '';
 
@@ -289,13 +326,13 @@ function showProduct(productsFilter, endIndex) {
 
 
     newItem.innerHTML = ` 
-                            <a href="${item.link}"><img src="${item.image}">
-                            <p>${item.quocgia}</p>
-                            <h3>${item.ten}</h3>
+                            <a href="item.html"><img src="${item.ANHKND}">
+                            <p>${item.DIACHIKND}</p>
+                            <h3>${item.TENKND}</h3>
                             </a>
-                            <div>${item.info}</div>
+                            <div>${item.MOTAKND}</div>
                             <div class="d-flex justify-content-between">
-                              <a href="${item.link}" class="xemThem">xem thêm</a>
+                              <a href="item.html" class="xemThem">xem thêm</a>
                               <i class="fa-regular fa-heart iconLike pt-1"></i>
                             </div>
                             
@@ -400,6 +437,7 @@ document.getElementById('locBtn2').addEventListener('click', function (event) {
   endIndex = Math.min(soDiv, productsFilter.length); // Cập nhật giá trị của endIndex
   showProduct(productsFilter, endIndex);
 });
+
 // xử lý lọc khi vừa load web Giống hàm phía trên
 document.addEventListener('DOMContentLoaded', function () {
   // Thực thi mã khi trang web được tải

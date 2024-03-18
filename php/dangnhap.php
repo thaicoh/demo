@@ -16,7 +16,7 @@ $res = array();
 if (mysqli_num_rows($result) > 0) {
     // Email và mật khẩu đúng
     $row = mysqli_fetch_assoc($result);
-    $res["status"] = ($row["vaitro"] == 1) ? 2 : 1; // Vaitro = 1 -> status = 2, ngược lại status = 1
+    $res["status"] = ($row["VAITRO"] == 1) ? 2 : 1; // Vaitro = 1 -> status = 2, ngược lại status = 1
     $res["message"] = "Đăng nhập thành công!";
 } else {
     // Email hoặc mật khẩu không đúng

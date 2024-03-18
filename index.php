@@ -1,6 +1,52 @@
 <!DOCTYPE html>
 <html>
 
+<?php
+// Kết nối đến cơ sở dữ liệu của bạn
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "qlresort2";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Truy vấn dữ liệu từ bảng quocgia
+$sql = "SELECT MAQUOCGIA, TENQUOCGIA, GIOITHIEUQUOCGIA, ANHQUOCGIA FROM quocgia";
+$result = $conn->query($sql);
+
+// Mảng chứa dữ liệu
+$quocgiaData = array();
+
+// Lấy dữ liệu từ kết quả truy vấn và đưa vào mảng
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $quocgiaData[] = $row;
+    }
+} else {
+    echo "Bang Quoc Gia Khong Co Ket Qua";
+}
+//print_r($quocgiaData);
+
+// Truy vấn dữ liệu từ bảng loaihinh
+$sql2 = "SELECT MALOAIHINH , TENLOAIHINH, MOTALOAIHINH, ANHLOAIHINH, titleloaihinh FROM loaihinh";
+$result2 = $conn->query($sql2);
+$loaihinhData = array();
+
+if ($result2->num_rows > 0) {
+    while ($row = $result2->fetch_assoc()) {
+        $loaihinhData[] = $row;
+    }
+} else {
+    echo "Bang loaihinh Khong Co Ket Qua";
+}
+print_r($loaihinhData);
+
+// Đóng kết nối
+$conn->close();
+?>
 
 <head>
     <meta charset="utf-8">
@@ -14,16 +60,12 @@
     <title>
 
     </title>
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="css/bootstrap.css" rel="stylesheet" type="text/css" />
     <link href="dropdown.css" rel="stylesheet" type="text/css" />
     <link href="index.css" rel="stylesheet" type="text/css" />
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
-        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" href="fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/all.min.css">
 
@@ -156,7 +198,22 @@
     </div>
     <!-- líst quốc gia  -->
     <div class="container-fluid  row maunen cach p-0 m-0" id="quocgiaList">
-        <div class="card quocgia col-lg-4 col-6 text-left maunen">
+
+        <?php foreach ($quocgiaData as $quocgia) : ?>
+
+            <div class="card quocgia col-lg-4 col-6 text-left maunen">
+                <a href="sanpham-VN.html">
+                    <img src="<?php echo $quocgia['ANHQUOCGIA']; ?>" alt="">
+                    <h2><?php echo $quocgia['TENQUOCGIA']; ?></h2>
+                </a>
+                <div class="info-card">
+                    <?php echo $quocgia['GIOITHIEUQUOCGIA']; ?>
+                </div>
+                <a class="a-more" href="">Xem thêm</a>
+            </div>
+        <?php endforeach; ?>
+
+        <!-- <div class="card quocgia col-lg-4 col-6 text-left maunen">
             <a href="sanpham-VN.html">
                 <img src="quocgia/vietnam.jpg" alt="">
                 <h2>Việt Nam</h2>
@@ -165,18 +222,18 @@
                 Khám phá resort tuyệt vời của chúng tôi tại Việt Nam! Tọa lạc trong vẻ đẹp tự nhiên hùng vĩ, chúng tôi
                 mang đến cho bạn một trải nghiệm nghỉ dưỡng tuyệt vời. Với bãi biển trắng mịn,</div>
             <a class="a-more" href="">Xem thêm</a>
-        </div>
-        <div class=" card quocgia col-lg-4 col-6 text-left maunen">
+        </div> -->
+        <!-- <div class=" card quocgia col-lg-4 col-6 text-left maunen">
             <a href="sanpham-Mal.html">
-                <img src="anh/Amanzoe, Greece - Main Swimming Pool.jpg" alt="">
+                <img src="quocgia/mala.jpg" alt="">
                 <h2>Malaysia</h2>
             </a>
             <div class="info-card">
                 Khám phá kỳ quan nghỉ dưỡng của chúng tôi tại Malaysia! Với thiên đường biển tuyệt đẹp, kiến trúc độc
                 đáo và dịch vụ tận tâm, chúng tôi mang đến cho bạn một trải nghiệm nghỉ dưỡng đáng nhớ.</div>
             <a class="a-more" href="">Xem thêm</a>
-        </div>
-        <div class=" card quocgia col-lg-4 col-6 text-left maunen">
+        </div> -->
+        <!-- <div class=" card quocgia col-lg-4 col-6 text-left maunen">
             <a href="sanpham-Ind.html">
                 <img src="quocgia/ind.jpg" alt="">
                 <h2>Indonexia</h2>
@@ -186,8 +243,8 @@
                 tôi là điểm đến lý tưởng để thư giãn và khám phá văn hóa độc đáo.
             </div>
             <a class="a-more" href="">Xem thêm</a>
-        </div>
-        <div class="card quocgia col-lg-4 col-6 text-left maunen" id="quocgiaList">
+        </div> -->
+        <!-- <div class="card quocgia col-lg-4 col-6 text-left maunen" id="quocgiaList">
             <a href="sanpham-Lao.html">
                 <img src="quocgia/lao.jpg" alt="">
                 <h2>Lào</h2>
@@ -196,8 +253,8 @@
                 Được bao bọc bởi cảnh quan thiên nhiên tươi đẹp, chúng tôi mang đến cho bạn một kỳ nghỉ thư giãn và đáng
                 nhớ. Với kiến trúc truyền thống độc đáo, các phòng nghỉ thoải mái và dịch vụ chất lượng </div>
             <a class="a-more" href="">Xem thêm</a>
-        </div>
-        <div class=" card quocgia col-lg-4 quocgia col-6 text-left maunen">
+        </div> -->
+        <!-- <div class=" card quocgia col-lg-4 quocgia col-6 text-left maunen">
             <a href="sanpham-Cam.html">
                 <img src="anh/Amanera-Resort-Casa-Grande-Exterior-3337-sRGB.jpg" alt="">
                 <h2>Campuchia</h2>
@@ -207,8 +264,8 @@
                 Moroccan oasis, these Aman destinations offer unique perspectives of Europe and North Africa.
             </div>
             <a class="a-more" href="">Xem thêm</a>
-        </div>
-        <div class=" card quocgia col-lg-4 col-6 text-left maunen">
+        </div> -->
+        <!-- <div class=" card quocgia col-lg-4 col-6 text-left maunen">
             <a href="sanpham-Thai.html">
                 <img src="quocgia/thailan.jpg" alt="">
                 <h2>Thái Lan</h2>
@@ -228,8 +285,8 @@
                 Moroccan oasis, these Aman destinations offer unique perspectives of Europe and North Africa.
             </div>
             <a class="a-more" href="">Xem thêm</a>
-        </div>
-        <div class=" card quocgia col-lg-4 quocgia col-6 text-left maunen">
+        </div> -->
+        <!-- <div class=" card quocgia col-lg-4 quocgia col-6 text-left maunen">
             <a href="sanpham-Sin.html">
                 <img src="quocgia/sin.jpg" alt="">
                 <h2>Singapo</h2>
@@ -250,22 +307,35 @@
                 Moroccan oasis, these Aman destinations offer unique perspectives of Europe and North Africa.
             </div>
             <a class="a-more" href="">Xem thêm</a>
-        </div>
+        </div> -->
+
         <div class="col-12 text-center">
             <button id="toggleBtn" class="btn mx-auto mt-4 p-0 ">Xem thêm</button>
         </div>
     </div>
     <!-- chủ đề du lịch "dùng slick slider" -->
     <div class=" container-fluid pr-0 diaDiemNoiBat cach">
-        <div class="diaDiemNoiBat-item m-0 p-0 text-center">
+
+        <?php foreach ($loaihinhData as $loaihinh) : ?>
+
+            <div class="diaDiemNoiBat-item m-0 p-0 text-center">
+                <img src="<?php echo $loaihinh['ANHLOAIHINH']; ?>" alt="">
+                <p class="subtitle"><?php echo $loaihinh['TENLOAIHINH']; ?></p>
+                <h3 class="heading-h"><?php echo $loaihinh['titleloaihinh']; ?></h3>
+                <div class="info-card"><?php echo $loaihinh['MOTALOAIHINH']; ?></div>
+            </div>
+
+        <?php endforeach; ?>
+
+        <!-- <div class="diaDiemNoiBat-item m-0 p-0 text-center">
             <img src="loaihinh/bien.jpg" alt="">
             <p class="subtitle">biển</p>
             <h3 class="heading-h">Cạnh các bải biển đẹp</h3>
             <div class="info-card">
                 Bất động sản trên khắp Indonesia, Lào, Việt Nam,.. và trên hòn đảo xa xôi của Philippines, mang đến cho
                 du khách một góc nhìn mới về cảnh quan đa dạng.</div>
-        </div>
-        <div class="diaDiemNoiBat-item m-0 p-0 text-center">
+        </div> -->   
+        <!-- <div class="diaDiemNoiBat-item m-0 p-0 text-center">
             <img src="loaihinh/tp.jpg" alt="">
             <p class="subtitle">thành phố</p>
             <h3 class="heading-h">Các thành phố nổi tiếng</h3>
@@ -320,7 +390,7 @@
             <div class="info-card">
                 Fringing the ocean and embracing a freer pace of life, Aman’s coastal retreats are spring sanctuaries,
                 whether seeking romance, reconnection or a serene time out.</div>
-        </div>
+        </div> -->
     </div>
     <!-- giới thiệu dịch vụ -->
     <div class="container-fluid dichvu row justify-content-around cach m-0 p-0 maunen">
@@ -481,20 +551,16 @@
                         <!-- Grid column -->
                         <div class="col-md-5 col-lg-4 ml-lg-0 text-center text-md-end">
                             <!-- Facebook -->
-                            <a class="btn btn-outline-light btn-floating m-1" class="text-white" role="button"><i
-                                    class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-outline-light btn-floating m-1" class="text-white" role="button"><i class="fab fa-facebook-f"></i></a>
 
                             <!-- Twitter -->
-                            <a class="btn btn-outline-light btn-floating m-1" class="text-white" role="button"><i
-                                    class="fab fa-twitter"></i></a>
+                            <a class="btn btn-outline-light btn-floating m-1" class="text-white" role="button"><i class="fab fa-twitter"></i></a>
 
                             <!-- Google -->
-                            <a class="btn btn-outline-light btn-floating m-1" class="text-white" role="button"><i
-                                    class="fab fa-google"></i></a>
+                            <a class="btn btn-outline-light btn-floating m-1" class="text-white" role="button"><i class="fab fa-google"></i></a>
 
                             <!-- Instagram -->
-                            <a class="btn btn-outline-light btn-floating m-1" class="text-white" role="button"><i
-                                    class="fab fa-instagram"></i></a>
+                            <a class="btn btn-outline-light btn-floating m-1" class="text-white" role="button"><i class="fab fa-instagram"></i></a>
                         </div>
                         <!-- Grid column -->
                     </div>
@@ -520,7 +586,7 @@
         } else {
             so_o = 2.3; // Màn hình >= 992px
         }
-        $(document).ready(function () {
+        $(document).ready(function() {
             $('.diaDiemNoiBat').slick({
                 infinite: false,
                 slidesToShow: so_o,
@@ -531,7 +597,7 @@
                 dots: true,
             });
         });
-        $(document).ready(function () {
+        $(document).ready(function() {
             $('.diemDenNoiBat').slick({
                 infinite: false,
                 slidesToShow: 2.3,

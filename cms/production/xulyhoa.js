@@ -1,12 +1,12 @@
 var record = 5;
 $(document).ready(function () {
 
-    $('#txtgiaban').mask('00000000000', {reverse: true});
-    $('#txtsoluong').mask('00000', {reverse: true});
+    $('#txtgiaban').mask('00000000000', { reverse: true });
+    $('#txtsoluong').mask('00000', { reverse: true });
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         // Lắng nghe sự kiện khi có thay đổi trên input file
-        $('#img').change(function() {
+        $('#img').change(function () {
             // Lấy tên file được chọn
             var fileName = $(this).val().split('\\').pop(); // Lấy phần tên file sau dấu gạch chéo cuối cùng
             // Gán tên file vào thuộc tính data-anh của input file
@@ -15,13 +15,13 @@ $(document).ready(function () {
             console.log("Tên file: " + fileName);
         });
     });
-    
 
-    loadCbLoaiHoa();
-    loadCbKhuyenMai();
+
+    // loadCbLoaiHoa();
+    // loadCbKhuyenMai();
     loadHoa(0, record);
 
-    loadCbLoaiHoa(0, record);
+    //loadCbLoaiHoa(0, record);
 
     //Khi click trang 2 thì di chuyển qua 2 dòng kế tiếp
     var pagecurrent_nv = 0;
@@ -31,6 +31,15 @@ $(document).ready(function () {
         loadHoa($(this).val(), record);
     })
 });
+
+function truncateString(str, maxLength) {
+    if (str.length > maxLength) {
+        return str.substring(0, maxLength) + '...';
+    } else {
+        return str;
+    }
+}
+
 
 //Khi nhấn Enter để search
 $("#inp-search").keyup(function (e) {
@@ -116,7 +125,7 @@ function loadHoa(page, record) {
     //ajax
     $(".load_LoaiHoa").html('<img class="loading-gif"src="images/g0R5.gif" /><b><i>Đang tải dữ liệu</i></b>');
 
-    queryDataPost("../php/data_get_hoa_vao_bang.php", datasend, function (res) {
+    queryDataPost("../php/data_get_quocgia_vaobang.php", datasend, function (res) {
         console.log("res", res)
         var stt = 1;
         var currentpage = parseInt(res.page);
@@ -131,23 +140,18 @@ function loadHoa(page, record) {
             var i = 1;
             for (var x in arr) {
                 item = arr[x];
-                console.log(item.MALOAIHOA);
                 data = data + `
                     <tr>
                     <th scope="row">${i}</th>
                     <td>
-                    <div><img src="images/${item.ANHHOA}" alt="Lamp" width="40" height="28"></div>
+                    <div><img src="../../${item.ANHQUOCGIA}" alt="Lamp" width="40" height="28"></div>
                     </td>
-                    <td>${item.MAHOA}</td>
-                    <td>${item.TENHOA}</td>
-                    <td class="click_loaihoa" title="Xem thông tin loại hoa" data-mah="${arr[x].MALOAIHOA}">${item.TENLOAIHOA}</td>
-                    <td>${item.GIAHOA} đ</td>
-                    <td>${item.SOLUONGCON}</td>
-                    <td class="click_khuyenmai" title="Xem thông tin khuyến mãi" data-makm="${arr[x].MAKHUYENMAI}">${(arr[x].MAKHUYENMAI == '') ? "Không có!" : item.TENKHUYENMAI}</td>
-                    <td class="d-flex justify-content-between">${item.MOTAHOA}
+                    <td>${item.MAQUOCGIA}</td>
+                    <td>${item.TENQUOCGIA}</td>
+                    <td class="d-flex justify-content-between">${truncateString(item.GIOITHIEUQUOCGIA, 100)}
                     <div class="thaotac">
-                        <button class="btn-danger btn-sua" data-gia="${item.GIAHOA}" data-sl="${item.SOLUONGCON}"  data-mah="${item.MAHOA}" data-tenh="${item.TENHOA}" data-mota="${item.MOTAHOA}" data-anh="${item.ANHHOA}"  data-malh="${arr[x].MALOAIHOA}" data-makm="${item.MAKHUYENMAI}"><i class="fa fa-pencil-square-o mr-1"> </i>Sửa</button>
-                        <button class="btn-danger btn-xoa" data-mah="${item.MAHOA}"><i class="fa fa-trash mr-1"> </i>Xóa</button>
+                        <button class="btn-danger btn-sua"  data-mah="${item.MAQUOCGIA}" data-tenh="${item.TENQUOCGIA}" data-mota="${item.GIOITHIEUQUOCGIA}" data-anh="${item.ANHQUOCGIA}"  data-malh="${arr[x].MALOAIHOA}" data-makm="${item.MAKHUYENMAI}"><i class="fa fa-pencil-square-o mr-1"> </i>Sửa</button>
+                        <button class="btn-danger btn-xoa" data-mah="${item.MAQUOCGIA}"><i class="fa fa-trash mr-1"> </i>Xóa</button>
                     </div>
                     </td> 
                     </tr>

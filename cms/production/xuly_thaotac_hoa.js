@@ -27,6 +27,7 @@ $(document).ready(function () {
 
 
     $('.btnThem').click(function (e) {
+        $('#previewImage').attr('src', ``);
         $('.btnThem').prop('disabled', true);
         $('.btnThem').addClass('.disabled_btn')
         $('#txtmahoa').focus()
@@ -42,6 +43,7 @@ $(document).ready(function () {
     });
 
     $('.btnTaoLai').click(function (e) {
+        $('#previewImage').attr('src', ``);
         $('.btnThem').prop('disabled', false);
         $('.btnThem').addClass('.disabled_btn')
         $('#txtmahoa').val('')
@@ -211,6 +213,7 @@ $(document).ready(function () {
         $('.btnSua').prop('disabled', true);
         $('.btnXoa').prop('disabled', false);
         $('.btnThem').prop('disabled', true);
+        $('#previewImage').attr('src', ``);
 
         var malh = $(this).attr("data-malh");
         var tenh = $(this).attr("data-tenh");
@@ -231,15 +234,15 @@ $(document).ready(function () {
 
         $('#txtmahoa').val(mah)
         $('#txttenhoa').val(tenh)
-        $('#txtmota').val(mota)
+        $('#des').val(mota)
         $('#txtsoluong').val(sl)
         $('#txtgiaban').val(gia)
-        $('#txtmota').val(mota)
+        $('#des').val(mota)
 
         $('.cbloaihoa').val(malh)
         $('.cbkhuyenmai').val(makm)
 
-        $('#img').attr('data-anh', `${anh}`);
+        $('#previewImage').attr('src', `../../${anh}`);
 
         trangThai = 2;
         window.scrollTo({ top: 0, behavior: 'smooth' });

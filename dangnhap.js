@@ -149,7 +149,7 @@ form_dn.addEventListener('submit', function (e) {
                         } else if (e == 1) {
                             showSuccess(password_dn);
                             console.log("chao user")
-                            window.location.href = "index.html";
+                            window.location.href = "index.php";
                             localStorage.setItem('isLoggedIn', 'true');
                         } else if (e == 2) {
                             showSuccess(password_dn);

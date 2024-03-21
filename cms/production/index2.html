@@ -320,7 +320,7 @@
                                         class="required">*</span>
                                     </label>
                                     <div class="col-md-6 col-sm-6 ">
-                                      <input type="text" id="tenlh" name="last-name" required="required" class="form-control">
+                                      <input type="text" id="sdtkh" name="last-name" required="required" class="form-control">
                                     </div>
                                   </div>
                                   <div class="item form-group">
@@ -328,7 +328,21 @@
                                         class="required">*</span>
                                     </label>
                                     <div class="col-md-6 col-sm-6 ">
-                                      <input type="text" id="tenlh" name="last-name" required="required" class="form-control">
+                                      <input type="text" id="emailkh" name="last-name" required="required" class="form-control">
+                                    </div>
+                                  </div>
+                                  <div class="item form-group">
+                                    <label class="col-form-label col-md-3 col-sm-3 label-align" for="tenlh">Giới tính<span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 ">
+                                      <select class=" form-control form-select col-md-12 h-100" id="gt" name="sellist1" selected="false">
+                                        <option disabled="" selected="" value=""> -- Chọn giới tính --
+                                        </option>
+                                        <option value="null">null</option>
+                                        <option value="0">Nữ</option>
+                                        <option value="1">Nam</option>
+                                        
+                                      </select>
                                     </div>
                                   </div>
                                   <div class="item form-group">
@@ -336,7 +350,7 @@
                                         class="required">*</span>
                                     </label>
                                     <div class="col-md-6 col-sm-6 ">
-                                      <input type="text" id="tenlh" name="last-name" required="required" class="form-control">
+                                      <input type="text" id="mk" name="last-name" required="required" class="form-control">
                                     </div>
                                   </div>
                                 <div class="item form-group">
@@ -410,10 +424,11 @@
                                     <th>Tên khách hàng</th>
                                     <th>Số điện thoại khách hàng</th>
                                     <th>Email khách hàng</th>
-                                    <th>Mật khẩu khách hàng</th>
+                                    <th>Giới tính</th>
+                                    <th>Mật khẩu</th>
                                   </tr>
                                 </thead>
-                                <tbody class="loadhoa">
+                                <tbody class="load_LoaiHoa">
                                   <tr>
                                     <th scope="row">1</th>
                                     <th></th>
@@ -642,8 +657,8 @@
                 <script src="../build/js/custom.min.js"></script>
                 <!-- <script src="../js/jquery-3.7.1.min.js"></script> -->
                 <script src="../js/common.js"></script>
-                <script src="xuly_thaotac_hoadon.js"></script>
-                <script src="xuly_donhang.js"></script>
+                <script src="xulay_thaotac_khachhang.js"></script>
+                <script src="xuly_khachhang.js"></script>
                 <script src="js/bootbox/bootbox.all.min.js"></script>
                 <!-- <script src="common.js"></script> -->
                 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"

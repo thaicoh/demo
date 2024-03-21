@@ -40,7 +40,6 @@ $('#email').change(function () {
 
 $(document).ready(function () {
 
-    $('#sdt').mask('00000000000');
     loadLoaiHoa(0, record);
 
     //Khi nhấn Enter để search
@@ -77,7 +76,6 @@ function loadLoaiHoa(page, record) {
 
 
     queryDataPost("../php/data_get_khachhang.php", datasend, function (res) {
-        console.log("res", res)
         var stt = 1;
         var currentpage = parseInt(res.page);
         stt = printSTT(record, currentpage);
@@ -91,19 +89,28 @@ function loadLoaiHoa(page, record) {
             var i = 1;
             for (var x in arr) {
                 item = arr[x];
-                console.log(item.MALOAIHOA);
+                let gt = "null"
+                if(item.GIOITINH == 0){
+                    gt = "Nữ"
+                }else if(item.GIOITINH == 1){
+                    gt = "Nam"
+                }
+              
                 data = data + `
                 <tr>
                 <th scope="row">${i}</th>
+                <td>${item.ANHKH}</td>
                 <td>${item.MAKH}</td>
                 <td>${item.TENKH}</td>
-                <td>${(item.GTKH == 0) ? "Nữ" : "Nam"}</td>
-                <td>${item.DIACHIKH}</td>
+                <td>${item.SDTKH}</td>
                 <td>${item.EMAILKH}</td>
-                <td class="d-flex justify-content-between">${item.SDTKH}
+                <td>${gt}</td>
+                
+                <td class="d-flex justify-content-between">${item.MATKHAUKH}
                   <div class="thaotac ">
-                    <button class="btn-danger btn-sua" data-malh="${item.MAKH}" data-tenlh="${item.TENKH}" data-gt="${item.GTKH}" data-email="${item.EMAILKH}" data-diachi="${item.DIACHIKH}" data-sdt="${item.SDTKH}"><i class="fa fa-pencil-square-o mr-1"> </i>Sửa</button>
+                    <button class="btn-danger btn-sua" data-malh="${item.MAKH}" data-tenlh="${item.TENKH}" data-mk="${item.MATKHAUKH}" data-gt="${item.GIOITINH}" data-email="${item.EMAILKH} "data-sdt="${item.SDTKH}"><i class="fa fa-pencil-square-o mr-1"> </i>Sửa</button>
                     <button class="btn-danger btn-xoa" data-malh="${item.MAKH}"><i class="fa fa-trash mr-1"> </i>Xóa</button>
+                    
                   </div>
                 </td>
                 </tr>

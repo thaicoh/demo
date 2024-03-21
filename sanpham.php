@@ -90,11 +90,11 @@ $conn->close();
                 <div class="col-lg-9 collapse navbar-collapse thanhmenu m-0 p-0 maunen ">
                     <ul class="navbar-nav ml-auto">
                         <li class="navbar-item  ">
-                            <a class="nav-link" href="index.html">Trang chủ</a>
+                            <a class="nav-link" href="index.php">Trang chủ</a>
                             <span></span>
                         </li>
                         <li class="navbar-item active">
-                            <a class="nav-link" href="sanpham.html">Khu nghỉ dưỡng</a>
+                            <a class="nav-link" href="sanpham.php">Khu nghỉ dưỡng</a>
                             <span></span>
                         </li>
                         <li class="navbar-item">
@@ -555,8 +555,6 @@ $conn->close();
             observer.observe(videoElement);
         });
     </script>
-
-
 
 
     <!-- slick slider -->

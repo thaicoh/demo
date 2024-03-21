@@ -1,14 +1,15 @@
 <?php
 require_once("server.php");
 
-$makH = $_POST["makH"];
+$maKH = $_POST["maKH"];
 $tenKH = $_POST["tenKH"];
 $sdtKH = $_POST["sdtKH"];
-$diaChiKH = $_POST["diaChiKH"];
-$gtKH = $_POST["gtKH"];
-$emailKH = $_POST["emailKH"];
+$emailKH = trim($_POST['emailKH']);
+$matKhauKH = $_POST["matKhauKH"];
+$anhKH = "";
+$gioiTinh = $_POST["gioiTinh"];
 
-$sql = "UPDATE khachhang SET TENKH='" . $tenKH . "', SDTKH='" . $sdtKH . "', DIACHIKH='" . $diaChiKH . "', GTKH='" . $gtKH . "', EMAILKH='" . $emailKH . "' WHERE MAKH='" . $makH . "'";
+$sql = "UPDATE khachhang SET TENKH='" . $tenKH . "', SDTKH='" . $sdtKH . "', EMAILKH='" . $emailKH . "', MATKHAUKH='" . $matKhauKH . "', ANHKH='" . $anhKH . "', GIOITINH='" . $gioiTinh .  "' WHERE MAKH='" . $maKH . "'";
 
 if (mysqli_query($conn, $sql)) {
     if (mysqli_affected_rows($conn) > 0) {

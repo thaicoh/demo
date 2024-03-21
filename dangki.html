@@ -27,7 +27,53 @@
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
   <link href="index.css" rel="stylesheet" type="text/css" />
 
+  <style>
+    .form__gr {
+      margin: 19px 0;
+      position: relative !important;
+    }
 
+    .icon {
+      border: 4px solid #253325;
+      border-radius: 50%;
+      padding: 20px;
+      margin: 0 150px 0 150px;
+    }
+
+    .icon i {
+      font-size: 10px !important;
+      color: #253325;
+    }
+
+
+    .fa-eye-slash {
+      position: absolute;
+      right: 0;
+      bottom: calc(0% + 29px);
+      color: rgb(94, 94, 94);
+      bottom: 0;
+
+      font-size: 20px !important;
+
+    }
+
+    .fa-eye {
+      position: absolute;
+      right: 0;
+      bottom: calc(0% + 29px);
+      bottom: 0;
+      color: rgb(94, 94, 94);
+      font-size: 20px !important;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    a {
+      color: #253325;
+    }
+  </style>
 
 </head>
 
@@ -128,16 +174,85 @@
             <small></small>
             <span></span>
           </div>
-          <div class="control ">
+          <div class="control form__gr">
             <input id="password" type="password" placeholder="Mật khẩu">
+            <i class="fa-solid fa-eye hidden"></i>
+            <i class="fa-solid fa-eye-slash hidden"></i>
             <small></small>
             <span></span>
           </div>
-          <div class="control ">
+          <div class="control form__gr">
             <input id="re_password" type="password" placeholder="Nhập lại mật khẩu">
+            <i class="fa-solid fa-eye hidden"></i>
+            <i class="fa-solid fa-eye-slash hidden"></i>
             <small></small>
             <span></span>
           </div>
+
+          <script>
+            let password1 = document.querySelector("#password");
+            let password2 = document.querySelector("#re_password");
+            let eye = () => {
+              let eye1 = document.querySelectorAll('.fa-eye')[0];
+              let eye2 = document.querySelectorAll('.fa-eye-slash')[0];
+              if (password1.value != '') {
+                eye1.classList.remove("hidden")
+                eye1.addEventListener('click', () => {
+                  password1.type = 'text';
+                  eye1.classList.add("hidden");
+                  eye2.classList.remove("hidden");
+                })
+                eye2.addEventListener('click', () => {
+                  password1.type = 'password';
+                  eye2.classList.add("hidden");
+                  eye1.classList.remove("hidden");
+                })
+              } else {
+                eye1.classList.add("hidden");
+                eye2.classList.add("hidden");
+              }
+            }
+            let eyeP2 = () => {
+              let eye1 = document.querySelectorAll('.fa-eye')[1];
+              let eye2 = document.querySelectorAll('.fa-eye-slash')[1];
+              if (password2.value != '') {
+                eye1.classList.remove("hidden")
+                eye1.addEventListener('click', () => {
+                  password2.type = 'text';
+                  eye1.classList.add("hidden");
+                  eye2.classList.remove("hidden");
+                })
+                eye2.addEventListener('click', () => {
+                  password2.type = 'password';
+                  eye2.classList.add("hidden");
+                  eye1.classList.remove("hidden");
+                })
+              } else {
+                eye1.classList.add("hidden");
+                eye2.classList.add("hidden");
+              }
+            }
+            password.addEventListener('keydown', () => {
+              eye();
+            })
+            password.addEventListener('blur', () => {
+              eye();
+            })
+            password2.addEventListener('keydown', () => {
+              eyeP2();
+            })
+            password2.addEventListener('blur', () => {
+              eyeP2();
+            })
+
+
+            input.forEach((e, i) => {
+              e.addEventListener('keydown', () => {
+
+              })
+            })
+
+          </script>
           <button type="submit" class="btn">Đăng ký</button>
           <div class="link">
             Đã có tài khoảng? <a href="dangnhap.html" class="">Đăng nhập</a>

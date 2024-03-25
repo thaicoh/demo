@@ -1,3 +1,4 @@
+
 var record = 5;
 $(document).ready(function () {
 
@@ -17,11 +18,11 @@ $(document).ready(function () {
     });
 
 
-    // loadCbLoaiHoa();
-    // loadCbKhuyenMai();
+    loadCbLoaiHoa();
+    loadCbKhuyenMai();
     loadHoa(0, record);
 
-    //loadCbLoaiHoa(0, record);
+    loadCbLoaiHoa(0, record);
 
     //Khi click trang 2 thì di chuyển qua 2 dòng kế tiếp
     var pagecurrent_nv = 0;
@@ -31,15 +32,6 @@ $(document).ready(function () {
         loadHoa($(this).val(), record);
     })
 });
-
-function truncateString(str, maxLength) {
-    if (str.length > maxLength) {
-        return str.substring(0, maxLength) + '...';
-    } else {
-        return str;
-    }
-}
-
 
 //Khi nhấn Enter để search
 $("#inp-search").keyup(function (e) {
@@ -95,22 +87,41 @@ function loadCbKhuyenMai() {
     }
     //ajax
     queryDataGet("../php/data_get_cb_khuyenmai.php", datasend, function (res) {
-        console.log(res)
+        console.log("res cb qg", res)
         var arr = res.items;
         var options = `
-        <option disabled selected value> -- chọn khuyến mãi -- </option>
-        <option  value="" >null</option>
+        <option disabled="" selected="" value=""> -- Chọn Quốc Gia --
+        </option>
         `;
         for (var x in arr) {
-            console.log(arr[x])
+            //console.log(arr[x])
             options = options + `
-            <option value="${arr[x].MAKHUYENMAI}">${arr[x].TENKHUYENMAI}</option>
+            <option value="${arr[x].MAQUOCGIA}">${arr[x].TENQUOCGIA}</option>
             `;
         }
         console.log(options)
-        $(".cbkhuyenmai").html(options);
+        $("#qg").html(options);
+    })
+    queryDataGet("../php/data_get_cb_khuyenmai2.php", datasend, function (res) {
+        console.log("res cb lh", res)
+        var arr = res.items;
+        var options = `
+        <option disabled="" selected="" value=""> -- Chọn Loại Hình --
+        </option>
+        `;
+        for (var x in arr) {
+            //console.log(arr[x])
+            options = options + `
+            <option value="${arr[x].MALOAIHINH}">${arr[x].TENLOAIHINH}</option>
+            `;
+        }
+        console.log(options)
+        $("#lh").html(options);
     })
 }
+
+
+
 
 function loadHoa(page, record) {
     //dữ liệu chuẩn bị gửi lên server
@@ -125,7 +136,9 @@ function loadHoa(page, record) {
     //ajax
     $(".load_LoaiHoa").html('<img class="loading-gif"src="images/g0R5.gif" /><b><i>Đang tải dữ liệu</i></b>');
 
-    queryDataPost("../php/data_get_quocgia_vaobang.php", datasend, function (res) {
+
+    queryDataPost("../php/data_get_hoa_vao_bang.php", datasend, function (res) {
+        console.log("chay load data vao bang")
         console.log("res", res)
         var stt = 1;
         var currentpage = parseInt(res.page);
@@ -140,18 +153,47 @@ function loadHoa(page, record) {
             var i = 1;
             for (var x in arr) {
                 item = arr[x];
+                // let quocgia = ""; // Khởi tạo biến quốc gia
+
+                // // Kiểm tra xem MAQUOCGIA có tồn tại và không rỗng trước khi truy cập
+                // if (item.MAQUOCGIA && item.MAQUOCGIA.length > 0) {
+                //     // Lặp qua mảng quốc gia và ánh xạ mã quốc gia thành tên quốc gia
+                //     for (var i = 0; i < item.MAQUOCGIA.length; i++) {
+                //         quocgia += item.MAQUOCGIA[i] + ": " + item.TENQUOCGIA[i] + ", ";
+                //     }
+                //     // Loại bỏ dấu phẩy cuối cùng
+                //     quocgia = quocgia.slice(0, -2);
+                // } else {
+                //     quocgia = "Không có quốc gia"; // Xử lý trường hợp không có quốc gia
+                // }
+                // let loaihinh = ""; // Khởi tạo biến quốc gia
+
+                // // Kiểm tra xem MAQUOCGIA có tồn tại và không rỗng trước khi truy cập
+                // if (item.MALOAIHINH && item.MALOAIHINH.length > 0) {
+                //     // Lặp qua mảng quốc gia và ánh xạ mã quốc gia thành tên quốc gia
+                //     for (var i = 0; i < item.MALOAIHINH.length; i++) {
+                //         loaihinh += item.MALOAIHINH[i] + ": " + item.TENLOAIHINH[i] + ", ";
+                //     }
+                //     // Loại bỏ dấu phẩy cuối cùng
+                //     loaihinh = loaihinh.slice(0, -2);
+                // } else {
+                //     loaihinh = "Không có quốc gia"; // Xử lý trường hợp không có quốc gia
+                // }
+
                 data = data + `
                     <tr>
                     <th scope="row">${i}</th>
                     <td>
-                    <div><img src="../../${item.ANHQUOCGIA}" alt="Lamp" width="40" height="28"></div>
+                    <div><img src="../../${item.ANHKND}" alt="Lamp" width="40" height="28"></div>
                     </td>
-                    <td>${item.MAQUOCGIA}</td>
-                    <td>${item.TENQUOCGIA}</td>
-                    <td class="d-flex justify-content-between">${truncateString(item.GIOITHIEUQUOCGIA, 100)}
+                    <td>${item.MAKND}</td>
+                    <td>${item.TENKND}</td>
+                    <td data-maknd="${item.MAKND}" >${item.TENQUOCGIA}</td>
+                    <td data-maknd="${item.MAKND}" >${item.TENLOAIHINH}</td>
+                    <td class="d-flex justify-content-between">${item.MOTAKND}
                     <div class="thaotac">
-                        <button class="btn-danger btn-sua"  data-mah="${item.MAQUOCGIA}" data-tenh="${item.TENQUOCGIA}" data-mota="${item.GIOITHIEUQUOCGIA}" data-anh="${item.ANHQUOCGIA}"  data-malh="${arr[x].MALOAIHOA}" data-makm="${item.MAKHUYENMAI}"><i class="fa fa-pencil-square-o mr-1"> </i>Sửa</button>
-                        <button class="btn-danger btn-xoa" data-mah="${item.MAQUOCGIA}"><i class="fa fa-trash mr-1"> </i>Xóa</button>
+                        <button class="btn-danger btn-sua" data-maknd="${item.MAKND}" data-tenknd="${item.TENKND}" data-mota="${item.MOTAKND}" data-img="${item.ANHKND}" data-qg="${item.MAQUOCGIA}" data-lh="${item.MALOAIHINH}"><i class="fa fa-pencil-square-o mr-1"> </i>Sửa</button>
+                        <button class="btn-danger btn-xoa" data-maknd="${item.MAKND}"><i class="fa fa-trash mr-1"> </i>Xóa</button>
                     </div>
                     </td> 
                     </tr>

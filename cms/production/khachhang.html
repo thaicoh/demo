@@ -10,7 +10,7 @@
     <link rel="icon" href="images/favicon.ico" type="image/ico" />
     <link href="style.css" />
 
-    
+
 
     <title>Gentelella Alela!</title>
 
@@ -37,7 +37,7 @@
     <link href="../build/css/custom.min.css" rel="stylesheet">
     <title>Gentelella Alela!</title>
 
-  
+
 
     <style>
         /* Thiết lập kích thước cột địa chỉ */
@@ -312,7 +312,8 @@
                                     <div class="x_content">
                                         <br>
                                         <form id="demo-form2" data-parsley-validate=""
-                                            class="form-horizontal form-label-left" novalidate="">
+                                            class="form-horizontal form-label-left" novalidate="" action="../php/insert_khachhang.php"
+                                            method="post" enctype="multipart/form-data">
 
                                             <div class="item form-group">
                                                 <label class="col-form-label col-md-3 col-sm-3 label-align"
@@ -337,9 +338,10 @@
                                                     for="last-name">Giới tính<span class="required"></span>
                                                 </label>
                                                 <div class="col-md-6 col-sm-6 ">
-                                                    <select class=" form-control form-select col-md-12 h-100" id="gt" name="sellist1"
-                                                        selected="false">
-                                                        <option disabled selected value=""> -- chọn giới tính -- </option>
+                                                    <select class=" form-control form-select col-md-12 h-100" id="gt"
+                                                        name="sellist1" selected="false">
+                                                        <option disabled selected value=""> -- chọn giới tính --
+                                                        </option>
                                                         <option value="1">Nam</option>
                                                         <option value="0">Nữ</option>
                                                     </select>
@@ -375,6 +377,8 @@
                                                         class="form-control">
                                                 </div>
                                             </div>
+
+                                            
                                             <div class="ln_solid"></div>
                                             <div class="item form-group justify-content-center"
                                                 style="color: white !important">

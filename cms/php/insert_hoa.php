@@ -1,22 +1,21 @@
 <?php
 require_once("server.php");
 
-$maHoa = $_POST["mahoa"];
-$tenHoa = $_POST["tenhoa"];
-$anhHoa = $_POST["anhloaihoa"];
-$motaHoa = $_POST["motahoa"];
-$giaHoa = $_POST["gia"];
-$soLuongCon = $_POST["soluong"];
-$maLoaiHoa = $_POST["maloaihoa"];
-$maKhuyenMai = $_POST["makhuyenmai"];
+$maKND = $_POST["maKND"];
+$tenKND = $_POST["tenKND"];
+$anhKND = $_POST["anhKND"];
+$moTaKND = $_POST["moTaKND"];
+$diaChiKND = $_POST["diaChiKND"];
+$maLoaiHinh = $_POST["maLoaiHinh"];
+$maQuocGia = $_POST["maQuocGia"];
 
-$rs = mysqli_query($conn, "SELECT COUNT(*) AS 'total' FROM hoa WHERE MAHOA='" . $maHoa . "'");
+$rs = mysqli_query($conn, "SELECT COUNT(*) AS 'total' FROM khunghiduong WHERE MAKND='" . $maKND . "'");
 $row = mysqli_fetch_array($rs);
 
 if ((int)$row['total'] > 0) {
     $res["success"] = 2; // Trả về client - Trùng dữ liệu
 } else {
-    $sql = "INSERT INTO hoa (MAHOA, TENHOA, ANHHOA, MOTAHOA, GIAHOA, SOLUONGCON, MALOAIHOA, MAKHUYENMAI) VALUES ('" . $maHoa . "', '" . $tenHoa . "', '" . $anhHoa . "', '" . $motaHoa . "', '" . $giaHoa . "', '" . $soLuongCon . "', '" . $maLoaiHoa . "', '" . $maKhuyenMai . "')";
+    $sql = "INSERT INTO khunghiduong (MAKND, TENKND, ANHKND, MOTAKND, DIACHIKND, MALOAIHINH, MAQUOCGIA) VALUES ('" . $maKND . "', '" . $tenKND . "', '" . $anhKND . "', '" . $moTaKND . "', '" . $diaChiKND . "', '" . $maLoaiHinh . "', '" . $maQuocGia . "')";
 
     if (mysqli_query($conn, $sql)) {
         if (mysqli_affected_rows($conn) > 0) {
@@ -31,3 +30,4 @@ if ((int)$row['total'] > 0) {
 
 echo json_encode($res); // Trả về client
 mysqli_close($conn);
+?>

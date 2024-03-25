@@ -1,3 +1,25 @@
+<?php
+// Kiểm tra xem cookie 'role' có tồn tại không
+if (isset($_COOKIE['role'])) {
+  // Lấy giá trị của cookie 'role'
+  $role = $_COOKIE['role'];
+
+  // Kiểm tra giá trị của cookie 'role'
+  if ($role === '1') {
+  } else {
+    // Nếu không phải admin, chuyển hướng đến trang khác
+    header('Location: ../../index.php');
+    exit;
+  }
+} else {
+  // Nếu cookie 'role' không tồn tại, chuyển hướng đến trang khác
+  header('Location: ../../index.php');
+  exit;
+}
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,10 +31,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" href="images/favicon.ico" type="image/ico" />
   <link href="style.css" />
-  <link href="style.css" rel="stylesheet">
 
 
-  <title>Khu Nghỉ Dưỡng</title>
+
+  <title>Gentelella Alela!</title>
 
   <!-- Bootstrap -->
   <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -24,11 +46,6 @@
   <!-- iCheck -->
   <link href="style.css" rel="stylesheet">
 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
   <!-- bootstrap-progressbar -->
   <link href="../vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
   <!-- JQVMap -->
@@ -38,6 +55,14 @@
 
   <!-- Custom Theme Style -->
   <link href="../build/css/custom.min.css" rel="stylesheet">
+  <style>
+    /* Thiết lập kích thước cột địa chỉ */
+    /* .table td:nth-child(5),
+    .table th:nth-child(5) {
+        width: 80%;
+        max-width: 80%;
+    } */
+  </style>
 </head>
 
 <body class="nav-md">
@@ -46,8 +71,7 @@
       <div class="col-md-3 left_col">
         <div class="left_col scroll-view">
           <div class="navbar nav_title" style="border: 0;">
-            <a href="index.html" class="site_title"> <img src="images/logo1.png"
-                style="object-fit: cover; width: 30%; height: 80%; border-radius: 50%;" /> <span>Bán hoa</span></a>
+            <a href="index.html" class="site_title"> <img src="images/logo1.png" style="object-fit: cover; width: 30%; height: 80%; border-radius: 50%;" /> <span>LOGO</span></a>
           </div>
 
           <div class="clearfix"></div>
@@ -59,7 +83,7 @@
             </div>
             <div class="profile_info">
               <span>Welcome,</span>
-              <h2>mr. Học</h2>
+              <h2>mr. Minh</h2>
             </div>
           </div>
           <!-- /menu profile quick info -->
@@ -78,7 +102,7 @@
                     <li><a href="index2.php">Khách hàng</a></li>
                     <li><a href="index3.html">Quốc gia</a></li>
                     <li><a href="nhacungcap1.html">Loại nghỉ dưỡng</a></li>
-                    <li><a href="nhanvien.html">Blog</a></li>
+                    <li><a href="nhanvien.html">Đặt Phòng</a></li>
                     <li><a href="khuyenmai.html">Khuyến mãi</a></li>
                     <!-- <li><a href="khachhang.html"></a></li> -->
 
@@ -134,8 +158,7 @@
           <nav class="nav navbar-nav">
             <ul class=" navbar-right">
               <li class="nav-item dropdown open" style="padding-left: 15px;">
-                <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown"
-                  data-toggle="dropdown" aria-expanded="false">
+                <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
                   <img src="images/IMG_2030.jpg" alt="">Mr. Học
                 </a>
                 <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
@@ -145,13 +168,12 @@
                     <span>Settings</span>
                   </a>
                   <a class="dropdown-item" href="javascript:;">Help</a>
-                  <a class="dropdown-item" href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+                  <a class="dropdown-item logout"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
                 </div>
               </li>
 
               <li role="presentation" class="nav-item dropdown open">
-                <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1" data-toggle="dropdown"
-                  aria-expanded="false">
+                <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1" data-toggle="dropdown" aria-expanded="false">
                   <i class="fa fa-envelope-o"></i>
                   <span class="badge bg-green">6</span>
                 </a>
@@ -265,13 +287,12 @@
               <div class="col-md-12 col-sm-12 ">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Cập Nhật Khu Nghỉ Dưỡng<small></small></h2>
+                    <h2>Cập Nhật Loại Hoa<small></small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
                       <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                          aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-wrench"></i></a>
                         <ul class="dropdown-menu" role="menu">
                           <li><a class="dropdown-item" href="#">Settings 1</a>
                           </li>
@@ -286,68 +307,88 @@
                   </div>
                   <div class="x_content">
                     <br>
-                    <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left"
-                      novalidate="">
+                    <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
 
                       <div class="item form-group">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="maknd">Mã Khu Nghỉ Dưỡng <span
-                            class="required">*</span>
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="malh">Mã resort<span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                          <input type="text" id="maknd" required="required" class="form-control ">
+                          <input type="text" id="malh" required="required" class="form-control ">
                         </div>
                       </div>
                       <div class="item form-group">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="tenknd">Tên Khu Nghỉ Dưỡng <span
-                            class="required">*</span>
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="tenlh">Tên resort<span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                          <input type="text" id="tenknd" name="last-name" required="required" class="form-control">
+                          <input type="text" id="tenlh" name="last-name" required="required" class="form-control">
                         </div>
                       </div>
                       <div class="item form-group">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="qg">Quốc Gia<span class="required">*</span>
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="tenlh">Số lượng phòng<span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ml-3">
+                          <div class="soluong-control">
+                            <button class="soluong-minus">-</button>
+                            <span class="soluong-value">2</span>
+                            <button class="soluong-plus">+</button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="tenlh">Sức chứa<span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                          <select class=" form-control form-select col-md-12 h-100" id="qg" name="sellist1" selected="false">
-                            <option disabled="" selected="" value=""> -- Chọn Quốc Gia --
+                          <input type="text" id="tenlh" name="last-name" required="required" class="form-control">
+                        </div>
+                      </div>
+                      <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="tenlh">Địa chỉ<span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                          <input type="text" id="tenlh" name="last-name" required="required" class="form-control">
+                        </div>
+                      </div>
+                      <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="tenlh">Giá trên đêm<span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                          <input type="text" id="tenlh" name="last-name" required="required" class="form-control">
+                        </div>
+                      </div>
+                      <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="tenlh">Số lượng giường<span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ml-3">
+                          <div class="soluong-control">
+                            <button class="soluong-minus">-</button>
+                            <span class="soluong-value">2</span>
+                            <button class="soluong-plus">+</button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="tenlh">Loại giường<span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                          <select class=" form-control form-select col-md-12 h-100" id="gt" name="sellist1" selected="false">
+                            <option disabled="" selected="" value=""> -- chọn loại giường --
                             </option>
-                            <option value="null">Null</option>
-                            <option value="0">Khách Thường</option>
-                            <option value="1">Khách VIP</option>
-                            <option value="2">Khách VVIP</option>
-                    
+                            <option value="1">Nhỏ</option>
+                            <option value="0">Trung bình</option>
+                            <option value="2">Lớn</option>
                           </select>
                         </div>
                       </div>
                       <div class="item form-group">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="lh">Loại Hình<span class="required">*</span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 ">
-                          <select class=" form-control form-select col-md-12 h-100" id="lh" name="sellist1" selected="false">
-                            <option disabled="" selected="" value=""> -- Chọn Loại Hình --
-                            </option>
-                            <option value="null">Null</option>
-                            <option value="0">Khách Thường</option>
-                            <option value="1">Khách VIP</option>
-                            <option value="2">Khách VVIP</option>
-                    
-                          </select>
-                        </div>
-                      </div>
-                      <div class="item form-group">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="mota">Mô tả Khu Nghỉ Dưỡng<span
-                            class="required">*</span>
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="des">Mô tả resort<span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 ">
                           <!-- <input type="text" id="des" name="des" rows="4" style="height: 100px;" class="form-control"> -->
-                          <textarea type="text" id="mota" name="des" rows="10" style="height: 150px;"
-                            class="form-control"></textarea>
+                          <textarea type="text" id="des" name="des" rows="10" style="height: 150px;" class="form-control"></textarea>
                         </div>
                       </div>
                       <div class="item form-group">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="img">Ảnh Khu Nghỉ Dưỡng<span
-                            class="required">*</span>
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="img">Ảnh resort <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 ">
                           <input type="file" id="img" data-anh=""></input>
@@ -357,8 +398,6 @@
                           </div>
                         </div>
                       </div>
-
-
                       <div class="ln_solid"></div>
                       <div class="item form-group justify-content-center" style="color: white !important">
                         <div class="col-md-6 col-sm-6 offset-md-3 ">
@@ -368,8 +407,7 @@
                             Xóa</button>
                           <button class="btn btn-danger btnLuu" type="reset"><i class="fa fa-check mr-1"> </i>
                             Lưu</button>
-                          <button type="submit" class="btn btn-danger btnSua" style="color: white !important"><i
-                              class="fa fa-pencil-square-o mr-1"> </i>Sửa</button>
+                          <button type="submit" class="btn btn-danger btnSua" style="color: white !important"><i class="fa fa-pencil-square-o mr-1"> </i>Sửa</button>
                           <button class="btn btn-danger btnTaoLai" type="button"><i class="fa fa-refresh mr-1"> </i>Tạo
                             lại</button>
                         </div>
@@ -389,14 +427,16 @@
               <div class="col-md-12 col-sm-6  ">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Danh sách khu nghỉ dưỡng <small></small></h2>
+                    <h2>Danh sách loại hoa <small></small></h2>
+
+
                     <input type="text" class="form-control" id="inp-search" placeholder="Tìm kiếm...">
+
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
                       <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                          aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                           <a class="dropdown-item" href="#">Settings 1</a>
                           <a class="dropdown-item" href="#">Settings 2</a>
@@ -413,63 +453,14 @@
                       <thead>
                         <tr>
                           <th>#</th>
-                          <th>Ảnh KND</th>
-                          <th>Mã KND</th>
-                          <th>Tên KND</th>
-                          <th>Quốc Gia</th>
-                          <th>Loại Hình KND</th>
-                          <th>Mô tả KND</th>
-                          
-                          <th> </th>
+                          <th></th>
+                          <th>Mã loại hoa</th>
+                          <th>Tên loại hoa</th>
+                          <th>Mô tả</th>
                         </tr>
                       </thead>
-                      <tbody class="loadhoa">
-                        <tr>
-                          <th scope="row">1</th>
-                          <td>H0001</td>
-                          <td>ĐÀ Nẵng</td>
-                          <td>một nơi đáng để sống </td>
-                          <td>Không có</td>
-                          <td>
-                            <div class="thaotac ">
-                              <button class="btn-danger"><i class="fa fa-pencil-square-o mr-1"> </i>Sửa</button>
-                              <button class="btn-danger"><i class="fa fa-trash mr-1">
-                                </i>Xóa</button>
-                            </div>
-                            </td>
-                          </td>
-                        </tr>
-                        <tr>
-                          <th scope="row">2</th>
-                          <td>H0002</td>
-                          <td>Vĩnh Long</td>
-                          <td>không khí an lành</td>
-                          <td>Không có</td>
-                          <td>
-                            <div class="thaotac ">
-                              <button class="btn-danger"><i class="fa fa-pencil-square-o mr-1"> </i>Sửa</button>
-                              <button class="btn-danger"><i class="fa fa-trash mr-1">
-                                </i>Xóa</button>
-                            </div>
-                            </td>
-                          </td>
-                        </tr>
-                        <tr>
-                          <th scope="row">3</th>
-                          <td>H0003</td>
-                          <td>Đà Lạt</td>
-                          <td>một nơi không khí lạnh</td>
-                          <td>Không có</td>
-                          <td>
-                            <div class="thaotac ">
-                              <button class="btn-danger"><i class="fa fa-pencil-square-o mr-1"> </i>Sửa</button>
-                              <button class="btn-danger"><i class="fa fa-trash mr-1">
-                                </i>Xóa</button>
-                            </div>
-                            </td>
-                            </div>
-                          </td>
-                        </tr> 
+                      <tbody class="load_LoaiHoa">
+
                       </tbody>
                     </table>
 
@@ -481,113 +472,6 @@
 
             </div>
 
-            <!-- The Modal -->
-            <div class="modal shownxb" id="myModal">
-              <div class="modal-dialog">
-                <div class="modal-content">
-
-                  <!-- Modal Header -->
-                  <div class="modal-header">
-                    <h4 class="modal-title">Thông tin loại hoa</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  </div>
-
-                  <!-- Modal body -->
-                  <div class="modal-body">
-                    <table class="table">
-                      <tr>
-                        <td>Ảnh loại hoa</td>
-                        <td class="addanhloaihoa">
-
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Mã Loại Hoa</td>
-                        <td class="addmaloaihoa"></td>
-                      </tr>
-                      <tr>
-                        <td>Tên Loại Hoa</td>
-                        <td class="addtenloaihoa"></td>
-                      </tr>
-                      <tr>
-                        <td>Mô tả loại hoa</td>
-                        <td class="addmotaloaihoa"></td>
-                      </tr>
-                      
-
-                    </table>
-                  </div>
-
-                  <!-- Modal footer -->
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-danger btnclosenxb" data-dismiss="modal">Close</button>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-
-
-
-            <!-- The Modal -->
-            <div class="modal showkm" id="myModal">
-              <div class="modal-dialog">
-                <div class="modal-content">
-
-                  <!-- Modal Header -->
-                  <div class="modal-header">
-                    <h4 class="modal-title">Thông tin Khuyến mãi</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  </div>
-
-                  <!-- Modal body -->
-                  <div class="modal-body">
-                    <table class="table">
-                      <tr>
-                        <td>Mã khuyến mãi</td>
-                        <td class="addmakm"></td>
-                      </tr>
-                      <tr>
-                        <td>Tên khuyến mãi</td>
-                        <td class="addtenkm"></td>
-                      </tr>
-                      <tr>
-                        <td>Mô tả khuyến mãi</td>
-                        <td class="addmotakm"></td>
-                      </tr>
-                      <tr>
-                        <td>Ngày bắt đầu</td>
-                        <td class="addngaybatdau">
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Ngày kết thúc</td>
-                        <td class="addngayketthuc">
-                        </td>
-                      </tr>
-
-                      <tr>
-                        <td>Tỉ lệ khuyến mãi</td>
-                        <td class="addtile">
-                        </td>
-                      </tr>
-
-
-                    </table>
-                  </div>
-
-                  <!-- Modal footer -->
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-danger btnclosenxb" data-dismiss="modal">Close</button>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-
-
-
-            <!-- footer content -->
 
 
             <footer class="m-0" style="height: 100px;">
@@ -597,8 +481,9 @@
             <!-- /footer content -->
           </div>
         </div>
+
         <script>
-          //selectedFile = document.getElementById("input").files[0];
+          //const selectedFile = document.getElementById("input").files[0];
         </script>
 
         <!-- jQuery -->
@@ -638,18 +523,32 @@
         <!-- bootstrap-daterangepicker -->
         <script src="../vendors/moment/min/moment.min.js"></script>
         <script src="../vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
-        <script src="jQuery-Mask-Plugin-master/jQuery-Mask-Plugin-master/dist/jquery.mask.min.js"></script>
 
         <!-- Custom Theme Scripts -->
         <script src="../build/js/custom.min.js"></script>
         <!-- <script src="../js/jquery-3.7.1.min.js"></script> -->
         <script src="../js/common.js"></script>
-        <script src="xuly_thaotac_hoa.js"></script>
-        <!-- <script src="xuly_loaihoa2.js"></script> -->
-        <script src="xulyhoa.js"></script>
+        <script src="xuly_thaotac.js"></script>
+        <script src="xuly_loaihoa2.js"></script>
         <script src="js/bootbox/bootbox.all.min.js"></script>
         <!-- <script src="common.js"></script> -->
+        <script>
+          $(document).ready(function() {
+            // Xử lý sự kiện click vào phần tử .logout
+            $('.logout').click(function(event) {
+              event.preventDefault();
 
+              // Thiết lập lại cookie 'role' với thời gian sống đã qua đi (ví dụ: thời gian trước đó 1 giây)
+              document.cookie = 'role=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+
+
+              if (confirm("Bạn có chắc chắn muốn đăng xuất không?")) {
+                localStorage.setItem('isLoggedIn', 'false');
+                window.location.href = "../../index.php";
+              }
+            });
+          });
+        </script>
 </body>
 
 </html>

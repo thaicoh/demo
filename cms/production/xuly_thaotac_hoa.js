@@ -27,33 +27,27 @@ $(document).ready(function () {
 
 
     $('.btnThem').click(function (e) {
-        $('#previewImage').attr('src', ``);
         $('.btnThem').prop('disabled', true);
         $('.btnThem').addClass('.disabled_btn')
-        $('#txtmahoa').focus()
-        $('#txtmahoa').val('')
-        $('#txttenhoa').val('')
-        $('#txtgiaban').val('')
-        $('#txtsoluong').val('')
-        $('#txttenhoa').val('')
-        $('#txtmota').val('')
-
+        $('#maknd').focus()
+        $('#maknd').val('')
+        $('#tenknd').val('')
+        $('#qg').val('')
+        $('#lh').val('')
+        $('#mota').val('')
         $('.btnLuu').prop('disabled', false);
         trangThai = 1;
     });
 
     $('.btnTaoLai').click(function (e) {
-        $('#previewImage').attr('src', ``);
         $('.btnThem').prop('disabled', false);
         $('.btnThem').addClass('.disabled_btn')
-        $('#txtmahoa').val('')
-        $('#txtmahoa').focus()
-        $('#txttenhoa').val('')
-        $('.cbloaihoa').val('')
-        $('.cbkhuyenmai').val('')
-        $('#txtgiaban').val('')
-        $('#txtsoluong').val('')
-        $('#txtmota').val('')
+        $('#maknd').val('')
+        $('#maknd').focus()
+        $('#tenknd').val('')
+        $('#qg').val('')
+        $('#lh').val('')
+        $('#mota').val('')
 
         $('.btnLuu').prop('disabled', true);
         trangThai = 0;
@@ -121,13 +115,11 @@ $(document).ready(function () {
             console.log(tenHinhAnh); // In ra tên hình ảnh
             var datasend = {
 
-                mahoa: $("#txtmahoa").val(),
-                tenhoa: $("#txttenhoa").val(),
-                soluong: $("#txtsoluong").val(),
-                gia: $("#txtgiaban").val(),
-                maloaihoa: $(".cbloaihoa").val(), // 
-                makhuyenmai: $(".cbkhuyenmai").val(), // 
-                motahoa: $("#txtmota").val(),
+                maKND: $("#maknd").val(),
+                tenKND: $("#tenknd").val(),
+                moTaKND: $("#mota").val(),
+                maQuocGia: $("#qg").val(),
+                maLoaiHinh: $("#lh").val(),
                 anhloaihoa: tenHinhAnh
             }
             //dữ liệu chuẩn gửi lên server dạng đối tượng
@@ -150,14 +142,13 @@ $(document).ready(function () {
             console.log("chay cap nhat")
             var datasend = {
 
-                maHoa: $("#txtmahoa").val(),
-                tenHoa: $("#txttenhoa").val(),
-                soLuongCon: $("#txtsoluong").val(),
-                giaHoa: $("#txtgiaban").val(),
-                maLoaiHoa: $(".cbloaihoa").val(), // 
-                maKhuyenMai: $(".cbkhuyenmai").val(), // 
-                moTaHoa: $("#txtmota").val(),
-                anhHoa: $('#img').attr("data-anh")
+                maKND: $("#maknd").val(),
+                tenKND: $("#tenknd").val(), 
+                moTaKND: $("#mota").val(),
+                maQuocGia: $("#qg").val(),
+                maLoaiHinh: $("#lh").val(),
+                
+                anhKND: $('#img').attr("data-img")
 
             }
             //dữ liệu chuẩn gửi lên server dạng đối tượng
@@ -179,13 +170,12 @@ $(document).ready(function () {
     })
 
     $('.loadhoa').on('click', '.btn-xoa', function () {
-        var malh = $(this).attr("data-mah");
-        var makm = $(this).attr("data-makm");
-        console.log(malh)
+        var maKND = $(this).attr("data-maknd");
+        console.log(maKND)
         bootbox.confirm('Bạn có chắc muốn xóa?', function (result) {
             if (result == true) {
                 var datasend = {
-                    malh: malh
+                    maknd: maKND.trim()
                 }
                 queryDataPost("../php/delete_hoa.php", datasend, function (res) {
                     console.log(res);
@@ -213,36 +203,30 @@ $(document).ready(function () {
         $('.btnSua').prop('disabled', true);
         $('.btnXoa').prop('disabled', false);
         $('.btnThem').prop('disabled', true);
-        $('#previewImage').attr('src', ``);
 
-        var malh = $(this).attr("data-malh");
-        var tenh = $(this).attr("data-tenh");
-        var mota = $(this).attr("data-mota");
-        var gia = $(this).attr("data-gia");
-        var anh = $(this).attr("data-anh");
-        var mah = $(this).attr("data-mah");
-        var makm = $(this).attr("data-makm");
-        var sl = $(this).attr("data-sl");
+        var maKND = $(this).attr("data-maknd");
+        var tenKND= $(this).attr("data-tenknd");
+        var moTaKND = $(this).attr("data-mota");
+        var maQuocGia = $(this).attr("data-qg");
+        var maLoaiHinh = $(this).attr("data-lh");
 
-        console.log(malh)
-        console.log(tenh)
-        console.log(mota)
-        console.log(mah)
-        console.log(makm)
-        console.log(sl)
-        console.log(`images/${anh}`)
+        var anhKND= $(this).attr("data-img");
 
-        $('#txtmahoa').val(mah)
-        $('#txttenhoa').val(tenh)
-        $('#des').val(mota)
-        $('#txtsoluong').val(sl)
-        $('#txtgiaban').val(gia)
-        $('#des').val(mota)
+        console.log(maKND)
+        console.log(tenKND)
+        console.log(moTaKND)
+        console.log(maQuocGia)
+        console.log(maLoaiHinh)
 
-        $('.cbloaihoa').val(malh)
-        $('.cbkhuyenmai').val(makm)
+        console.log(`images/${anhKND}`)
 
-        $('#previewImage').attr('src', `../../${anh}`);
+        $('#maknd').val(maKND)
+        $('#tenknd').val(tenKND)
+        $('#mota').val(moTaKND)
+        $('#qg').val(maQuocGia)
+        $('#lh').val(maLoaiHinh)
+        
+        $('#img').attr('data-img', `${anhKND}`);
 
         trangThai = 2;
         window.scrollTo({ top: 0, behavior: 'smooth' });

@@ -1,9 +1,9 @@
 <?php
 require_once("server.php");
 
-$maHoa = $_POST["malh"];
+$maKND = $_POST["maknd"];
 
-$sql = "DELETE FROM hoa WHERE MAHOA='" . $maHoa . "'";
+$sql = "DELETE FROM khunghiduong WHERE MAKND='" . $maKND . "'";
 $res = [];
 
 if (mysqli_query($conn, $sql)) {

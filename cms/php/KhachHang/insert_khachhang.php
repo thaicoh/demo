@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $file_name = $_FILES["uploadInput"]["name"];
             $file_tmp = $_FILES["uploadInput"]["tmp_name"];
             $imageFileType = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
-            $target_file = "../AnhKhachHang/" . $maKH . "." . $imageFileType;
+            $target_file = "../../AnhKhachHang/" . $maKH . "." . $imageFileType;
 
             // Di chuyển tệp tin vào thư mục mong muốn
             if (move_uploaded_file($file_tmp, $target_file)) {

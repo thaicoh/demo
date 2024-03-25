@@ -1,4 +1,5 @@
 <?php
+
 require_once("server.php");
 
 $mang = array();
@@ -8,27 +9,30 @@ $search = $_POST['search'];
 $vt = $page * $record;
 $limit = 'LIMIT ' . $vt . ' , ' . $record;
 
-$sql = mysqli_query($conn, "SELECT h.`MAHOA`, h.`TENHOA`, h.`ANHHOA`, h.`MOTAHOA`, h.`GIAHOA`, h.`SOLUONGCON`, h.`MALOAIHOA`, h.`MAKHUYENMAI`, lh.`TENLOAIHOA`, km.`TENKHUYENMAI` 
-                            FROM `hoa` h 
-                            LEFT JOIN `loaihoa` lh ON h.`MALOAIHOA` = lh.`MALOAIHOA`
-                            LEFT JOIN `khuyenmai` km ON h.`MAKHUYENMAI` = km.`MAKHUYENMAI`
-                            WHERE (h.`TENHOA` LIKE '%" . $search . "%' OR h.`MAHOA` LIKE '%" . $search . "%') 
-                            ORDER BY h.`MAHOA` ASC " . $limit);
+// Thực hiện truy vấn kết hợp
+$sql = mysqli_query($conn, "SELECT khunghiduong.MAKND, quocgia.TENQUOCGIA, loaihinh.TENLOAIHINH, khunghiduong.TENKND,khunghiduong.MAQUOCGIA,khunghiduong.MALOAIHINH , khunghiduong.MOTAKND, khunghiduong.DIACHIKND, khunghiduong.ANHKND 
+                            FROM khunghiduong 
+                            INNER JOIN quocgia ON khunghiduong.MAQUOCGIA = quocgia.MAQUOCGIA
+                            INNER JOIN loaihinh ON khunghiduong.MALOAIHINH = loaihinh.MALOAIHINH
+                            WHERE (khunghiduong.TENKND LIKE '%" . $search . "%' OR khunghiduong.MAKND LIKE '%" . $search . "%') 
+                            ORDER BY khunghiduong.MAKND ASC " . $limit);
 
-$rs = mysqli_query($conn, "SELECT COUNT(*) AS 'total' FROM `hoa` WHERE (`TENHOA` LIKE '%" . $search . "%' OR `MAHOA` LIKE '%" . $search . "%')");
+// Đếm tổng số kết quả
+$rs = mysqli_query($conn, "SELECT COUNT(*) AS 'total' FROM khunghiduong  
+                            WHERE (TENKND LIKE '%" . $search . "%' OR MAKND LIKE '%" . $search . "%')");
 
 while ($rows = mysqli_fetch_array($sql)) {
-    $usertemp['MAHOA'] = $rows['MAHOA'];
-    $usertemp['TENHOA'] = $rows['TENHOA'];
-    $usertemp['ANHHOA'] = $rows['ANHHOA'];
-    $usertemp['MOTAHOA'] = $rows['MOTAHOA'];
-    $usertemp['GIAHOA'] = $rows['GIAHOA'];
-    $usertemp['SOLUONGCON'] = $rows['SOLUONGCON'];
-    $usertemp['MALOAIHOA'] = $rows['MALOAIHOA'];
-    $usertemp['MAKHUYENMAI'] = $rows['MAKHUYENMAI'];
-    $usertemp['TENLOAIHOA'] = $rows['TENLOAIHOA'];
-    $usertemp['TENKHUYENMAI'] = $rows['TENKHUYENMAI'];
-    array_push($mang, $usertemp);
+    $kndTemp['MAKND'] = $rows['MAKND'];
+    $kndTemp['TENQUOCGIA'] = $rows['TENQUOCGIA'];
+    $kndTemp['TENLOAIHINH'] = $rows['TENLOAIHINH'];
+    $kndTemp['MAQUOCGIA'] = $rows['MAQUOCGIA'];
+    $kndTemp['MALOAIHINH'] = $rows['MALOAIHINH'];
+    $kndTemp['TENKND'] = $rows['TENKND'];
+    $kndTemp['MOTAKND'] = $rows['MOTAKND'];
+    $kndTemp['DIACHIKND'] = $rows['DIACHIKND'];
+    $kndTemp['ANHKND'] = $rows['ANHKND'];
+
+    array_push($mang, $kndTemp);
 }
 
 $row = mysqli_fetch_array($rs);

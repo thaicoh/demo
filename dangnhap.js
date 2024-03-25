@@ -31,13 +31,12 @@ function DangNhap(gmail, pass) {
             pass: pass
         };
 
-        // Gửi yêu cầu AJAX đến máy chủ
         queryDataPost("php/dangnhap.php", datasend, function (res) {
 
             console.log("res.status", res.status)
             console.log("res.mess", res.message)
 
-            resolve(res.status); // Giải quyết Promise với kết quả từ máy chủ
+            resolve(res.status); // Promise
         });
     })
 }
@@ -74,6 +73,7 @@ function checkNull(listInput) {
     });
     return isNULL;
 }
+
 // kiem tra email 
 function checkEmail(input) {
     const regexE = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,})+$/;
@@ -89,45 +89,7 @@ function checkEmail(input) {
     }
     return isEmailError;
 }
-// // dangnhap 
-// function dangnhap(userName, password, savedUserName, savedPassword) {
 
-//     // Kiểm tra tài khoảng admin
-//     adminUser.forEach(e => {
-//         //console.log(e, "e")
-//         if (userName.value.trim() == e.userName && password.value.trim() == e.password) {
-//             console.log("chao admin")
-//             window.location.href = "cms/production/index.html";
-//             localStorage.setItem('isLoggedIn', 'true');
-//         }
-//     });
-
-//     // Kiểm tra tài khoảng người dùng
-//     Users.forEach(e => {
-//         console.log(e, "e")
-//         if (userName.value.trim() == e.userName && password.value.trim() == e.password) {
-//             console.log("Đăng nhập thành công")
-//             window.location.href = "index.html";
-//             localStorage.setItem('isLoggedIn', 'true');
-//         }
-//     })
-
-//     if (userName.value.trim() !== savedUserName && !localStorage.getItem('isLoggedIn')) {
-//         console.log(userName.value);
-//         console.log(savedUserName);
-//         showError(userName, 'Tên người dùng không tồn tại!');
-//         return false;
-//     } else {
-//         if (password.value.trim() !== savedPassword && !localStorage.getItem('isLoggedIn')) {
-//             showError(password, 'Sai mật khẩu!');
-//             console.log(password.value);
-//             console.log(savedPassword);
-//             return false;
-//         } else {
-//             return true;
-//         }
-//     }
-// }
 
 form_dn.addEventListener('submit', function (e) {
     e.preventDefault();
@@ -154,7 +116,7 @@ form_dn.addEventListener('submit', function (e) {
                         } else if (e == 2) {
                             showSuccess(password_dn);
                             console.log("chao admin")
-                            window.location.href = "cms/production/index.html";
+                            window.location.href = "cms/production/index.php";
                             localStorage.setItem('isLoggedIn', 'true');
                         }
                     })

@@ -1,20 +1,19 @@
 <?php
 require_once("server.php");
 
-$maHoa = $_POST["maHoa"];
-$maLoaiHoa = $_POST["maLoaiHoa"];
-$maKhuyenMai = $_POST["maKhuyenMai"];
-$tenHoa = $_POST["tenHoa"];
-$moTaHoa = $_POST["moTaHoa"];
-$soLuongCon = $_POST["soLuongCon"];
-$giaHoa = $_POST["giaHoa"];
-$anhHoa = $_POST["anhHoa"];
+$maKND = $_POST["maKND"];
+$maQuocGia = $_POST["maQuocGia"];
+$maLoaiHinh = $_POST["maLoaiHinh"];
+$tenKND = $_POST["tenKND"];
+$moTaKND = $_POST["moTaKND"];
+$diaChiKND = $_POST["diaChiKND"];
+$anhKND = $_POST["anhKND"];
 
-$sql = "UPDATE hoa 
-        SET MALOAIHOA = '" . $maLoaiHoa . "', MAKHUYENMAI = '" . $maKhuyenMai . "', 
-            TENHOA = '" . $tenHoa . "',
-            MOTAHOA = '" . $moTaHoa . "', SOLUONGCON = '" . $soLuongCon . "',GIAHOA = '" . $giaHoa . "', ANHHOA = '" . $anhHoa . "' 
-        WHERE MAHOA = '" . $maHoa . "'";
+$sql = "UPDATE khunghiduong 
+        SET MAQUOCGIA = '" . $maQuocGia . "', MALOAIHINH = '" . $maLoaiHinh . "', 
+            TENKND = '" . $tenKND . "',
+            MOTAKND = '" . $moTaKND . "', DIACHIKND = '" . $diaChiKND . "', ANHKND = '" . $anhKND . "' 
+        WHERE MAKND = '" . $maKND . "'";
 
 $response = array();
 
@@ -30,3 +29,4 @@ if (mysqli_query($conn, $sql)) {
 
 echo json_encode($response);
 mysqli_close($conn);
+?>

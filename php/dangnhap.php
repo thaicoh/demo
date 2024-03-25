@@ -18,6 +18,15 @@ if (mysqli_num_rows($result) > 0) {
     $row = mysqli_fetch_assoc($result);
     $res["status"] = ($row["VAITRO"] == 1) ? 2 : 1; // Vaitro = 1 -> status = 2, ngược lại status = 1
     $res["message"] = "Đăng nhập thành công!";
+
+    $role = $row["VAITRO"];
+
+    // Thời gian sống của cookie (ví dụ: 1 giờ)
+    $expires = time() + (10 * 60 * 60); // 1 giờ từ thời điểm hiện tại
+
+    // Lưu biến role vào cookie
+    setcookie('role', $role, $expires, '/');
+
 } else {
     // Email hoặc mật khẩu không đúng
     $res["status"] = 0;

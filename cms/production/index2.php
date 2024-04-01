@@ -15,6 +15,7 @@ header("Pragma: no-cache");
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" href="images/favicon.ico" type="image/ico" />
   <link href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
 
@@ -39,6 +40,8 @@ header("Pragma: no-cache");
 
   <!-- Custom Theme Style -->
   <link href="../build/css/custom.min.css" rel="stylesheet">
+  <!-- Custom Theme Style -->
+
 
   <style>
     #previewContainer {
@@ -56,16 +59,13 @@ header("Pragma: no-cache");
       right: 0;
       width: 30px;
       height: 30px;
-      background-color:beige;
+      background-color: beige;
     }
 
-    #previewImage{
+    #previewImage {
       object-fit: cover;
       width: 100%;
     }
-
-    
-
   </style>
 
 </head>
@@ -103,7 +103,8 @@ header("Pragma: no-cache");
               <ul class="nav side-menu">
                 <li><a><i class="fa fa-home"></i> Trang chủ <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu">
-                    <li><a href="index.html">Resort</a></li>
+                    <li><a href="index.html">Resort<i class="fa fa-eye"></i>
+                        <i class="fa-solid fa-eye-slash hidden"></i></a></li>
                     <li><a href="hoa1.html">Khu nghỉ dưỡng</a></li>
                     <li><a href="index2.html">Khách hàng</a></li>
                     <li><a href="index3.html">Quốc gia</a></li>
@@ -386,7 +387,7 @@ header("Pragma: no-cache");
                       <input type="file" style="padding: 10px;" id="uploadInput" name="uploadInput" accept="image/*">
                       <div>
                         <div id='previewContainer' style="max-width: 50%;">
-                          <img id="previewImage"  style="max-width: 100%;" src="" >
+                          <img id="previewImage" style="max-width: 100%;" src="">
                           <button id="chooseAgainButton" style="display: none;">X</button>
                         </div>
 
@@ -417,6 +418,7 @@ header("Pragma: no-cache");
                           document.getElementById("chooseAgainButton").style.display = "none";
                         });
                       </script>
+                      
                       <div class="ln_solid"></div>
                       <div class="item form-group justify-content-center" style="color: white !important">
                         <div class="col-md-6 col-sm-6 offset-md-3 ">

@@ -29,4 +29,3 @@ if (mysqli_query($conn, $sql)) {
 
 echo json_encode($response);
 mysqli_close($conn);
-?>

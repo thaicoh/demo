@@ -29,7 +29,7 @@ if ($result->num_rows > 0) {
 } else {
     echo "Bang Quoc Gia Khong Co Ket Qua";
 }
-print_r($khunghiduongData);
+//print_r($khunghiduongData);
 
 // Truy vấn dữ liệu từ bảng loaihinh
 $sql2 = "SELECT MALOAIHINH , TENLOAIHINH, MOTALOAIHINH, ANHLOAIHINH, titleloaihinh FROM loaihinh";
@@ -60,7 +60,7 @@ $conn->close();
     <title>
 
     </title>
-    <link href="css/boostrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="css/bootstrap.min.css" />
     <link href="css/bootstrap.css" rel="stylesheet" type="text/css" />
     <link href="sanpham.css" rel="stylesheet" type="text/css" />
     <link href="index.css" rel="stylesheet" type="text/css" />
@@ -213,25 +213,25 @@ $conn->close();
             <div class="khungSelect bg-white  m-0 p-0 ">
                 <label for="countrySelect">Quốc gia:</label>
                 <select class="form-select" id="countrySelect" multiple>
-                    <option value="Vie">Việt Nam</option>
-                    <option value="Thai">Thái Lan</option>
-                    <option value="Cam">Campuchia</option>
-                    <option value="Sin">Singapo</option>
-                    <option value="Lao">Lào</option>
-                    <option value="Mas">Malaysia</option>
-                    <option value="Ind">Indonesia</option>
-                    <option value="Phi">Philippines</option>
-                    <option value="Mya">Myanma</option>
+                    <option value="1">Việt Nam</option>
+                    <option value="2">Malaysia</option>
+                    <option value="3">Indonexia</option>
+                    <option value="4">Lào</option>
+                    <option value="5">Campuchia</option>
+                    <option value="6">Thái Lan</option>
+                    <option value="7">Philippines</option>
+                    <option value="8">Singapo</option>
+                    <option value="9">Myanmar</option>
                 </select> <br>
                 <label for="categorySelect">Loại hình nghỉ dưỡng:</label>
                 <select class="form-select" id="categorySelect" multiple>
-                    <option value="bien">Biển</option>
-                    <option value="trai">Cắm Trại</option>
-                    <option value="tp">Thành Phố</option>
-                    <option value="leHoi">Lễ Hội</option>
-                    <option value="nui">Núi</option>
-                    <option value="villas">Villas</option>
-                    <option value="dao">Đảo</option>
+                    <option value="1">Biển</option>
+                    <option value="5">Cắm Trại</option>
+                    <option value="2">Thành Phố</option>
+                    <option value="6">Lễ Hội</option>
+                    <option value="3">Núi</option>
+                    <option value="4">Villas</option>
+                    <option value="7">Đảo</option>
                 </select>
 
                 <div class="col-12 text-center">
@@ -508,12 +508,6 @@ $conn->close();
                 dots: true,
             });
 
-            // like
-            $('.iconLike').on('click', function() {
-                $(this).toggleClass('fa-regular fa-solid');
-                console.log("chay")
-            });
-
         });
 
         // backToTop
@@ -544,7 +538,7 @@ $conn->close();
         const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
-                    entry.target.play(); // Chạy video khi nó hiển thị trên màn hình
+                    //entry.target.play(); // Chạy video khi nó hiển thị trên màn hình
                 } else {
                     entry.target.pause(); // Tạm dừng video khi nó không hiển thị trên màn hình
                 }
@@ -562,10 +556,8 @@ $conn->close();
     <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <script src="js/common.js"></script>
-    <script src="loc.js"></script>
     <script src="app.js"></script>
-
-
+    <script src="loc.js"></script>
 
     <!-- multiselect trên github  https://github.com/habibmhamadi/multi-select-tag   -->
     <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/js/multi-select-tag.js"></script>

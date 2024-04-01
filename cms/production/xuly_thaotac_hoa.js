@@ -76,15 +76,13 @@ $(document).ready(function () {
         })
     })
 
-    $(".loadhoa").on('click', '.click_khuyenmai', function () {
-        var makhuyenmai = $(this).attr("data-makm");
-        console.log(makhuyenmai)
+    $(".loadhoa").on('click', '.click_quocgia', function () {
+        var maqg = $(this).attr("data-maqg");
+        console.log("maqg: ", maqg)
         var datasend = {
-            makhuyenmai: makhuyenmai
+            maqg: maqg
         }
-        console.log("chay")
-
-        if (makhuyenmai != '') {
+        if (maqg != '') {
             queryDataPost("../php/data_get_khuyenmai.php", datasend, function (res) {
                 console.log("res2", res.items)
 
@@ -147,7 +145,6 @@ $(document).ready(function () {
                 moTaKND: $("#mota").val(),
                 maQuocGia: $("#qg").val(),
                 maLoaiHinh: $("#lh").val(),
-                
                 anhKND: $('#img').attr("data-img")
 
             }

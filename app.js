@@ -1,3 +1,66 @@
+// Lấy tất cả các cookie và chuyển chúng thành một mảng các cặp key-value
+var cookies = document.cookie.split(';');
+
+// Tạo một đối tượng để lưu trữ các cookie
+var cookieObject = {};
+
+// Lặp qua mảng cookie để tách key và value, sau đó lưu vào đối tượng cookieObject
+cookies.forEach(function (cookie) {
+  var parts = cookie.split('=');
+  var key = parts[0].trim();
+  var value = parts[1];
+  cookieObject[key] = value;
+});
+
+// Bây giờ bạn có thể truy cập giá trị của cookie theo key
+var roleCookie = cookieObject['role'];
+console.log(roleCookie); // In ra giá trị của cookie 'role'
+
+function checkCookie(cookieName) {
+  // Tách các cookie thành mảng các cặp key-value
+  var cookies = document.cookie.split(';');
+
+  // Duyệt qua từng cookie để kiểm tra
+  for (var i = 0; i < cookies.length; i++) {
+    var cookie = cookies[i].trim(); // Loại bỏ dấu cách thừa
+    // Kiểm tra xem cookie có bắt đầu bằng cookieName không
+    if (cookie.indexOf(cookieName + '=') === 0) {
+      return true; // Cookie tồn tại
+    }
+  }
+  return false; // Cookie không tồn tại
+}
+
+// Sử dụng hàm checkCookie để kiểm tra
+var cookieExists = checkCookie('id');
+
+if (cookieExists) {
+  console.log('Cookie tồn tại.');
+} else {
+  console.log('Cookie không tồn tại.');
+}
+
+function deleteCookie(cookieName) {
+  document.cookie = cookieName + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+  // Lấy tất cả các cookie và chuyển chúng thành một mảng các cặp key-value
+  var cookies = document.cookie.split(';');
+
+  // Tạo một đối tượng để lưu trữ các cookie
+  var cookieObject = {};
+
+  // Lặp qua mảng cookie để tách key và value, sau đó lưu vào đối tượng cookieObject
+  cookies.forEach(function (cookie) {
+    var parts = cookie.split('=');
+    var key = parts[0].trim();
+    var value = parts[1];
+    cookieObject[key] = value;
+  });
+}
+
+
+
+
+
 // Hàm kiểm tra trạng thái đăng nhập và thực hiện các thay đổi
 function checkLoginStatus() {
   var isLoggedIn = localStorage.getItem('isLoggedIn');
@@ -59,6 +122,9 @@ $(document).ready(function () {
     event.preventDefault();
 
     if (confirm("Bạn có chắc chắn muốn đăng xuất không?")) {
+      // Sử dụng hàm deleteCookie để xóa cookie
+      deleteCookie('id');
+      console.log("đã xóa id")
       localStorage.setItem('isLoggedIn', 'false');
       location.reload();
     }
@@ -123,7 +189,6 @@ if (window.innerWidth < 767) {
 } else {
   endIdex = cong = 3; // Màn hình >= 992px
 }
-
 function show(items, endIdex) {
   if (endIdex < items.length) {
     for (i = 0; i < endIdex; i++) {
@@ -158,7 +223,7 @@ window.addEventListener('scroll', function () {
     backTopButton.classList.remove('show');
   }
 });
-
 function scrollToTop() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
+

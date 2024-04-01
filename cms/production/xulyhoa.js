@@ -153,33 +153,6 @@ function loadHoa(page, record) {
             var i = 1;
             for (var x in arr) {
                 item = arr[x];
-                // let quocgia = ""; // Khởi tạo biến quốc gia
-
-                // // Kiểm tra xem MAQUOCGIA có tồn tại và không rỗng trước khi truy cập
-                // if (item.MAQUOCGIA && item.MAQUOCGIA.length > 0) {
-                //     // Lặp qua mảng quốc gia và ánh xạ mã quốc gia thành tên quốc gia
-                //     for (var i = 0; i < item.MAQUOCGIA.length; i++) {
-                //         quocgia += item.MAQUOCGIA[i] + ": " + item.TENQUOCGIA[i] + ", ";
-                //     }
-                //     // Loại bỏ dấu phẩy cuối cùng
-                //     quocgia = quocgia.slice(0, -2);
-                // } else {
-                //     quocgia = "Không có quốc gia"; // Xử lý trường hợp không có quốc gia
-                // }
-                // let loaihinh = ""; // Khởi tạo biến quốc gia
-
-                // // Kiểm tra xem MAQUOCGIA có tồn tại và không rỗng trước khi truy cập
-                // if (item.MALOAIHINH && item.MALOAIHINH.length > 0) {
-                //     // Lặp qua mảng quốc gia và ánh xạ mã quốc gia thành tên quốc gia
-                //     for (var i = 0; i < item.MALOAIHINH.length; i++) {
-                //         loaihinh += item.MALOAIHINH[i] + ": " + item.TENLOAIHINH[i] + ", ";
-                //     }
-                //     // Loại bỏ dấu phẩy cuối cùng
-                //     loaihinh = loaihinh.slice(0, -2);
-                // } else {
-                //     loaihinh = "Không có quốc gia"; // Xử lý trường hợp không có quốc gia
-                // }
-
                 data = data + `
                     <tr>
                     <th scope="row">${i}</th>
@@ -188,8 +161,8 @@ function loadHoa(page, record) {
                     </td>
                     <td>${item.MAKND}</td>
                     <td>${item.TENKND}</td>
-                    <td data-maknd="${item.MAKND}" >${item.TENQUOCGIA}</td>
-                    <td data-maknd="${item.MAKND}" >${item.TENLOAIHINH}</td>
+                    <td class="click_quocgia" data-maqg="${item.MAQUOCGIA}" >${item.TENQUOCGIA}</td>
+                    <td class="click_loaihinh" data-malh="${item.MALOAIHINH}" >${item.TENLOAIHINH}</td>
                     <td class="d-flex justify-content-between">${item.MOTAKND}
                     <div class="thaotac">
                         <button class="btn-danger btn-sua" data-maknd="${item.MAKND}" data-tenknd="${item.TENKND}" data-mota="${item.MOTAKND}" data-img="${item.ANHKND}" data-qg="${item.MAQUOCGIA}" data-lh="${item.MALOAIHINH}"><i class="fa fa-pencil-square-o mr-1"> </i>Sửa</button>

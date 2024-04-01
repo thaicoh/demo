@@ -77,7 +77,7 @@ $conn->close();
 
 </head>
 
-<body>
+<body class="body">
     <!--Thanh menu  -->
     <div class="container-fluid maunen sticky-top z">
         <nav class="m-0 p-0 navbar navbar-expand-lg navbar-light bg-light maunen">
@@ -620,7 +620,7 @@ $conn->close();
         const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
-                    entry.target.play(); // Chạy video khi nó hiển thị trên màn hình
+                    //entry.target.play(); // Chạy video khi nó hiển thị trên màn hình
                 } else {
                     entry.target.pause(); // Tạm dừng video khi nó không hiển thị trên màn hình
                 }
@@ -630,6 +630,7 @@ $conn->close();
             observer.observe(videoElement);
         });
     </script>
+    
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>

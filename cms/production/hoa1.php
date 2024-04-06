@@ -1,3 +1,8 @@
+<?php
+// Thêm header để vô hiệu hóa cache
+header("Cache-Control: no-cache, no-store, must-revalidate");
+header("Pragma: no-cache");
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -38,6 +43,30 @@
 
   <!-- Custom Theme Style -->
   <link href="../build/css/custom.min.css" rel="stylesheet">
+  <style>
+    #previewContainer {
+      position: relative;
+      display: flex;
+      justify-content: left;
+      padding: 10px;
+      max-height: 400px;
+      outline: none;
+    }
+
+    #chooseAgainButton {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 30px;
+      height: 30px;
+      background-color: beige;
+    }
+
+    #previewImage {
+      object-fit: cover;
+      width: 100%;
+    }
+  </style>
 </head>
 
 <body class="nav-md">
@@ -75,7 +104,7 @@
                   <ul class="nav child_menu">
                     <li><a href="index.php">Resort</a></li>
                     <li><a href="hoa1.html">Khu nghỉ dưỡng</a></li>
-                    <li><a href="index2.php">Khách hàng</a></li>
+                    <li><a href="index2.html">Khách hàng</a></li>
                     <li><a href="index3.html">Quốc gia</a></li>
                     <li><a href="nhacungcap1.html">Loại nghỉ dưỡng</a></li>
                     <li><a href="nhanvien.html">Blog</a></li>
@@ -286,58 +315,71 @@
                   </div>
                   <div class="x_content">
                     <br>
-                    <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left"
-                      novalidate="">
+                    <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate=""
+                      enctype="multipart/form-data">
 
                       <div class="item form-group">
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="maknd">Mã Khu Nghỉ Dưỡng <span
                             class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                          <input type="text" id="maknd" required="required" class="form-control ">
+                          <input type="text" id="maknd"  name="malh"  required="required" class="form-control ">
                         </div>
                       </div>
                       <div class="item form-group">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="tenknd">Tên Khu Nghỉ Dưỡng <span
-                            class="required">*</span>
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="tenknd">Tên Khu Nghỉ Dưỡng
+                          <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 ">
                           <input type="text" id="tenknd" name="last-name" required="required" class="form-control">
                         </div>
                       </div>
                       <div class="item form-group">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="qg">Quốc Gia<span class="required">*</span>
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="diachiknd">Địa Chỉ Khu Nghỉ
+                          Dưỡng
+                          <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                          <select class=" form-control form-select col-md-12 h-100" id="qg" name="sellist1" selected="false">
+                          <input type="text" id="diachiknd" name="last-name" required="required" class="form-control">
+                        </div>
+                      </div>
+                      <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="qg">Quốc Gia<span
+                            class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                          <select class=" form-control form-select col-md-12 h-100" id="qg" name="sellist1"
+                            selected="false">
                             <option disabled="" selected="" value=""> -- Chọn Quốc Gia --
                             </option>
                             <option value="null">Null</option>
                             <option value="0">Khách Thường</option>
                             <option value="1">Khách VIP</option>
                             <option value="2">Khách VVIP</option>
-                    
+
                           </select>
                         </div>
                       </div>
                       <div class="item form-group">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="lh">Loại Hình<span class="required">*</span>
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="lh">Loại Hình<span
+                            class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                          <select class=" form-control form-select col-md-12 h-100" id="lh" name="sellist1" selected="false">
+                          <select class=" form-control form-select col-md-12 h-100" id="lh" name="sellist1"
+                            selected="false">
                             <option disabled="" selected="" value=""> -- Chọn Loại Hình --
                             </option>
                             <option value="null">Null</option>
                             <option value="0">Khách Thường</option>
                             <option value="1">Khách VIP</option>
                             <option value="2">Khách VVIP</option>
-                    
+
                           </select>
                         </div>
                       </div>
                       <div class="item form-group">
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="mota">Mô tả Khu Nghỉ Dưỡng<span
-                            class="required">*</span>
+                            class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-6 ">
                           <!-- <input type="text" id="des" name="des" rows="4" style="height: 100px;" class="form-control"> -->
@@ -345,32 +387,55 @@
                             class="form-control"></textarea>
                         </div>
                       </div>
-                      <div class="item form-group">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="img">Ảnh Khu Nghỉ Dưỡng<span
-                            class="required">*</span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 ">
-                          <input type="file" id="img" data-anh=""></input>
-
-                          <div>
-                            <img src="" alt="">
-                          </div>
+                      <label class="col-form-label col-md-3 col-sm-3 label-align" for="img">Ảnh khách hàng<span
+                          class="required">*</span>
+                      </label>
+                      <input type="file" style="padding: 10px;" id="uploadInput" name="uploadInput" accept="image/*">
+                      <div>
+                        <div id='previewContainer' style="max-width: 50%;">
+                          <img id="previewImage" style="max-width: 100%;" src="">
+                          <button id="chooseAgainButton" style="display: none;">X</button>
                         </div>
+
                       </div>
 
+                      <script>
+                        document.getElementById("uploadInput").addEventListener("change", function (event) {
+                          var input = event.target;
+                          var reader = new FileReader();
+                          reader.onload = function () {
+                            var previewImage = document.getElementById("previewImage");
+                            previewImage.src = reader.result;
+                            document.getElementById("uploadInput").style.display = "none";
+                            document.getElementById("chooseAgainButton").style.display = "inline";
+                            // document.getElementById("deleteImageButton").style.display = "inline";
+                          };
+                          reader.readAsDataURL(input.files[0]);
+                        });
 
+                        document.getElementById("chooseAgainButton").addEventListener("click", function () {
+                          document.getElementById("uploadInput").style.display = "inline";
+
+                          // Đặt lại giá trị của trường input
+                          document.getElementById("uploadInput").value = "";
+                          // Đặt lại ảnh xem trước
+                          document.getElementById("previewImage").src = "";
+                          // Ẩn nút chọn lại và nút xóa ảnh
+                          document.getElementById("chooseAgainButton").style.display = "none";
+                        });
+                      </script>
                       <div class="ln_solid"></div>
                       <div class="item form-group justify-content-center" style="color: white !important">
                         <div class="col-md-6 col-sm-6 offset-md-3 ">
                           <button class="btn btn-danger btnThem" type="button"><i class="fa fa-plus mr-1">
                             </i>Thêm</button>
-                          <button class="btn btn-danger btnXoa" type="reset"><i class="fa fa-trash mr-1"> </i>
+                          <button class="btn btn-danger btnXoa" type="button"><i class="fa fa-trash mr-1"> </i>
                             Xóa</button>
-                          <button class="btn btn-danger btnLuu" type="reset"><i class="fa fa-check mr-1"> </i>
+                          <button class="btn btn-danger btnLuu" type="button"><i class="fa fa-check mr-1"> </i>
                             Lưu</button>
                           <button type="submit" class="btn btn-danger btnSua" style="color: white !important"><i
                               class="fa fa-pencil-square-o mr-1"> </i>Sửa</button>
-                          <button class="btn btn-danger btnTaoLai" type="button"><i class="fa fa-refresh mr-1"> </i>Tạo
+                          <button class="btn btn-danger btnTaoLai" type="reset"><i class="fa fa-refresh mr-1"> </i>Tạo
                             lại</button>
                         </div>
                       </div>
@@ -416,10 +481,11 @@
                           <th>Ảnh KND</th>
                           <th>Mã KND</th>
                           <th>Tên KND</th>
+                          <th>Địa Chỉ KND</th>
                           <th>Quốc Gia</th>
                           <th>Loại Hình KND</th>
                           <th>Mô tả KND</th>
-                          
+
                           <th> </th>
                         </tr>
                       </thead>
@@ -436,7 +502,7 @@
                               <button class="btn-danger"><i class="fa fa-trash mr-1">
                                 </i>Xóa</button>
                             </div>
-                            </td>
+                          </td>
                           </td>
                         </tr>
                         <tr>
@@ -451,7 +517,7 @@
                               <button class="btn-danger"><i class="fa fa-trash mr-1">
                                 </i>Xóa</button>
                             </div>
-                            </td>
+                          </td>
                           </td>
                         </tr>
                         <tr>
@@ -466,189 +532,189 @@
                               <button class="btn-danger"><i class="fa fa-trash mr-1">
                                 </i>Xóa</button>
                             </div>
-                            </td>
-                            </div>
                           </td>
-                        </tr> 
-                      </tbody>
-                    </table>
-
                   </div>
-                </div>
-              </div>
-            </div>
-            <div class="pagenumbernv">
-
-            </div>
-
-            <!-- The Modal -->
-            <div class="modal shownxb" id="myModal">
-              <div class="modal-dialog">
-                <div class="modal-content">
-
-                  <!-- Modal Header -->
-                  <div class="modal-header">
-                    <h4 class="modal-title">Thông tin loại hoa</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  </div>
-
-                  <!-- Modal body -->
-                  <div class="modal-body">
-                    <table class="table">
-                      <tr>
-                        <td>Ảnh loại hoa</td>
-                        <td class="addanhloaihoa">
-
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Mã Loại Hoa</td>
-                        <td class="addmaloaihoa"></td>
-                      </tr>
-                      <tr>
-                        <td>Tên Loại Hoa</td>
-                        <td class="addtenloaihoa"></td>
-                      </tr>
-                      <tr>
-                        <td>Mô tả loại hoa</td>
-                        <td class="addmotaloaihoa"></td>
-                      </tr>
-                      
-
-                    </table>
-                  </div>
-
-                  <!-- Modal footer -->
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-danger btnclosenxb" data-dismiss="modal">Close</button>
-                  </div>
+                  </td>
+                  </tr>
+                  </tbody>
+                  </table>
 
                 </div>
               </div>
             </div>
-
-
-
-            <!-- The Modal -->
-            <div class="modal showkm" id="myModal">
-              <div class="modal-dialog">
-                <div class="modal-content">
-
-                  <!-- Modal Header -->
-                  <div class="modal-header">
-                    <h4 class="modal-title">Thông tin Khuyến mãi</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  </div>
-
-                  <!-- Modal body -->
-                  <div class="modal-body">
-                    <table class="table">
-                      <tr>
-                        <td>Mã khuyến mãi</td>
-                        <td class="addmakm"></td>
-                      </tr>
-                      <tr>
-                        <td>Tên khuyến mãi</td>
-                        <td class="addtenkm"></td>
-                      </tr>
-                      <tr>
-                        <td>Mô tả khuyến mãi</td>
-                        <td class="addmotakm"></td>
-                      </tr>
-                      <tr>
-                        <td>Ngày bắt đầu</td>
-                        <td class="addngaybatdau">
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Ngày kết thúc</td>
-                        <td class="addngayketthuc">
-                        </td>
-                      </tr>
-
-                      <tr>
-                        <td>Tỉ lệ khuyến mãi</td>
-                        <td class="addtile">
-                        </td>
-                      </tr>
-
-
-                    </table>
-                  </div>
-
-                  <!-- Modal footer -->
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-danger btnclosenxb" data-dismiss="modal">Close</button>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-
-
-
-            <!-- footer content -->
-
-
-            <footer class="m-0" style="height: 100px;">
-
-              <div class="clearfix"></div>
-            </footer>
-            <!-- /footer content -->
           </div>
+          <div class="pagenumbernv">
+
+          </div>
+
+          <!-- The Modal -->
+          <div class="modal shownxb" id="myModal">
+            <div class="modal-dialog">
+              <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <h4 class="modal-title">Thông tin loại hoa</h4>
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                  <table class="table">
+                    <tr>
+                      <td>Ảnh loại hoa</td>
+                      <td class="addanhloaihoa">
+
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Mã Loại Hoa</td>
+                      <td class="addmaloaihoa"></td>
+                    </tr>
+                    <tr>
+                      <td>Tên Loại Hoa</td>
+                      <td class="addtenloaihoa"></td>
+                    </tr>
+                    <tr>
+                      <td>Mô tả loại hoa</td>
+                      <td class="addmotaloaihoa"></td>
+                    </tr>
+
+
+                  </table>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-danger btnclosenxb" data-dismiss="modal">Close</button>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+
+
+          <!-- The Modal -->
+          <div class="modal showkm" id="myModal">
+            <div class="modal-dialog">
+              <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <h4 class="modal-title">Thông tin Khuyến mãi</h4>
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                  <table class="table">
+                    <tr>
+                      <td>Mã khuyến mãi</td>
+                      <td class="addmakm"></td>
+                    </tr>
+                    <tr>
+                      <td>Tên khuyến mãi</td>
+                      <td class="addtenkm"></td>
+                    </tr>
+                    <tr>
+                      <td>Mô tả khuyến mãi</td>
+                      <td class="addmotakm"></td>
+                    </tr>
+                    <tr>
+                      <td>Ngày bắt đầu</td>
+                      <td class="addngaybatdau">
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Ngày kết thúc</td>
+                      <td class="addngayketthuc">
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>Tỉ lệ khuyến mãi</td>
+                      <td class="addtile">
+                      </td>
+                    </tr>
+
+
+                  </table>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-danger btnclosenxb" data-dismiss="modal">Close</button>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+
+
+          <!-- footer content -->
+
+
+          <footer class="m-0" style="height: 100px;">
+
+            <div class="clearfix"></div>
+          </footer>
+          <!-- /footer content -->
         </div>
-        <script>
-          //selectedFile = document.getElementById("input").files[0];
-        </script>
+      </div>
+      <script>
+        //selectedFile = document.getElementById("input").files[0];
+      </script>
 
-        <!-- jQuery -->
-        <script src="../vendors/jquery/dist/jquery.min.js"></script>
-        <!-- Bootstrap -->
-        <script src="../vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- FastClick -->
-        <script src="../vendors/fastclick/lib/fastclick.js"></script>
-        <!-- NProgress -->
-        <script src="../vendors/nprogress/nprogress.js"></script>
-        <!-- Chart.js -->
-        <script src="../vendors/Chart.js/dist/Chart.min.js"></script>
-        <!-- gauge.js -->
-        <script src="../vendors/gauge.js/dist/gauge.min.js"></script>
-        <!-- bootstrap-progressbar -->
-        <script src="../vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
-        <!-- iCheck -->
-        <script src="../vendors/iCheck/icheck.min.js"></script>
-        <!-- Skycons -->
-        <script src="../vendors/skycons/skycons.js"></script>
-        <!-- Flot -->
-        <script src="../vendors/Flot/jquery.flot.js"></script>
-        <script src="../vendors/Flot/jquery.flot.pie.js"></script>
-        <script src="../vendors/Flot/jquery.flot.time.js"></script>
-        <script src="../vendors/Flot/jquery.flot.stack.js"></script>
-        <script src="../vendors/Flot/jquery.flot.resize.js"></script>
-        <!-- Flot plugins -->
-        <script src="../vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script>
-        <script src="../vendors/flot-spline/js/jquery.flot.spline.min.js"></script>
-        <script src="../vendors/flot.curvedlines/curvedLines.js"></script>
-        <!-- DateJS -->
-        <script src="../vendors/DateJS/build/date.js"></script>
-        <!-- JQVMap -->
-        <script src="../vendors/jqvmap/dist/jquery.vmap.js"></script>
-        <script src="../vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
-        <script src="../vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
-        <!-- bootstrap-daterangepicker -->
-        <script src="../vendors/moment/min/moment.min.js"></script>
-        <script src="../vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
-        <script src="jQuery-Mask-Plugin-master/jQuery-Mask-Plugin-master/dist/jquery.mask.min.js"></script>
+      <!-- jQuery -->
+      <script src="../vendors/jquery/dist/jquery.min.js"></script>
+      <!-- Bootstrap -->
+      <script src="../vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+      <!-- FastClick -->
+      <script src="../vendors/fastclick/lib/fastclick.js"></script>
+      <!-- NProgress -->
+      <script src="../vendors/nprogress/nprogress.js"></script>
+      <!-- Chart.js -->
+      <script src="../vendors/Chart.js/dist/Chart.min.js"></script>
+      <!-- gauge.js -->
+      <script src="../vendors/gauge.js/dist/gauge.min.js"></script>
+      <!-- bootstrap-progressbar -->
+      <script src="../vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+      <!-- iCheck -->
+      <script src="../vendors/iCheck/icheck.min.js"></script>
+      <!-- Skycons -->
+      <script src="../vendors/skycons/skycons.js"></script>
+      <!-- Flot -->
+      <script src="../vendors/Flot/jquery.flot.js"></script>
+      <script src="../vendors/Flot/jquery.flot.pie.js"></script>
+      <script src="../vendors/Flot/jquery.flot.time.js"></script>
+      <script src="../vendors/Flot/jquery.flot.stack.js"></script>
+      <script src="../vendors/Flot/jquery.flot.resize.js"></script>
+      <!-- Flot plugins -->
+      <script src="../vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script>
+      <script src="../vendors/flot-spline/js/jquery.flot.spline.min.js"></script>
+      <script src="../vendors/flot.curvedlines/curvedLines.js"></script>
+      <!-- DateJS -->
+      <script src="../vendors/DateJS/build/date.js"></script>
+      <!-- JQVMap -->
+      <script src="../vendors/jqvmap/dist/jquery.vmap.js"></script>
+      <script src="../vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+      <script src="../vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
+      <!-- bootstrap-daterangepicker -->
+      <script src="../vendors/moment/min/moment.min.js"></script>
+      <script src="../vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+      <script src="jQuery-Mask-Plugin-master/jQuery-Mask-Plugin-master/dist/jquery.mask.min.js"></script>
 
-        <!-- Custom Theme Scripts -->
-        <script src="../build/js/custom.min.js"></script>
-        <!-- <script src="../js/jquery-3.7.1.min.js"></script> -->
-        <script src="../js/common.js"></script>
-        <script src="xuly_thaotac_hoa.js"></script>
-        <!-- <script src="xuly_loaihoa2.js"></script> -->
-        <script src="xulyhoa.js"></script>
-        <script src="js/bootbox/bootbox.all.min.js"></script>
-        <!-- <script src="common.js"></script> -->
+      <!-- Custom Theme Scripts -->
+      <script src="../build/js/custom.min.js"></script>
+      <!-- <script src="../js/jquery-3.7.1.min.js"></script> -->
+      <script src="../js/common.js"></script>
+      <script src="xuly_thaotac_hoa.js"></script>
+      <!-- <script src="xuly_loaihoa2.js"></script> -->
+      <script src="xulyhoa.js"></script>
+      <script src="js/bootbox/bootbox.all.min.js"></script>
+      <!-- <script src="common.js"></script> -->
 
 </body>
 

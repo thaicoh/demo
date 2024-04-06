@@ -56,14 +56,35 @@ if (isset($_COOKIE['role'])) {
   <!-- Custom Theme Style -->
   <link href="../build/css/custom.min.css" rel="stylesheet">
   <style>
-    /* Thiết lập kích thước cột địa chỉ */
-    /* .table td:nth-child(5),
-    .table th:nth-child(5) {
-        width: 80%;
-        max-width: 80%;
-    } */
+    #previewContainer {
+      position: relative;
+      display: flex;
+      justify-content: left;
+      padding: 10px;
+      max-height: 400px;
+      outline: none;
+    }
+
+    #chooseAgainButton {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 30px;
+      height: 30px;
+      background-color: beige;
+    }
+
+    #previewImage {
+      object-fit: cover;
+      width: 100%;
+    }
   </style>
 </head>
+<!-- <div id="reviewIMG">
+  <div>
+    <img src="">
+  </div>
+</div> -->
 
 <body class="nav-md">
   <div class="container body">
@@ -98,10 +119,10 @@ if (isset($_COOKIE['role'])) {
                 <li><a><i class="fa fa-home"></i> Trang chủ <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu">
                     <li><a href="index.php">Resort</a></li>
-                    <li><a href="hoa1.html">Khu nghỉ dưỡng</a></li>
+                    <li><a href="hoa1.php">Khu nghỉ dưỡng</a></li>
                     <li><a href="index2.php">Khách hàng</a></li>
-                    <li><a href="index3.html">Quốc gia</a></li>
-                    <li><a href="nhacungcap1.html">Loại nghỉ dưỡng</a></li>
+                    <li><a href="quocgia.php">Quốc gia</a></li>
+                    <li><a href="nhacungcap1.php">Loại nghỉ dưỡng</a></li>
                     <li><a href="nhanvien.html">Đặt Phòng</a></li>
                     <li><a href="khuyenmai.html">Khuyến mãi</a></li>
                     <!-- <li><a href="khachhang.html"></a></li> -->
@@ -287,7 +308,7 @@ if (isset($_COOKIE['role'])) {
               <div class="col-md-12 col-sm-12 ">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Cập Nhật Loại Hoa<small></small></h2>
+                    <h2>Cập Nhập Resort<small></small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -313,14 +334,26 @@ if (isset($_COOKIE['role'])) {
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="malh">Mã resort<span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                          <input type="text" id="malh" required="required" class="form-control ">
+                          <input type="text" id="mar" name="malh" required="required" class="form-control ">
                         </div>
                       </div>
                       <div class="item form-group">
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="tenlh">Tên resort<span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                          <input type="text" id="tenlh" name="last-name" required="required" class="form-control">
+                          <input type="text" id="tenr" name="last-name" required="required" class="form-control">
+                        </div>
+                      </div>
+                      <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="tenlh">Khu nghỉ dưỡng<span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                          <select class=" form-control form-select col-md-12 h-100" id="knd" name="sellist1" selected="false">
+                            <option disabled="" selected="" value=""> -- chọn khu nghỉ dưỡng --
+                            </option>
+                            <option value="0">Nhỏ</option>
+                            <option value="1">Lớn</option>
+                          </select>
                         </div>
                       </div>
                       <div class="item form-group">
@@ -328,31 +361,38 @@ if (isset($_COOKIE['role'])) {
                         </label>
                         <div class="col-md-6 col-sm-6 ml-3">
                           <div class="soluong-control">
-                            <button class="soluong-minus">-</button>
-                            <span class="soluong-value">2</span>
-                            <button class="soluong-plus">+</button>
+                            <button class="soluong-minus" type="button" onclick="decreaseValue()">-</button>
+                            <span class="soluong-value slp" id="soluong-value">1</span>
+                            <button class="soluong-plus" type="button" onclick="increaseValue()">+</button>
                           </div>
+                        </div>
+                      </div>
+                      <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="tenlh">Diện tích<span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                          <input type="text" id="dientich" name="last-name" required="required" class="form-control">
                         </div>
                       </div>
                       <div class="item form-group">
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="tenlh">Sức chứa<span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                          <input type="text" id="tenlh" name="last-name" required="required" class="form-control">
+                          <input type="text" id="succhua" name="last-name" required="required" class="form-control">
                         </div>
                       </div>
                       <div class="item form-group">
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="tenlh">Địa chỉ<span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                          <input type="text" id="tenlh" name="last-name" required="required" class="form-control">
+                          <input type="text" id="diachi" name="last-name" required="required" class="form-control">
                         </div>
                       </div>
                       <div class="item form-group">
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="tenlh">Giá trên đêm<span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                          <input type="text" id="tenlh" name="last-name" required="required" class="form-control">
+                          <input type="text" id="gtd" name="last-name" required="required" class="form-control">
                         </div>
                       </div>
                       <div class="item form-group">
@@ -360,22 +400,55 @@ if (isset($_COOKIE['role'])) {
                         </label>
                         <div class="col-md-6 col-sm-6 ml-3">
                           <div class="soluong-control">
-                            <button class="soluong-minus">-</button>
-                            <span class="soluong-value">2</span>
-                            <button class="soluong-plus">+</button>
+                            <button class="soluong-minus" type="button" onclick="decreaseValue()">-</button>
+                            <span class="soluong-value slg" id="soluong-value">1</span>
+                            <button class="soluong-plus" type="button" onclick="increaseValue()">+</button>
+
                           </div>
                         </div>
                       </div>
+                      <script>
+                        // Lấy ra tất cả các phần tử cần thao tác
+                        var soluongValues = document.querySelectorAll('.soluong-value');
+                        var soluongMinuses = document.querySelectorAll('.soluong-minus');
+                        var soluongPluses = document.querySelectorAll('.soluong-plus');
+
+                        // Định nghĩa hàm tăng giá trị
+                        function increaseValue() {
+                          var value = parseInt(this.parentNode.querySelector('.soluong-value').textContent, 10);
+                          value = isNaN(value) ? 1 : value;
+                          value++;
+                          this.parentNode.querySelector('.soluong-value').textContent = value;
+                        }
+
+                        // Định nghĩa hàm giảm giá trị
+                        function decreaseValue() {
+                          var value = parseInt(this.parentNode.querySelector('.soluong-value').textContent, 10);
+                          value = isNaN(value) ? 1 : value;
+                          value--;
+                          value = value < 1 ? 1 : value;
+                          this.parentNode.querySelector('.soluong-value').textContent = value;
+                        }
+
+                        // Gắn sự kiện cho tất cả nút "+"
+                        soluongPluses.forEach(function(button) {
+                          button.addEventListener('click', increaseValue);
+                        });
+
+                        // Gắn sự kiện cho tất cả nút "-"
+                        soluongMinuses.forEach(function(button) {
+                          button.addEventListener('click', decreaseValue);
+                        });
+                      </script>
                       <div class="item form-group">
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="tenlh">Loại giường<span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                          <select class=" form-control form-select col-md-12 h-100" id="gt" name="sellist1" selected="false">
+                          <select class=" form-control form-select col-md-12 h-100" id="lg" name="sellist1" selected="false">
                             <option disabled="" selected="" value=""> -- chọn loại giường --
                             </option>
-                            <option value="1">Nhỏ</option>
-                            <option value="0">Trung bình</option>
-                            <option value="2">Lớn</option>
+                            <option value="0">Nhỏ</option>
+                            <option value="1">Lớn</option>
                           </select>
                         </div>
                       </div>
@@ -384,31 +457,57 @@ if (isset($_COOKIE['role'])) {
                         </label>
                         <div class="col-md-6 col-sm-6 ">
                           <!-- <input type="text" id="des" name="des" rows="4" style="height: 100px;" class="form-control"> -->
-                          <textarea type="text" id="des" name="des" rows="10" style="height: 150px;" class="form-control"></textarea>
+                          <textarea type="text" id="mtr" name="des" rows="10" style="height: 150px;" class="form-control"></textarea>
                         </div>
                       </div>
-                      <div class="item form-group">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="img">Ảnh resort <span class="required">*</span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 ">
-                          <input type="file" id="img" data-anh=""></input>
+                      <label class="col-form-label col-md-3 col-sm-3 label-align" for="img">Ảnh khách hàng<span class="required">*</span>
+                      </label>
+                      <input type="file" style="padding: 10px;" id="uploadInput" name="uploadInput" accept="image/*">
+                      <div>
+                        <div id='previewContainer' style="max-width: 50%;">
+                          <img id="previewImage" style="max-width: 100%;" src="">
+                          <button id="chooseAgainButton" style="display: none;">X</button>
+                        </div>
 
-                          <div>
-                            <img src="" alt="">
-                          </div>
-                        </div>
                       </div>
+
+                      <script>
+                        document.getElementById("uploadInput").addEventListener("change", function(event) {
+                          var input = event.target;
+                          var reader = new FileReader();
+                          reader.onload = function() {
+                            var previewImage = document.getElementById("previewImage");
+                            previewImage.src = reader.result;
+                            document.getElementById("uploadInput").style.display = "none";
+                            document.getElementById("chooseAgainButton").style.display = "inline";
+                            // document.getElementById("deleteImageButton").style.display = "inline";
+                          };
+                          reader.readAsDataURL(input.files[0]);
+                        });
+
+                        document.getElementById("chooseAgainButton").addEventListener("click", function() {
+                          document.getElementById("uploadInput").style.display = "inline";
+
+                          // Đặt lại giá trị của trường input
+                          document.getElementById("uploadInput").value = "";
+                          // Đặt lại ảnh xem trước
+                          document.getElementById("previewImage").src = "";
+                          // Ẩn nút chọn lại và nút xóa ảnh
+                          document.getElementById("chooseAgainButton").style.display = "none";
+                        });
+                      </script>
+                      
                       <div class="ln_solid"></div>
                       <div class="item form-group justify-content-center" style="color: white !important">
                         <div class="col-md-6 col-sm-6 offset-md-3 ">
                           <button class="btn btn-danger btnThem" type="button"><i class="fa fa-plus mr-1">
                             </i>Thêm</button>
-                          <button class="btn btn-danger btnXoa" type="reset"><i class="fa fa-trash mr-1"> </i>
+                          <button class="btn btn-danger btnXoa" type="button"><i class="fa fa-trash mr-1"> </i>
                             Xóa</button>
-                          <button class="btn btn-danger btnLuu" type="reset"><i class="fa fa-check mr-1"> </i>
+                          <button class="btn btn-danger btnLuu" type="button"><i class="fa fa-check mr-1"> </i>
                             Lưu</button>
                           <button type="submit" class="btn btn-danger btnSua" style="color: white !important"><i class="fa fa-pencil-square-o mr-1"> </i>Sửa</button>
-                          <button class="btn btn-danger btnTaoLai" type="button"><i class="fa fa-refresh mr-1"> </i>Tạo
+                          <button class="btn btn-danger btnTaoLai" type="reset"><i class="fa fa-refresh mr-1"> </i>Tạo
                             lại</button>
                         </div>
                       </div>
@@ -427,7 +526,7 @@ if (isset($_COOKIE['role'])) {
               <div class="col-md-12 col-sm-6  ">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Danh sách loại hoa <small></small></h2>
+                    <h2>Danh sách resort <small></small></h2>
 
 
                     <input type="text" class="form-control" id="inp-search" placeholder="Tìm kiếm...">
@@ -454,12 +553,19 @@ if (isset($_COOKIE['role'])) {
                         <tr>
                           <th>#</th>
                           <th></th>
-                          <th>Mã loại hoa</th>
-                          <th>Tên loại hoa</th>
-                          <th>Mô tả</th>
+                          <th>Mã resort</th>
+                          <th>Tên resort</th>
+                          <th>KND</th>
+                          <th>Số lượng phòng</th>
+                          <th>Diện tích</th>
+                          <th>Sức chứa</th>
+                          <th>Địa chỉ</th>
+                          <th>Giá trên đêm</th>
+                          <th>Số lượng giường</th>
+                          <th>Loại giường</th>
                         </tr>
                       </thead>
-                      <tbody class="load_LoaiHoa">
+                      <tbody class="loadhoa">
 
                       </tbody>
                     </table>
@@ -528,8 +634,8 @@ if (isset($_COOKIE['role'])) {
         <script src="../build/js/custom.min.js"></script>
         <!-- <script src="../js/jquery-3.7.1.min.js"></script> -->
         <script src="../js/common.js"></script>
-        <script src="xuly_thaotac.js"></script>
-        <script src="xuly_loaihoa2.js"></script>
+        <script src="xuly_thaotac_resort.js"></script>
+        <script src="xuly_resort.js"></script>
         <script src="js/bootbox/bootbox.all.min.js"></script>
         <!-- <script src="common.js"></script> -->
         <script>

@@ -65,7 +65,7 @@ function loadCbLoaiHoa() {
     var datasend = {
     }
     //ajax
-    queryDataGet("../php/data_get_cb_loaihoa.php", datasend, function (res) {
+    queryDataGet("../php/KND/data_get_cb_loaihoa.php", datasend, function (res) {
         console.log(res)
         var arr = res.items;
         var options = '<option disabled selected value> -- chọn loại hoa -- </option>';
@@ -86,7 +86,7 @@ function loadCbKhuyenMai() {
     var datasend = {
     }
     //ajax
-    queryDataGet("../php/data_get_cb_khuyenmai.php", datasend, function (res) {
+    queryDataGet("../php/KND/data_get_cb_khuyenmai.php", datasend, function (res) {
         console.log("res cb qg", res)
         var arr = res.items;
         var options = `
@@ -102,7 +102,7 @@ function loadCbKhuyenMai() {
         console.log(options)
         $("#qg").html(options);
     })
-    queryDataGet("../php/data_get_cb_khuyenmai2.php", datasend, function (res) {
+    queryDataGet("../php/KND/data_get_cb_khuyenmai2.php", datasend, function (res) {
         console.log("res cb lh", res)
         var arr = res.items;
         var options = `
@@ -137,7 +137,7 @@ function loadHoa(page, record) {
     $(".load_LoaiHoa").html('<img class="loading-gif"src="images/g0R5.gif" /><b><i>Đang tải dữ liệu</i></b>');
 
 
-    queryDataPost("../php/data_get_hoa_vao_bang.php", datasend, function (res) {
+    queryDataPost("../php/KND/data_get_hoa_vao_bang.php", datasend, function (res) {
         console.log("chay load data vao bang")
         console.log("res", res)
         var stt = 1;
@@ -157,15 +157,16 @@ function loadHoa(page, record) {
                     <tr>
                     <th scope="row">${i}</th>
                     <td>
-                    <div><img src="../../${item.ANHKND}" alt="Lamp" width="40" height="28"></div>
+                    <div><img src="../${item.ANHKND}" alt="Lamp" width="40" height="28"></div>
                     </td>
                     <td>${item.MAKND}</td>
                     <td>${item.TENKND}</td>
+                    <td>${item.DIACHIKND}</td>
                     <td class="click_quocgia" data-maqg="${item.MAQUOCGIA}" >${item.TENQUOCGIA}</td>
                     <td class="click_loaihinh" data-malh="${item.MALOAIHINH}" >${item.TENLOAIHINH}</td>
                     <td class="d-flex justify-content-between">${item.MOTAKND}
                     <div class="thaotac">
-                        <button class="btn-danger btn-sua" data-maknd="${item.MAKND}" data-tenknd="${item.TENKND}" data-mota="${item.MOTAKND}" data-img="${item.ANHKND}" data-qg="${item.MAQUOCGIA}" data-lh="${item.MALOAIHINH}"><i class="fa fa-pencil-square-o mr-1"> </i>Sửa</button>
+                        <button class="btn-danger btn-sua" data-maknd="${item.MAKND}" data-tenknd="${item.TENKND}" data-diachiknd="${item.DIACHIKND}" data-mota="${item.MOTAKND}" data-anh="${item.ANHKND}" data-qg="${item.MAQUOCGIA}" data-lh="${item.MALOAIHINH}"><i class="fa fa-pencil-square-o mr-1"> </i>Sửa</button>
                         <button class="btn-danger btn-xoa" data-maknd="${item.MAKND}"><i class="fa fa-trash mr-1"> </i>Xóa</button>
                     </div>
                     </td> 

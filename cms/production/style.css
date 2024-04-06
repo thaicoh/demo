@@ -11,9 +11,7 @@ tr .thaotac {
 
 }
 
-.upload tr td {
-    
-}
+.upload tr td {}
 
 .btn .disabled_btn {
     background-color: #e0e0e0 !important;
@@ -28,28 +26,37 @@ tr .thaotac {
     height: 30px;
 
 }
-.pagenumbernv{
+
+.pagenumbernv {
     display: flex;
     justify-content: center;
 }
 
-.click_loaihoa{
+.click_loaihoa {
     cursor: pointer;
 }
 
-.click_loaihoa:hover{
+.click_loaihoa:hover {
     background-color: rgb(179, 213, 243) !important;
 }
 
-.click_khuyenmai{
+.click_khuyenmai {
     cursor: pointer;
 }
 
-.click_khuyenmai:hover{
+.click_khuyenmai:hover {
     background-color: rgb(179, 213, 243) !important;
 }
 
-#sel2{
+#sel2 {
     width: 100% !important;
 }
 
+#reviewIMG {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: #636363;
+    z-index: 999999;
+    opacity: 70%;
+}

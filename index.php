@@ -44,7 +44,7 @@ if ($result2->num_rows > 0) {
 }
 //print_r($loaihinhData);
 
-// Đóng kết nối
+// Đóng kết nốiz
 $conn->close();
 ?>
 
@@ -74,7 +74,15 @@ $conn->close();
     <!-- select 2 -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <style>
+        .diaDiemNoiBat img{
+            height: 450px;
+        }
 
+        .card.quocgia img{
+            height: 550px !important;
+        }
+    </style>
 </head>
 
 <body class="body">
@@ -125,10 +133,10 @@ $conn->close();
                                 <h3>Resort DNA<br /><span>Website Designer</span></h3>
                                 <ul>
                                     <li>
-                                        <img src="./assets/icons/user.png" /><a href="#">Tài khoảng của tôi</a>
+                                        <img src="./assets/icons/user.png" /><a href="trangcanhan.php">Tài khoảng của tôi</a>
                                     </li>
                                     <li>
-                                        <img src="./assets/icons/history.png" /><a href="lichsu.html">Lịch sử</a>
+                                        <img src="./assets/icons/history.png" /><a href="lichsu.php">Lịch sử</a>
                                     </li>
                                     <li><img src="./assets/icons/png-save.png" /><a href="#">Đã lưu</a></li>
                                     <li>
@@ -203,7 +211,7 @@ $conn->close();
 
             <div class="card quocgia col-lg-4 col-6 text-left maunen">
                 <a href="sanpham-VN.html">
-                    <img src="<?php echo $quocgia['ANHQUOCGIA']; ?>" alt="">
+                    <img src="<?php echo 'cms/' . $quocgia['ANHQUOCGIA']; ?>" alt="">
                     <h2><?php echo $quocgia['TENQUOCGIA']; ?></h2>
                 </a>
                 <div class="info-card">
@@ -319,7 +327,7 @@ $conn->close();
         <?php foreach ($loaihinhData as $loaihinh) : ?>
 
             <div class="diaDiemNoiBat-item m-0 p-0 text-center">
-                <img src="<?php echo $loaihinh['ANHLOAIHINH']; ?>" alt="">
+                <img src="<?php echo "cms/" . $loaihinh['ANHLOAIHINH']; ?>" alt="">
                 <p class="subtitle"><?php echo $loaihinh['TENLOAIHINH']; ?></p>
                 <h3 class="heading-h"><?php echo $loaihinh['titleloaihinh']; ?></h3>
                 <div class="info-card"><?php echo $loaihinh['MOTALOAIHINH']; ?></div>
@@ -334,7 +342,7 @@ $conn->close();
             <div class="info-card">
                 Bất động sản trên khắp Indonesia, Lào, Việt Nam,.. và trên hòn đảo xa xôi của Philippines, mang đến cho
                 du khách một góc nhìn mới về cảnh quan đa dạng.</div>
-        </div> -->   
+        </div> -->
         <!-- <div class="diaDiemNoiBat-item m-0 p-0 text-center">
             <img src="loaihinh/tp.jpg" alt="">
             <p class="subtitle">thành phố</p>
@@ -630,7 +638,7 @@ $conn->close();
             observer.observe(videoElement);
         });
     </script>
-    
+
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>

@@ -1,3 +1,7 @@
+#list img{
+    height: 600px !important;
+}   
+
 body {
     line-height: 1.45;
     color: #313131;

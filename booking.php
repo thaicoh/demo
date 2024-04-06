@@ -12,7 +12,6 @@ if (!$conn) {
 mysqli_set_charset($conn, "UTF8");
 
 if (isset($_COOKIE['role'])) {
-
 } else {
     // Nếu cookie 'role' không tồn tại, chuyển hướng đến trang khác
     header('Location: dangnhap.html');
@@ -78,6 +77,7 @@ if (isset($_GET['idknd'])) {
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
     <!-- select 2 -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 
     <!-- Date picker -->
@@ -154,10 +154,10 @@ if (isset($_GET['idknd'])) {
             margin-bottom: 15px;
         }
 
-        ul {
+        /* ul {
             list-style: none !important;
             display: flex;
-        }
+        } */
 
         .offset-lg-3 li {
             padding: 20px;
@@ -236,6 +236,13 @@ if (isset($_GET['idknd'])) {
 
         }
 
+        .thongtinluutru p {
+            margin-bottom: 10px !important;
+            width: 100%;
+            /* Đặt khoảng cách dưới cho các phần tử <p> */
+        }
+
+
         .btn-timphong p {
             margin: 0;
             margin-left: 10px;
@@ -292,8 +299,10 @@ if (isset($_GET['idknd'])) {
             font-size: 16px;
             position: absolute;
             top: 0;
-            width: 85% !important;
-            height: 300px;
+            left: 50%;
+            /* Di chuyển đến phía trái giữa */
+            transform: translateX(-50%);
+            height: fit-content;
             border: 2px solid rgb(104, 104, 104);
             padding: 25px;
             opacity: 1;
@@ -335,6 +344,20 @@ if (isset($_GET['idknd'])) {
 
         .soluong-value {
             margin: 0 10px;
+        }
+
+        .btn-xacnhan {
+            display: none;
+            background-color: rgb(36, 36, 36);
+            color: #fcfcfc;
+
+        }
+
+        .xacnhan {
+            position: absolute;
+            top: 320px;
+            left: 50%;
+            transform: translateX(-50%);
         }
 
 
@@ -639,7 +662,7 @@ if (isset($_GET['idknd'])) {
                                     <h4><?php echo $resort['GIATRENDEM'] ?> US$</h4>
                                     <p>Mỗi đêm</p>
                                     <p>Không tính thuế và phí</p>
-                                    <div class="btn">
+                                    <div class="btn btn-datphong" data-maresort="<?php echo $resort['MARESORT'] ?>">
                                         Đặt ngay
                                     </div>
                                 </div>
@@ -868,8 +891,16 @@ if (isset($_GET['idknd'])) {
                         <h4>0.00 US$</h4>
                     </div>
                 </div>
+
             </div>
+            <div class="d-flex col-md-12 justify-content-center mt-4 xacnhan">
+                <div class="btn btn-xacnhan ">
+                    Xác nhận
+                </div>
+            </div>
+
         </div>
+
     </div>
 
 
@@ -1054,7 +1085,6 @@ if (isset($_GET['idknd'])) {
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-    <script src="app.js"></script>
 
     <!-- datetime picker -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
@@ -1065,8 +1095,11 @@ if (isset($_GET['idknd'])) {
         $(function() {
             var disabledDates = [];
             var today = moment(); // Lấy ngày hôm nay
+            var tomorrow = moment().add(1, 'day'); // Lấy ngày mai
 
             $('#daterange').daterangepicker({
+                startDate: today,
+                endDate: tomorrow,
                 isInvalidDate: function(date) {
                     // Kiểm tra xem ngày có trong disabledDates không
                     return date.isBefore(today, 'day');

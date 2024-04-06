@@ -348,20 +348,20 @@ function showProduct(productsFilter, endIndex) {
     // tạo div
     let newItem = document.createElement('div');
     newItem.classList.add('card', 'col-lg-4', 'col-6', 'text-left', 'maunen');
-    let classHeart = 'fa-regular fa-heart iconLike pt-1';
+    let classHeart = 'fa-regular fa-heart iconLike';
 
     listLike.forEach((e) => {
       if (e.MAKND === item.MAKND && item.MAKND) {
-        classHeart = 'fa-heart iconLike pt-1 fa-solid';
+        classHeart = 'fa-heart iconLike fa-solid';
       }
     })
 
     newItem.innerHTML = ` 
-                            <a href="chitietkhunghiduong.php?idknd=${item.MAKND}"><img src="${item.ANHKND}">
+                            <a href="chitietkhunghiduong.php?idknd=${item.MAKND}"><img src="cms/${item.ANHKND}">
                             <p>${item.DIACHIKND}</p>
                             <h3>${item.TENKND}</h3>
                             </a>
-                            <div>${item.MOTAKND}</div>
+                            <div style="height: 70px;" >${item.MOTAKND}</div>
                             <div class="d-flex justify-content-between">
                               <a href="chitietkhunghiduong.php?idknd=${item.MAKND}" class="xemThem">xem thêm</a>
                               <i class="${classHeart}" data-maknd="${item.MAKND}" ></i>

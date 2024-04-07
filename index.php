@@ -96,7 +96,7 @@ $conn->close();
         <nav class="m-0 p-0 navbar navbar-expand-lg navbar-light bg-light maunen">
             <div class="row m-0 p-0 justify-content-between w-100">
                 <div class="logo col-2 ">
-                    <a class="navbar-brand m-0 p-0" href="index.html"><img class="imglogo"  src="anh/logo2.png" alt=""></a>
+                    <a class="navbar-brand m-0 p-0" href="index.php"><img class="imglogo"  src="anh/logo2.png" alt=""></a>
                 </div>
                 <div class="toggler-btn text-right col-1">
                     <buttom class="m-0 p-0" type="buttom" id="toggler">

@@ -39,16 +39,16 @@ if (isset($_COOKIE['role']) && isset($_COOKIE['id'])) {
             $quocgiaData = $row;
         }
     } else {
-        echo "Không có kết quả nào được tìm thấy.";
+        //echo "Không có kết quả nào được tìm thấy.";
     }
-    print_r($quocgiaData);
+    //print_r($quocgiaData);
 
 
 
     $conn->close();
 } else {
     // Nếu cookie 'role' không tồn tại, chuyển hướng đến trang khác
-    header('Location: index.html');
+    header('Location: index.php');
     exit;
 }
 
@@ -355,12 +355,12 @@ if (isset($_COOKIE['role']) && isset($_COOKIE['id'])) {
                 </div>
                 <div class="col-lg-9 collapse navbar-collapse thanhmenu m-0 p-0 maunen ">
                     <ul class="navbar-nav ml-auto">
-                        <li class="navbar-item  active">
-                            <a class="nav-link" href="index.html">Trang chủ</a>
+                        <li class="navbar-item ">
+                            <a class="nav-link" href="index.php">Trang chủ</a>
                             <span></span>
                         </li>
                         <li class="navbar-item">
-                            <a class="nav-link" href="sanpham.html">Khu nghỉ dưỡng</a>
+                            <a class="nav-link" href="sanpham.php">Khu nghỉ dưỡng</a>
                             <span></span>
                         </li>
                         <li class="navbar-item">
@@ -394,7 +394,7 @@ if (isset($_COOKIE['role']) && isset($_COOKIE['id'])) {
                                     <li>
                                         <img src="./assets/icons/history.png" /><a href="lichsu.php">Lịch sử</a>
                                     </li>
-                                    <li><img src="./assets/icons/png-save.png" /><a href="#">Đã lưu</a></li>
+                                    <li><img src="./assets/icons/png-save.png" /><a href="yeuthich.php">Đã lưu</a></li>
                                     <li>
                                         <img src="./assets/icons/envelope.png" /><a href="#">Thông báo</a>
                                     </li>
@@ -461,7 +461,7 @@ if (isset($_COOKIE['role']) && isset($_COOKIE['id'])) {
                         <div class="card-body">
                             <div class="d-flex flex-column align-items-center text-center">
                                 <div id='previewContainer' style="width:  230px; height: 230px; border-radius: 50% !important; outline: none !important;">
-                                    <img id="previewImage" style="width: 100%; border-radius: 50% !important; outline: none !important;" src="<?php echo "cms/" . $quocgiaData['ANHKH']; ?>">
+                                    <img data-anh="<?php echo  $quocgiaData['ANHKH']; ?>" id="previewImage" style="width: 100%; border-radius: 50% !important; outline: none !important;" src="<?php echo "cms/" . $quocgiaData['ANHKH']; ?>">
                                     <button id="chooseAgainButton" style="display: none;">X</button>
                                 </div>
                                 <div class="mt-3">
@@ -538,7 +538,7 @@ if (isset($_COOKIE['role']) && isset($_COOKIE['id'])) {
 
                     <div class="control mt-4">
                         <label for="gender" class=" control-label gt">Giới tính</label>
-                        <select class="form-control" id="wb_gender" name="gender" required="">
+                        <select class="form-control" id="gt" name="gender" required="">
                             <option value="" <?php echo ($quocgiaData['GIOITINH'] == '') ? 'selected' : '' ?>>null
                             </option>
                             <option value="0" <?php echo ($quocgiaData['GIOITINH'] == '0') ? 'selected' : '' ?>>Nữ
@@ -550,13 +550,13 @@ if (isset($_COOKIE['role']) && isset($_COOKIE['id'])) {
 
                     <div class="control mt-4">
                         <h6>Mật Khẩu</h6>
-                        <input class="w-100 password" id="password" type="password" placeholder="" value="<?php echo $quocgiaData['MATKHAUKH']; ?>">
+                        <input class="w-100 password" id="mk" type="password" placeholder="" value="<?php echo $quocgiaData['MATKHAUKH']; ?>">
                         <i class="fa-solid fa-eye "></i>
                         <i class="fa-solid fa-eye-slash hidden"></i>
                         <small></small>
                     </div>
                     <script>
-                        let password = document.querySelector("#password");
+                        let password = document.querySelector("#mk");
                         let eye = () => {
                             let eye1 = document.querySelectorAll('.fa-eye')[0];
                             let eye2 = document.querySelectorAll('.fa-eye-slash')[0];

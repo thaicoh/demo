@@ -1,19 +1,25 @@
 <?php
 require_once("server.php");
 
-$maKND = $_POST["maKND"];
-$maQuocGia = $_POST["maQuocGia"];
-$maLoaiHinh = $_POST["maLoaiHinh"];
-$tenKND = $_POST["tenKND"];
-$moTaKND = $_POST["moTaKND"];
-$diaChiKND = $_POST["diaChiKND"];
+$mar = $_POST["mar"];
+$tenr = $_POST["tenr"];
+$knd = $_POST["knd"];
+$slp = $_POST["slp"];
+$dientich = $_POST["dientich"];
+$succhua = $_POST["succhua"];
+$diachi = $_POST["diachi"];
+$gtd = $_POST["gtd"];
+$slg = $_POST["slg"];
+$lg = $_POST["lg"];
+$mtr = $_POST["mtr"];
 $anhKND = $_POST["anh"];
 
-$sql = "UPDATE khunghiduong 
-        SET MAQUOCGIA = '" . $maQuocGia . "', MALOAIHINH = '" . $maLoaiHinh . "', 
-            TENKND = '" . $tenKND . "',
-            MOTAKND = '" . $moTaKND . "', DIACHIKND = '" . $diaChiKND . "', ANHKND = '" . $anhKND . "' 
-        WHERE MAKND = '" . $maKND . "'";
+$sql = "UPDATE resort 
+        SET MAKND  = '" . $knd . "', TENRESORT = '" . $tenr . "',
+            MOTARESORT = '" . $mtr . "', SOLUONGPHONG = '" . $slp . "', DIACHIRESORT  = '" . $diachi . "',
+            SOLUONGKHACHTOIDA = '" . $succhua . "',GIATRENDEM  = '" . $gtd . "',DIENTICH  = '" . $dientich . "',
+            SOLUONGGIUONG  = '" . $slg . "',LOAIGIUONG  = '" . $lg . "', IMGTHUMP = '" . $anhKND . "' 
+        WHERE MARESORT = '" . $mar . "'";
 
 $response = array();
 
@@ -29,4 +35,3 @@ if (mysqli_query($conn, $sql)) {
 
 echo json_encode($response);
 mysqli_close($conn);
-?>

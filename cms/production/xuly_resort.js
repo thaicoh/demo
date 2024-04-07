@@ -116,9 +116,9 @@ function loadHoa(page, record) {
                     <tr>
                     <th scope="row">${i}</th>
                     <td>
-                    <div><img src="../../${item.IMGTHUMP}" alt="Lamp" width="40" height="28"></div>
+                    <div><img src="../${item.IMGTHUMP}" alt="Lamp" width="40" height="28"></div>
                     </td>
-                    <td>${item.MAKND}</td>
+                    <td>${item.MARESORT}</td>
                     <td>${item.TENRESORT}</td>
                     <td>${item.TENKND}</td>
                     <td>${item.SOLUONGPHONG}</td>
@@ -127,12 +127,12 @@ function loadHoa(page, record) {
                     <td>${item.DIACHIRESORT}</td>
                     <td>${item.GIATRENDEM}</td>
                     <td>${item.SOLUONGGIUONG}</td>
-                   
+                
 
                     <td class="d-flex justify-content-between">${item.LOAIGIUONG}
                     <div class="thaotac">
-                        <button class="btn-danger btn-sua" data-maknd="${item.MAKND}" data-tenknd="${item.TENKND}" data-diachiknd="${item.DIACHIKND}" data-mota="${item.MOTAKND}" data-anh="${item.ANHKND}" data-qg="${item.MAQUOCGIA}" data-lh="${item.MALOAIHINH}"><i class="fa fa-pencil-square-o mr-1"> </i>Sửa</button>
-                        <button class="btn-danger btn-xoa" data-maknd="${item.MAKND}"><i class="fa fa-trash mr-1"> </i>Xóa</button>
+                        <button class="btn-danger btn-sua" data-maresort="${item.MARESORT}" data-tenknd="${item.MAKND }" data-tenresort="${item.TENRESORT}" data-mota="${item.MOTARESORT}" data-slp="${item.SOLUONGPHONG}"data-slktd="${item.SOLUONGKHACHTOIDA}" data-diachi="${item.DIACHIRESORT}" data-gtd="${item.GIATRENDEM}" data-dientich="${item.DIENTICH}" data-slg="${item.SOLUONGGIUONG}"  data-lg="${item.LOAIGIUONG}" data-anh="${item.IMGTHUMP}"><i class="fa fa-pencil-square-o mr-1"> </i>Sửa</button>
+                        <button class="btn-danger btn-xoa" data-maknd="${item.MARESORT}"><i class="fa fa-trash mr-1"> </i>Xóa</button>
                     </div>
                     </td> 
                     </tr>

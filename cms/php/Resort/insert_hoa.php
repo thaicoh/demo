@@ -6,15 +6,20 @@ $res = []; // Khởi tạo mảng kết quả
 // Kiểm tra xem có dữ liệu được gửi từ biểu mẫu không
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Lấy các giá trị từ biểu mẫu
-    $maKND = $_POST["maKND"];
-    $tenKND = $_POST["tenKND"];
-    $diaChiKND = $_POST["diaChiKND"];
-    $moTaKND = $_POST["moTaKND"];
-    $maQuocGia = $_POST["maQuocGia"];
-    $maLoaiHinh = $_POST["maLoaiHinh"];
+    $mar = $_POST["mar"];
+    $tenr = $_POST["tenr"];
+    $knd = $_POST["knd"];
+    $slp = $_POST["slp"];
+    $dientich = $_POST["dientich"];
+    $succhua = $_POST["succhua"];
+    $diachi = $_POST["diachi"];
+    $gtd = $_POST["gtd"];
+    $slg = $_POST["slg"];
+    $lg = $_POST["lg"];
+    $mtr = $_POST["mtr"];
 
     // Kiểm tra sự tồn tại của mã khách hàng trong cơ sở dữ liệu
-    $rs = mysqli_query($conn, "SELECT COUNT(*) AS 'total' FROM khunghiduong WHERE MAKND='" . $maKND . "'");
+    $rs = mysqli_query($conn, "SELECT COUNT(*) AS 'total' FROM resort WHERE MARESORT='" . $mar . "'");
     $row = mysqli_fetch_array($rs);
 
     if ((int) $row['total'] > 0) {
@@ -27,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $file_name = $_FILES["uploadInput"]["name"];
             $file_tmp = $_FILES["uploadInput"]["tmp_name"];
             $imageFileType = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
-            $target_file = "../../AnhKND/" . $maKND . "." . $imageFileType;
+            $target_file = "../../AnhResort/" . $mar . "." . $imageFileType;
 
             // Di chuyển tệp tin vào thư mục mong muốn
             if (move_uploaded_file($file_tmp, $target_file)) {
@@ -37,10 +42,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $res['file_name'] = $file_name;
                 $res['file_tmp'] = $file_tmp;
                 $res['imageFileType'] = $imageFileType;
-                $res['img'] = "AnhKND/" . $maKND . "." . $imageFileType;
+                $res['img'] = "AnhResort/" . $mar . "." . $imageFileType;
 
                 // Thực hiện câu lệnh INSERT vào cơ sở dữ liệu
-                $sql = "INSERT INTO khunghiduong(MAKND, TENKND, DIACHIKND, MOTAKND, ANHKND, MAQUOCGIA, MALOAIHINH) VALUES ('" . $maKND . "','" . $tenKND . "','" . $diaChiKND . "','" . $moTaKND ."','" . $res['img'] . "','" . $maQuocGia . "','" . $maLoaiHinh . "')";
+                $sql = "INSERT INTO resort(MARESORT , MAKND , TENRESORT, MOTARESORT,  SOLUONGPHONG, SOLUONGKHACHTOIDA, DIACHIRESORT, GIATRENDEM, DIENTICH, SOLUONGGIUONG, LOAIGIUONG,IMGTHUMP ) VALUES ('" . $mar. "','" . $knd . "', '" . $tenr . "','" . $mtr . "','" . $slp . "','" . $succhua . "','" . $diachi . "','" . $gtd . "','" . $dientich . "','" . $slg . "','" . $lg . "','" . $res['img'] . "')";
 
                 if (mysqli_query($conn, $sql)) {
                     if (mysqli_affected_rows($conn) > 0) {
@@ -64,7 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $res['mess'] = "Không có file ảnh!";
 
             // Thực hiện câu lệnh INSERT vào cơ sở dữ liệu
-            $sql = "INSERT INTO khunghiduong(MAKND, TENKND, DIACHIKND, MOTAKND, ANHKND, MAQUOCGIA, MALOAIHINH) VALUES ('" . $maKND . "','" . $tenKND . "','" . $diaChiKND . "','" . $moTaKND ."','" . "" . "','" . $maQuocGia . "','" . $maLoaiHinh . "')";
+            $sql = "INSERT INTO resort(MARESORT , MAKND , TENRESORT, MOTARESORT,  SOLUONGPHONG, SOLUONGKHACHTOIDA, DIACHIRESORT, GIATRENDEM, DIENTICH, SOLUONGGIUONG, LOAIGIUONG,IMGTHUMP ) VALUES ('" . $mar. "','" . $knd . "', '" . $tenr . "','" . $mtr . "','" . $slp . "','" . $succhua . "','" . $diachi . "','" . $gtd . "','" . $dientich . "','" . $slg . "','" . $lg . "','" . ' '. "')";
             if (mysqli_query($conn, $sql)) {
                 if (mysqli_affected_rows($conn) > 0) {
                     $res["success"] = 1; // Thành công

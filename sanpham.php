@@ -72,6 +72,13 @@ $conn->close();
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/css/multi-select-tag.css">
     <!-- slick slider -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <style>
+        .imglogo{
+            width: 60px;
+            border-radius: 50%;
+            margin: 10px;
+        }
+    </style>
 </head>
 
 <body class="" style="background-color: #F7F8F9">
@@ -80,7 +87,7 @@ $conn->close();
         <nav class="m-0 p-0 navbar navbar-expand-lg navbar-light bg-light maunen">
             <div class="row m-0 p-0 justify-content-between w-100">
                 <div class="logo col-2 ">
-                    <a class="navbar-brand m-0 p-0" href="index.html">Logo</a>
+                    <a class="navbar-brand m-0 p-0" href="index.php"><img class="imglogo"  src="anh/logo2.png" alt=""></a>
                 </div>
                 <div class="toggler-btn text-right col-1">
                     <buttom class="m-0 p-0" type="buttom" id="toggler">
@@ -89,11 +96,11 @@ $conn->close();
                 </div>
                 <div class="col-lg-9 collapse navbar-collapse thanhmenu m-0 p-0 maunen ">
                     <ul class="navbar-nav ml-auto">
-                        <li class="navbar-item  active">
+                        <li class="navbar-item  ">
                             <a class="nav-link" href="index.php">Trang chủ</a>
                             <span></span>
                         </li>
-                        <li class="navbar-item">
+                        <li class="navbar-item active">
                             <a class="nav-link" href="sanpham.php">Khu nghỉ dưỡng</a>
                             <span></span>
                         </li>
@@ -159,10 +166,10 @@ $conn->close();
         <hr>
         <ul class="text-center">
             <li class="">
-                <a class=" active" href="index.html">Trang chủ</a>
+                <a class=" active" href="index.php">Trang chủ</a>
             </li>
             <li class="">
-                <a class="" href="sanpham.html">Khu nghỉ dưỡng</a>
+                <a class="" href="sanpham.php">Khu nghỉ dưỡng</a>
             </li>
             <li class="">
                 <a class="" href="khampha.html">Khám phá</a>

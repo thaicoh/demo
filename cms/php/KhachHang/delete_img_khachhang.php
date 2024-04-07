@@ -3,7 +3,7 @@
 $directory = "../AnhKhachHang/";
 
 // Lấy giá trị mã khách hàng từ POST
-$makh = $_POST['makh'];
+$maKH = $_POST['maKH'];
 
 // Kiểm tra nếu thư mục tồn tại
 if (is_dir($directory)) {

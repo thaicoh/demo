@@ -123,8 +123,7 @@ if (isset($_COOKIE['role'])) {
                     <li><a href="index2.php">Khách hàng</a></li>
                     <li><a href="quocgia.php">Quốc gia</a></li>
                     <li><a href="nhacungcap1.php">Loại nghỉ dưỡng</a></li>
-                    <li><a href="nhanvien.html">Đặt Phòng</a></li>
-                    <li><a href="khuyenmai.html">Khuyến mãi</a></li>
+                    <li><a href="nhacungcap1.php">Đặt Phòng</a></li>
                     <!-- <li><a href="khachhang.html"></a></li> -->
 
                   </ul>
@@ -359,12 +358,16 @@ if (isset($_COOKIE['role'])) {
                       <div class="item form-group">
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="tenlh">Số lượng phòng<span class="required">*</span>
                         </label>
-                        <div class="col-md-6 col-sm-6 ml-3">
-                          <div class="soluong-control">
-                            <button class="soluong-minus" type="button" onclick="decreaseValue()">-</button>
-                            <span class="soluong-value slp" id="soluong-value">1</span>
-                            <button class="soluong-plus" type="button" onclick="increaseValue()">+</button>
-                          </div>
+                        <div class="col-md-6 col-sm-6 ">
+                          <select class=" form-control form-select col-md-12 h-100" id="slp" name="sellist1" selected="false">
+                            <option disabled="" selected="" value=""> -- Số lượng phòng --
+                            </option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                          </select>
                         </div>
                       </div>
                       <div class="item form-group">
@@ -398,48 +401,18 @@ if (isset($_COOKIE['role'])) {
                       <div class="item form-group">
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="tenlh">Số lượng giường<span class="required">*</span>
                         </label>
-                        <div class="col-md-6 col-sm-6 ml-3">
-                          <div class="soluong-control">
-                            <button class="soluong-minus" type="button" onclick="decreaseValue()">-</button>
-                            <span class="soluong-value slg" id="soluong-value">1</span>
-                            <button class="soluong-plus" type="button" onclick="increaseValue()">+</button>
-
-                          </div>
+                        <div class="col-md-6 col-sm-6 ">
+                          <select class=" form-control form-select col-md-12 h-100" id="slg" name="sellist1" selected="false">
+                            <option disabled="" selected="" value=""> -- Số lượng giường --
+                            </option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                          </select>
                         </div>
                       </div>
-                      <script>
-                        // Lấy ra tất cả các phần tử cần thao tác
-                        var soluongValues = document.querySelectorAll('.soluong-value');
-                        var soluongMinuses = document.querySelectorAll('.soluong-minus');
-                        var soluongPluses = document.querySelectorAll('.soluong-plus');
-
-                        // Định nghĩa hàm tăng giá trị
-                        function increaseValue() {
-                          var value = parseInt(this.parentNode.querySelector('.soluong-value').textContent, 10);
-                          value = isNaN(value) ? 1 : value;
-                          value++;
-                          this.parentNode.querySelector('.soluong-value').textContent = value;
-                        }
-
-                        // Định nghĩa hàm giảm giá trị
-                        function decreaseValue() {
-                          var value = parseInt(this.parentNode.querySelector('.soluong-value').textContent, 10);
-                          value = isNaN(value) ? 1 : value;
-                          value--;
-                          value = value < 1 ? 1 : value;
-                          this.parentNode.querySelector('.soluong-value').textContent = value;
-                        }
-
-                        // Gắn sự kiện cho tất cả nút "+"
-                        soluongPluses.forEach(function(button) {
-                          button.addEventListener('click', increaseValue);
-                        });
-
-                        // Gắn sự kiện cho tất cả nút "-"
-                        soluongMinuses.forEach(function(button) {
-                          button.addEventListener('click', decreaseValue);
-                        });
-                      </script>
                       <div class="item form-group">
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="tenlh">Loại giường<span class="required">*</span>
                         </label>
@@ -496,7 +469,7 @@ if (isset($_COOKIE['role'])) {
                           document.getElementById("chooseAgainButton").style.display = "none";
                         });
                       </script>
-                      
+
                       <div class="ln_solid"></div>
                       <div class="item form-group justify-content-center" style="color: white !important">
                         <div class="col-md-6 col-sm-6 offset-md-3 ">
@@ -639,16 +612,79 @@ if (isset($_COOKIE['role'])) {
         <script src="js/bootbox/bootbox.all.min.js"></script>
         <!-- <script src="common.js"></script> -->
         <script>
+          // Lấy tất cả các cookie và chuyển chúng thành một mảng các cặp key-value
+          var cookies = document.cookie.split(';');
+
+          // Tạo một đối tượng để lưu trữ các cookie
+          var cookieObject = {};
+
+          // Lặp qua mảng cookie để tách key và value, sau đó lưu vào đối tượng cookieObject
+          cookies.forEach(function(cookie) {
+            var parts = cookie.split('=');
+            var key = parts[0].trim();
+            var value = parts[1];
+            cookieObject[key] = value;
+          });
+
+          var roleCookie = cookieObject['role'];
+          console.log(roleCookie);
+
+          function checkCookie(cookieName) {
+            var cookies = document.cookie.split(';');
+
+            // Duyệt qua từng cookie để kiểm tra
+            for (var i = 0; i < cookies.length; i++) {
+              var cookie = cookies[i].trim(); // Loại bỏ dấu cách thừa
+              // Kiểm tra xem cookie có bắt đầu bằng cookieName không
+              if (cookie.indexOf(cookieName + '=') === 0) {
+                return true; // Cookie tồn tại
+              }
+            }
+            return false; // Cookie không tồn tại
+          }
+
+          // Sử dụng hàm checkCookie để kiểm tra
+          var cookieExists = checkCookie('id');
+
+          if (cookieExists) {
+            console.log('Cookie tồn tại.');
+          } else {
+            console.log('Cookie không tồn tại.');
+          }
+
+          function deleteCookie(cookieName) {
+            document.cookie = cookieName + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            // Lấy tất cả các cookie và chuyển chúng thành một mảng các cặp key-value
+            var cookies = document.cookie.split(';');
+
+            // Tạo một đối tượng để lưu trữ các cookie
+            var cookieObject = {};
+
+            // Lặp qua mảng cookie để tách key và value, sau đó lưu vào đối tượng cookieObject
+            cookies.forEach(function(cookie) {
+              var parts = cookie.split('=');
+              var key = parts[0].trim();
+              var value = parts[1];
+              cookieObject[key] = value;
+            });
+          }
+
+
+
+
+
+
           $(document).ready(function() {
             // Xử lý sự kiện click vào phần tử .logout
             $('.logout').click(function(event) {
               event.preventDefault();
-
-              // Thiết lập lại cookie 'role' với thời gian sống đã qua đi (ví dụ: thời gian trước đó 1 giây)
-              document.cookie = 'role=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-
+              
+              event.preventDefault();
 
               if (confirm("Bạn có chắc chắn muốn đăng xuất không?")) {
+                // Sử dụng hàm deleteCookie để xóa cookie
+                deleteCookie('id');
+                console.log("đã xóa id")
                 localStorage.setItem('isLoggedIn', 'false');
                 window.location.href = "../../index.php";
               }

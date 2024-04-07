@@ -1,5 +1,5 @@
 <?php
-require_once("server.php");
+require_once ("server.php");
 
 $res = []; // Khởi tạo mảng kết quả
 
@@ -16,11 +16,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Kiểm tra sự tồn tại của mã khách hàng trong cơ sở dữ liệu
     $rs = mysqli_query($conn, "SELECT COUNT(*) AS 'total' FROM khachhang WHERE MAKH='" . $maKH . "'");
+    $rs1 = mysqli_query($conn, "SELECT COUNT(*) AS 'total' FROM khachhang WHERE SDTKH='" . $sdtKH . "'");
+    $rs2 = mysqli_query($conn, "SELECT COUNT(*) AS 'total' FROM khachhang WHERE EMAILKH='" . $emailKH . "'");
     $row = mysqli_fetch_array($rs);
+    $row1 = mysqli_fetch_array($rs1);
+    $row2 = mysqli_fetch_array($rs2);
 
-    if ((int) $row['total'] > 0) {
-        $res["success"] = 2; // Trả về client trùng dữ liệu
-        $res["mess"] = "trung du lieu"; // Trả về client trùng dữ liệu
+    if ((int) $row['total'] > 0 && (int) $row1['total'] > 0 && (int) $row2['total'] > 0) {
+        $res["success"] = 2; // Both MAKH and SDTKH are duplicate
+    } elseif ((int) $row['total'] > 0) {
+        $res["success"] = 3; // Only MAKH is duplicate
+    } elseif ((int) $row1['total'] > 0) {
+        $res["success"] = 4; // Only SDTKH is duplicate
+    } elseif ((int) $row2['total'] > 0) {
+        $res["success"] = 5; // Only EMAILKH is duplicate
     } else {
         // Kiểm tra xem có tệp tin được tải lên không
         if ($_FILES["uploadInput"]["error"] == UPLOAD_ERR_OK) {
@@ -75,7 +84,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
             } else {
                 $res["success"] = 0; // Thất bại
-                $res["mess"] = "lưu vào db thất bại";   
+                $res["mess"] = "lưu vào db thất bại";
             }
         }
     }

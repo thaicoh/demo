@@ -31,16 +31,47 @@ $(document).ready(function () {
 
     $('.btnThem').click(function (e) {
         $('.btnThem').prop('disabled', true);
-        console.log("chay")
         $('.btnThem').addClass('.disabled_btn')
-        $('#txtmahoa').focus()
-        $('#txtmahoa').val('')
+
+        $('#txtmahoa').on('keydown paste', function (e) {
+            e.preventDefault();
+            return false;
+        });
+
+        $('#txttenhoa').focus()
         $('#txttenhoa').val('')
         $('#anhquocgia').val('');
         $('#des').val('')
 
         $('.btnLuu').prop('disabled', false);
         trangThai = 1;
+        datasend = {}
+        queryDataPost("../php/QG/data_get_maqg.php", datasend, function (data) {
+            let makh = []
+            console.log("data1: ", data)
+            data.res.forEach(element => {
+                makh.push(element.MAQUOCGIA)
+            });
+            console.log(makh)
+            let a = false;
+            for (i = 0; i < makh.length - 1; i = i + 1) {
+                if (makh[i + 1] - makh[i] > 1) {
+                    $('#txtmahoa').val(parseInt(makh[i]) + 1)
+                    a = true;
+                    break
+                } else {
+                    $('#txtmahoa').val(parseInt(makh[makh.length - 1]) + 1)
+                }
+            }
+
+            // if(a){
+            //     $('#malh').val( parseInt(makh[i])  + 1)
+            // }
+
+
+        })
+
+
     });
 
     $('.btnTaoLai').click(function (e) {
@@ -56,50 +87,50 @@ $(document).ready(function () {
 
         $('.btnLuu').prop('disabled', true);
         trangThai = 0;
-         // Đặt lại giá trị của trường input
-         document.getElementById("uploadInput").value = "";
-         // Đặt lại ảnh xem trước
-         document.getElementById("previewImage").src = "";
+        // Đặt lại giá trị của trường input
+        document.getElementById("uploadInput").value = "";
+        // Đặt lại ảnh xem trước
+        document.getElementById("previewImage").src = "";
     });
     // khi nhan nut luu
     $(".btnLuu").click(function () {
         if (trangThai == 1) {
-           // Lấy dữ liệu từ biểu mẫu
-           var formData = new FormData(document.getElementById('demo-form2'));
+            // Lấy dữ liệu từ biểu mẫu
+            var formData = new FormData(document.getElementById('demo-form2'));
 
-           // Lấy dữ liệu từ các ô input bên ngoài biểu mẫu
-           var data = {
-            maquocgia: $("#txtmahoa").val(),
-            tenquocgia: $("#txttenhoa").val(),
-            gioithieuquocgia: $("#des").val()
-               // Không gửi dữ liệu của ô input type file ở đây
-           };
+            // Lấy dữ liệu từ các ô input bên ngoài biểu mẫu
+            var data = {
+                maquocgia: $("#txtmahoa").val(),
+                tenquocgia: $("#txttenhoa").val(),
+                gioithieuquocgia: $("#des").val()
+                // Không gửi dữ liệu của ô input type file ở đây
+            };
 
-           for (var key in data) {
-            formData.append(key, data[key]);
-        } fetch('../php/QG/insert_hoa.php', {
-            method: 'POST',
-            body: formData // Đặt dữ liệu vào body của options
-        })
-            .then(response => response.json()) // Chuyển đổi phản hồi sang JSON
-            .then(data => {
-                console.log(data); // In ra dữ liệu JSON từ PHP
-
-                if (data.success == 1) {
-                    bootbox.alert("Thêm thành công!");
-                    loadHoa(0, record);
-                    resetBtn();
-                }
-                else if (data.success == 0) {
-                    bootbox.alert("Không thể kết nối với server!");
-                }
-                else {
-                    bootbox.alert("Trùng mã khách hàng!");
-                }
+            for (var key in data) {
+                formData.append(key, data[key]);
+            } fetch('../php/QG/insert_hoa.php', {
+                method: 'POST',
+                body: formData // Đặt dữ liệu vào body của options
             })
-            .catch(error => {
-                console.error('Error:', error); // Xử lý lỗi nếu có
-            });
+                .then(response => response.json()) // Chuyển đổi phản hồi sang JSON
+                .then(data => {
+                    console.log(data); // In ra dữ liệu JSON từ PHP
+
+                    if (data.success == 1) {
+                        bootbox.alert("Thêm thành công!");
+                        loadHoa(0, record);
+                        resetBtn();
+                    }
+                    else if (data.success == 0) {
+                        bootbox.alert("Không thể kết nối với server!");
+                    }
+                    else {
+                        bootbox.alert("Trùng mã khách hàng!");
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error); // Xử lý lỗi nếu có
+                });
         } else if (trangThai == 2) {
             var fileName = $("#uploadInput").val();
             var previewSrc = $("#previewImage").attr("src");
@@ -230,7 +261,7 @@ $(document).ready(function () {
         var mota = $(this).attr("data-mota");
         var mah = $(this).attr("data-mah");
 
-    
+
         console.log(tenh)
         console.log(mota)
         console.log(mah)

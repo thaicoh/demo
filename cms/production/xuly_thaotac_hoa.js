@@ -34,19 +34,36 @@ $(document).ready(function () {
     $('.btnThem').click(function (e) {
         $('.btnThem').prop('disabled', true);
         $('.btnThem').addClass('.disabled_btn')
-
-
-        $('#maknd').focus()
         $('#maknd').val('')
+        $('#tenknd').focus()
         $('#tenknd').val('')
         $('#diachiknd').val('')
         $('#qg').val('')
         $('#lh').val('')
         $('#mota').val('')
-
-
         $('.btnLuu').prop('disabled', false);
         trangThai = 1;
+        datasend = {}
+        queryDataPost("../php/KND/data_get_maknd.php", datasend, function (data) {
+            let maknd = []
+            console.log(data)
+            data.res.forEach(element => {
+
+                maknd.push(element.MAKND)
+            });
+            console.log(maknd)
+            let a = false;
+            for (i = 0; i < maknd.length - 1; i = i + 1) {
+                if (maknd[i + 1] - maknd[i] > 1) {
+                    $('#maknd').val(parseInt(maknd[i]) + 1)
+                    a = true;
+                    break
+                } else {
+                    $('#maknd').val(parseInt(maknd[maknd.length - 1]) + 1)
+                }
+            }
+
+        })
     });
 
     $('.btnTaoLai').click(function (e) {
@@ -56,7 +73,6 @@ $(document).ready(function () {
 
         $('.btnThem').prop('disabled', false);
         $('.btnThem').addClass('.disabled_btn')
-
         $('#maknd').val('')
         $('#maknd').focus()
         $('#tenknd').val('')
@@ -77,7 +93,6 @@ $(document).ready(function () {
 
     // khi nhan nut luu
     $(".btnLuu").click(function () {
-
         var maKND = $("#maknd").val();
         var tenKND = $("#tenknd").val();
         var diaChiKND = $("#diachiknd").val();
@@ -117,7 +132,7 @@ $(document).ready(function () {
 
                     if (data.success == 1) {
                         bootbox.alert("Thêm thành công!");
-                        loadLoaiHoa(0, record);
+                        loadHoa(0, record);
                         resetBtn();
                     }
                     else if (data.success == 0) {
@@ -148,7 +163,6 @@ $(document).ready(function () {
                     moTaKND: $("#mota").val(),
                     maQuocGia: $("#qg").val(),
                     maLoaiHinh: $("#lh").val(),
-                    
                     anh: $("#previewImage").attr("src").replace(/^(\.\.\/)+/, '')
                 }
 

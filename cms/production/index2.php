@@ -2,6 +2,26 @@
 // Thêm header để vô hiệu hóa cache
 header("Cache-Control: no-cache, no-store, must-revalidate");
 header("Pragma: no-cache");
+
+
+// Kiểm tra xem cookie 'role' có tồn tại không
+if (isset($_COOKIE['role'])) {
+  // Lấy giá trị của cookie 'role'
+  $role = $_COOKIE['role'];
+
+  // Kiểm tra giá trị của cookie 'role'
+  if ($role === '1') {
+  } else {
+    // Nếu không phải admin, chuyển hướng đến trang khác
+    header('Location: ../../index.php');
+    exit;
+  }
+} else {
+  // Nếu cookie 'role' không tồn tại, chuyển hướng đến trang khác
+  header('Location: ../../index.php');
+  exit;
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -16,6 +36,9 @@ header("Pragma: no-cache");
   <link rel="icon" href="images/favicon.ico" type="image/ico" />
   <link href="style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="../../stylesheet" href="fontawesome-free-6.4.0-web/fontawesome-free-6.4.0-web/css/all.min.css">
+
+
 
 
 
@@ -44,6 +67,100 @@ header("Pragma: no-cache");
 
 
   <style>
+    i {
+      font-size: xx-large
+    }
+
+    #mess {
+      height: 200px;
+    }
+
+    input {
+      height: 40px;
+    }
+
+    .control.error small {
+      color: #B31919;
+    }
+
+    .control.error>input {
+      border: 1.5px solid #B31919 !important;
+    }
+
+    .control.error>textarea {
+      border: 1.5px solid #B31919 !important;
+    }
+
+
+    small {
+      position: absolute;
+      bottom: -18px;
+      width: 100%;
+      left: 20px;
+      font-size: small;
+    }
+
+    .control {
+      position: relative;
+    }
+
+    .form_bg .btn {
+      background-color: #313131;
+      color: white;
+      width: 10%;
+    }
+
+    .form_bg .btn:hover {
+      background-color: #f0efef;
+      color: rgb(0, 0, 0);
+    }
+
+    .form__gr {
+      margin: 19px 0;
+      position: relative !important;
+    }
+
+    .icon {
+      border: 4px solid #253325;
+      border-radius: 50%;
+      padding: 20px;
+      margin: 0 150px 0 150px;
+    }
+
+    .icon i {
+      font-size: 10px !important;
+      color: #253325;
+    }
+
+
+    .fa-eye-slash {
+      position: absolute;
+      right: 20px;
+      bottom: calc(0% + 29px);
+      color: rgb(94, 94, 94);
+      bottom: 8px;
+      font-size: 20px !important;
+
+    }
+
+    .fa-eye {
+      position: absolute;
+      right: 20px;
+      bottom: calc(0% + 29px);
+      bottom: 8px;
+      color: rgb(94, 94, 94);
+      font-size: 20px !important;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    a {
+      color: #253325;
+    }
+
+    /*  */
     #previewContainer {
       position: relative;
       display: flex;
@@ -66,6 +183,8 @@ header("Pragma: no-cache");
       object-fit: cover;
       width: 100%;
     }
+
+    /*  */
   </style>
 
 </head>
@@ -103,14 +222,12 @@ header("Pragma: no-cache");
               <ul class="nav side-menu">
                 <li><a><i class="fa fa-home"></i> Trang chủ <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu">
-                    <li><a href="index.html">Resort<i class="fa fa-eye"></i>
-                        <i class="fa-solid fa-eye-slash hidden"></i></a></li>
-                    <li><a href="hoa1.html">Khu nghỉ dưỡng</a></li>
-                    <li><a href="index2.html">Khách hàng</a></li>
-                    <li><a href="index3.html">Quốc gia</a></li>
-                    <li><a href="nhacungcap1.html">Loại nghỉ dưỡng</a></li>
-                    <li><a href="nhanvien.html">Blog</a></li>
-                    <li><a href="khuyenmai.html">Khuyến mãi</a></li>
+                    <li><a href="index.php">Resort</a></li>
+                    <li><a href="hoa1.php">Khu nghỉ dưỡng</a></li>
+                    <li><a href="index2.php">Khách hàng</a></li>
+                    <li><a href="quocgia.php">Quốc gia</a></li>
+                    <li><a href="nhacungcap1.php">Loại nghỉ dưỡng</a></li>
+                    <li><a href="nhacungcap1.php">Đặt Phòng</a></li>
                     <!-- <li><a href="khachhang.html"></a></li> -->
 
                   </ul>
@@ -175,7 +292,7 @@ header("Pragma: no-cache");
                     <span>Settings</span>
                   </a>
                   <a class="dropdown-item" href="javascript:;">Help</a>
-                  <a class="dropdown-item" href="login.html"><i class="fa fa-sign-out pull-right"></i>
+                  <a class="dropdown-item logout" href="login.html"><i class="fa fa-sign-out pull-right"></i>
                     Log Out</a>
                 </div>
               </li>
@@ -370,17 +487,54 @@ header("Pragma: no-cache");
                           </select>
                         </div>
                       </div>
+
                       <div class="item form-group">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="tenlh">Mật khẩu khách hàng
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="mk">Mật khẩu khách hàng
                           <span class="required">*</span>
                         </label>
-                        <div class="col-md-6 col-sm-6 ">
-                          <input type="text" id="mk" name="mk" required="required" class="form-control">
+                        <div class="col-md-6 col-sm-6">
+                          <input type="text" id="mk" name="password" class="form-control">
+                          <i class="fa fa-eye" style="display: none;"></i>
+                          <i class="fa fa-eye-slash" style="display: none;"></i>
+                          <small></small>
                         </div>
                       </div>
-                      <div class="item form-group">
 
-                      </div>
+                      <script>
+                        var passwordInput = document.querySelector("#mk");
+                        var eye1 = document.querySelector('.fa-eye');
+                        var eye2 = document.querySelector('.fa-eye-slash');
+
+                        var togglePasswordVisibility = () => {
+                          if (passwordInput.value !== '') {
+                            eye1.style.display = 'inline-block';
+                            eye2.style.display = 'inline-block';
+                          } else {
+                            eye1.style.display = 'none';
+                            eye2.style.display = 'none';
+                          }
+                        };
+
+                        var togglePasswordType = () => {
+                          if (passwordInput.type === 'text') {
+                            passwordInput.type = 'password';
+                            eye2.style.display = 'none';
+                            eye1.style.display = 'inline-block';
+                          } else {
+                            passwordInput.type = 'text';
+                            eye1.style.display = 'none';
+                            eye2.style.display = 'inline-block';
+                          }
+                        };
+
+                        eye1.addEventListener('click', togglePasswordType);
+                        eye2.addEventListener('click', togglePasswordType);
+
+                        passwordInput.addEventListener('input', togglePasswordVisibility);
+
+                        togglePasswordVisibility(); // Kiểm tra trạng thái ban đầu
+                      </script>
+
 
                       <label class="col-form-label col-md-3 col-sm-3 label-align" for="img">Ảnh khách hàng<span class="required">*</span>
                       </label>
@@ -418,7 +572,6 @@ header("Pragma: no-cache");
                           document.getElementById("chooseAgainButton").style.display = "none";
                         });
                       </script>
-                      
                       <div class="ln_solid"></div>
                       <div class="item form-group justify-content-center" style="color: white !important">
                         <div class="col-md-6 col-sm-6 offset-md-3 ">
@@ -471,14 +624,14 @@ header("Pragma: no-cache");
                       <thead>
                         <tr>
                           <th>#</th>
-                          <th></th>
+                          <th>Ảnh KH</th>
                           <th>Mã khách hàng</th>
                           <th>Tên khách hàng</th>
                           <th>Số điện thoại khách hàng</th>
                           <th>Email khách hàng</th>
                           <th>Vai trò KH</th>
                           <th>Giới tính</th>
-                          <th>Mật khẩu khách hàng</th>
+                          <!-- <th>Mật khẩu khách hàng</th> -->
                         </tr>
                       </thead>
                       <tbody class="load_LoaiHoa">
@@ -759,6 +912,86 @@ header("Pragma: no-cache");
 
 
           //});
+        </script>
+        <script>
+          // Lấy tất cả các cookie và chuyển chúng thành một mảng các cặp key-value
+          var cookies = document.cookie.split(';');
+
+          // Tạo một đối tượng để lưu trữ các cookie
+          var cookieObject = {};
+
+          // Lặp qua mảng cookie để tách key và value, sau đó lưu vào đối tượng cookieObject
+          cookies.forEach(function(cookie) {
+            var parts = cookie.split('=');
+            var key = parts[0].trim();
+            var value = parts[1];
+            cookieObject[key] = value;
+          });
+
+          var roleCookie = cookieObject['role'];
+          console.log(roleCookie);
+
+          function checkCookie(cookieName) {
+            var cookies = document.cookie.split(';');
+
+            // Duyệt qua từng cookie để kiểm tra
+            for (var i = 0; i < cookies.length; i++) {
+              var cookie = cookies[i].trim(); // Loại bỏ dấu cách thừa
+              // Kiểm tra xem cookie có bắt đầu bằng cookieName không
+              if (cookie.indexOf(cookieName + '=') === 0) {
+                return true; // Cookie tồn tại
+              }
+            }
+            return false; // Cookie không tồn tại
+          }
+
+          // Sử dụng hàm checkCookie để kiểm tra
+          var cookieExists = checkCookie('id');
+
+          if (cookieExists) {
+            console.log('Cookie tồn tại.');
+          } else {
+            console.log('Cookie không tồn tại.');
+          }
+
+          function deleteCookie(cookieName) {
+            document.cookie = cookieName + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            // Lấy tất cả các cookie và chuyển chúng thành một mảng các cặp key-value
+            var cookies = document.cookie.split(';');
+
+            // Tạo một đối tượng để lưu trữ các cookie
+            var cookieObject = {};
+
+            // Lặp qua mảng cookie để tách key và value, sau đó lưu vào đối tượng cookieObject
+            cookies.forEach(function(cookie) {
+              var parts = cookie.split('=');
+              var key = parts[0].trim();
+              var value = parts[1];
+              cookieObject[key] = value;
+            });
+          }
+
+
+
+
+
+
+          $(document).ready(function() {
+            // Xử lý sự kiện click vào phần tử .logout
+            $('.logout').click(function(event) {
+              event.preventDefault();
+
+              event.preventDefault();
+
+              if (confirm("Bạn có chắc chắn muốn đăng xuất không?")) {
+                // Sử dụng hàm deleteCookie để xóa cookie
+                deleteCookie('id');
+                console.log("đã xóa id")
+                localStorage.setItem('isLoggedIn', 'false');
+                window.location.href = "../../index.php";
+              }
+            });
+          });
         </script>
 
 </body>

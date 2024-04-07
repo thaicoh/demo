@@ -12,7 +12,6 @@ function LocResort(datasend) {
 
 
 $(document).ready(function () {
-    //console.log($('#daterange').val())
     var startDate = $('#daterange').data('daterangepicker').startDate.format('DD/MM/YYYY');
     var endDate = $('#daterange').data('daterangepicker').endDate.format('DD/MM/YYYY');
     var nguoilonValue = parseInt($('.menu-soluongkhach .soluong-container:nth-child(1) .soluong-value').text());
@@ -74,7 +73,7 @@ $(document).ready(function () {
                 resortsHTML = resortsHTML + `
                         <div class="item row">
                             <div class=" thumb col-md-5">
-                                <img src="${resort.IMGTHUMP}" alt="">
+                                <img src="cms/${resort.IMGTHUMP}" alt="">
                             </div>
                             <div class="item-info col-md-7 ">
                                 <h2 class="app_heading1">${resort.TENRESORT}</h2>
@@ -129,6 +128,7 @@ $(document).ready(function () {
             var days = duration.asDays();
 
             $('.tongtien').html(`${$(this).data('giatrendem') * days}.00 USD`);
+            var tongTien = $(this).data('giatrendem') * days;
 
             $('.btn-xacnhan').click(function () {
                 console.log("nhấn nút xac nhan");
@@ -137,10 +137,11 @@ $(document).ready(function () {
                     maresort: maresort,
                     checkin: formattedStartDate,
                     checkout: formattedEndDate,
-                    soluongnguoi: nguoilonValue + treemValue * 2
+                    soluongnguoi: nguoilonValue + treemValue * 2,
+                    tongtien: tongTien
 
                 };
-                console.log("datasend: ", datasend)
+                console.log("datasend: ", datasend) 
 
                 // Gửi yêu cầu AJAX đến máy chủ
                 queryDataPost("php/insert_booking.php", datasend, function (res) {
@@ -150,12 +151,12 @@ $(document).ready(function () {
                         $('.btn-xacnhan').css('display', 'none')
                         alert("Bạn đã đặt phòng thành công")
                         location.reload();
+                        window.location.href = "lichsu.php";
 
                     } else {
                         $('.btn-xacnhan').css('display', 'none')
                         alert("Đặt phòng thất bại!")
                         location.reload();
-
                     }
                 });
             })
@@ -235,7 +236,7 @@ $('.btn-timphong').click(function (e) {
                 resortsHTML = resortsHTML + `
                         <div class="item row">
                             <div class=" thumb col-md-5">
-                                <img src="${resort.IMGTHUMP}" alt="">
+                                <img src="cms/${resort.IMGTHUMP}" alt="">
                             </div>
                             <div class="item-info col-md-7 ">
                                 <h2 class="app_heading1">${resort.TENRESORT}</h2>

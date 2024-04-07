@@ -52,6 +52,19 @@ if (isset($_COOKIE['id'])) {
     } else {
         //echo "Bang thich Khong Co Ket Qua";
     }
+    $user = [];
+    $sql2 = "SELECT * FROM khachhang WHERE MAKH = $cookie_id";
+    $result2 = $conn->query($sql2);
+    if ($result2->num_rows > 0) {
+        while ($row = $result2->fetch_assoc()) {
+            $user = $row;
+        }
+        //print_r($user);
+    } else {
+        //echo "Bang thich Khong Co Ket Qua";
+    }
+
+
     // Đóng kết nối
     $conn->close();
 } else {
@@ -130,7 +143,7 @@ if (isset($_COOKIE['id'])) {
                 </div>
                 <div class="col-lg-9 collapse navbar-collapse thanhmenu m-0 p-0 maunen ">
                     <ul class="navbar-nav ml-auto">
-                        <li class="navbar-item  active">
+                        <li class="navbar-item ">
                             <a class="nav-link" href="index.php">Trang chủ</a>
                             <span></span>
                         </li>
@@ -229,21 +242,26 @@ if (isset($_COOKIE['id'])) {
                     <div class="text-center d-flex flex-column align-items-center">
                         <div class="border border-dashed border-secondary rounded-circle p-2">
                             <div class="bg-secondary rounded-circle d-flex justify-content-center align-items-center" style="width: 100px; height: 100px; overflow: hidden;">
-                                <img src="download.jpg" alt="" class="rounded-circle" style="width: 100px; height: 100px; object-fit: cover;">
+                                <img src="<?php echo "cms/" . $user['ANHKH'] ?>" alt="" class="rounded-circle" style="width: 100px; height: 100px; object-fit: cover;">
                             </div>
                         </div>
-                        <p class="mt-4 font-weight-bold">+(84) 941222916</p>
+                        <p class="mt-4 font-weight-bold"><?php echo $user['TENKH'] ?></p>
                     </div>
                     <div class="px-4 py-2 mt-3 bg-light rounded cursor-pointer d-flex justify-content-between align-items-center">
                         <div class="d-flex align-items-center">
                             <span class="mr-2 icon-account_box"></span>
-                            <span>Hồ sơ của tôi</span>
+
+                            <a href="trangcanhan.php">
+                                <span>Hồ sơ của tôi</span>
+                            </a>
                         </div>
                     </div>
                     <div class="px-4 py-2 mt-3 bg-light rounded cursor-pointer d-flex justify-content-between align-items-center">
                         <div class="d-flex align-items-center">
                             <span class="mr-2 icon-history"></span>
-                            <span>Đặt phòng của tôi</span>
+                            <a href="lichsu.php">
+                                <span>Đặt phòng của tôi</span>
+                            </a>
                         </div>
                     </div>
                     <div class="px-4 py-2 mt-3 bg-light rounded cursor-pointer d-flex justify-content-between align-items-center font-weight-bold text-primary">

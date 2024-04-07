@@ -10,12 +10,12 @@ function resetBtn() { // reset các ô input
     $('#mar').focus()
     $('#tenr').val('')
     $('#knd').val('')
-    $('.slp').innerHTML = '1'
+    $('#slp').val('')
     $('#dientich').val('')
     $('#succhua').val('')
     $('#diachi').val('')
     $('#gtd').val('')
-    $('.slg').innerHTML = '1'
+    $('#slg').val('')
     $('#lg').val('')
     $('#mtr').val('')
 
@@ -42,23 +42,51 @@ $(document).ready(function () {
         $('.btnThem').prop('disabled', true);
         $('.btnThem').addClass('.disabled_btn')
 
+        $('#mar').on('keydown paste', function (e) {
+            e.preventDefault();
+            return false;
+        });
 
-        $('#mar').val('')
-        $('#mar').focus()
+        $('#tenr').focus()
         $('#tenr').val('')
         $('#knd').val('')
-        $('.slp').innerHTML = '1'
+        $('#slp').val('')
         $('#dientich').val('')
         $('#succhua').val('')
         $('#diachi').val('')
         $('#gtd').val('')
-        $('.slg').innerHTML = '1'
+        $('#slg').val('')
         $('#lg').val('')
         $('#mtr').val('')
 
 
         $('.btnLuu').prop('disabled', false);
         trangThai = 1;
+        datasend = {}
+        queryDataPost("../php/Resort/data_get_ma.php", datasend, function (data) {
+            let makh = []
+            console.log("data1: ", data)
+            data.res.forEach(element => {
+                makh.push(element.MARESORT)
+            });
+            console.log(makh)
+            let a = false;
+            for (i = 0; i < makh.length - 1; i = i + 1) {
+                if (makh[i + 1] - makh[i] > 1) {
+                    $('#mar').val(parseInt(makh[i]) + 1)
+                    a = true;
+                    break
+                } else {
+                    $('#mar').val(parseInt(makh[makh.length - 1]) + 1)
+                }
+            }
+
+            // if(a){
+            //     $('#malh').val( parseInt(makh[i])  + 1)
+            // }
+
+
+        })
     });
 
     $('.btnTaoLai').click(function (e) {
@@ -73,12 +101,12 @@ $(document).ready(function () {
         $('#mar').focus()
         $('#tenr').val('')
         $('#knd').val('')
-        $('.slp').innerHTML = '1'
+        $('#slp').val('')
         $('#dientich').val('')
         $('#succhua').val('')
         $('#diachi').val('')
         $('#gtd').val('')
-        $('.slg').innerHTML = '1'
+        $('#slg').val('')
         $('#lg').val('')
         $('#mtr').val('')
 
@@ -98,12 +126,12 @@ $(document).ready(function () {
         var mar = $("#mar").val();
         var tenr = $("#tenr").val();
         var knd = $("#knd option:selected").val();
-        var slp = $('.slg').textContent;
+        var slp = $("#slp").val();
         var dientich = $("#dientich").val();
         var succhua = $("#succhua").val();
         var diachi = $("#diachi").val();
         var gtd = $("#gtd").val();
-        var slg = $('.slg').textContent;
+        var slg = $("#slg").val();
         var lg = $("#lg").val();
         var mtr = $("#mtr").val();
 
@@ -111,10 +139,10 @@ $(document).ready(function () {
         var maQuocGia = $("#qg option:selected").val(); // Lấy giá trị của option đã chọn
         var maLoaiHinh = $("#lh option:selected").val(); // Lấy giá trị của option đã chọn
 
-        // if (maKND == '' || tenKND == '' || diaChiKND == '' || maQuocGia == '' || maLoaiHinh == '') {
-        //     bootbox.alert("Vui lòng điền đầy đủ thông tin!");
-        //     return; // Dừng việc thực hiện tiếp nếu thiếu thông tin
-        // }
+        if (mar == '' || tenr == '' || knd == '' || dientich == '' || succhua == '' || slp == '' || diachi == '' || gtd == '' || slg == '' || lg == '' || mtr == ''  ) {
+            bootbox.alert("Vui lòng điền đầy đủ thông tin!");
+            return; // Dừng việc thực hiện tiếp nếu thiếu thông tin
+        }
 
         if (trangThai == 1) {
             // Lấy dữ liệu từ biểu mẫu
@@ -125,16 +153,17 @@ $(document).ready(function () {
                 mar: $("#mar").val(),
                 tenr: $("#tenr").val(),
                 knd: $("#knd option:selected").val(),
-                slp: $('.slg').textContent,
+                slp: $("#slp").val(),
                 dientich: $("#dientich").val(),
                 succhua: $("#succhua").val(),
                 diachi: $("#diachi").val(),
                 gtd: $("#gtd").val(),
-                slg: $('.slg').textContent,
+                slg: $("#slg").val(),
                 lg: $("#lg").val(),
                 mtr: $("#mtr").val(),
                 // Không gửi dữ liệu của ô input type file ở đây
             };
+            console.log("DATA: ", data)
 
             // Thêm dữ liệu vào biểu mẫu
             for (var key in data) {
@@ -177,12 +206,12 @@ $(document).ready(function () {
                     mar: $("#mar").val(),
                     tenr: $("#tenr").val(),
                     knd: $("#knd option:selected").val(),
-                    slp: $('.slg').textContent,
+                    slp: $("#slp").val(),
                     dientich: $("#dientich").val(),
                     succhua: $("#succhua").val(),
                     diachi: $("#diachi").val(),
                     gtd: $("#gtd").val(),
-                    slg: $('.slg').textContent,
+                    slg: $("#slg").val(),
                     lg: $("#lg").val(),
                     mtr: $("#mtr").val(),
                     anh: $("#previewImage").attr("src").replace(/^(\.\.\/)+/, '')
@@ -194,12 +223,12 @@ $(document).ready(function () {
                     mar: $("#mar").val(),
                     tenr: $("#tenr").val(),
                     knd: $("#knd option:selected").val(),
-                    slp: $('.slg').textContent,
+                    slp: $("#slp").val(),
                     dientich: $("#dientich").val(),
                     succhua: $("#succhua").val(),
                     diachi: $("#diachi").val(),
                     gtd: $("#gtd").val(),
-                    slg: $('.slg').textContent,
+                    slg: $("#slg").val(),
                     lg: $("#lg").val(),
                     mtr: $("#mtr").val(),
                     anh: ""
@@ -233,12 +262,12 @@ $(document).ready(function () {
                         mar: $("#mar").val(),
                         tenr: $("#tenr").val(),
                         knd: $("#knd option:selected").val(),
-                        slp: $('.slg').textContent,
+                        slp: $("#slp").val(),
                         dientich: $("#dientich").val(),
                         succhua: $("#succhua").val(),
                         diachi: $("#diachi").val(),
                         gtd: $("#gtd").val(),
-                        slg: $('.slg').textContent,
+                        slg: $("#slg").val(),
                         lg: $("#lg").val(),
                         mtr: $("#mtr").val(),
                         anh: data.img
@@ -316,26 +345,25 @@ $(document).ready(function () {
         $('.btnXoa').prop('disabled', false);
         $('.btnThem').prop('disabled', true);
 
-        var maKND = $(this).attr("data-maknd");
-        var tenKND = $(this).attr("data-tenknd");
-        var diaChiKND = $(this).attr("data-diachiknd");
-        var moTaKND = $(this).attr("data-mota");
-        var maQuocGia = $(this).attr("data-qg");
-        var maLoaiHinh = $(this).attr("data-lh");
+        // console.log(maKND)
+        // console.log(tenKND)
+        // console.log(diaChiKND)
+        // console.log(moTaKND)
+        // console.log(maQuocGia)
+        // console.log(maLoaiHinh)
+        
 
-        console.log(maKND)
-        console.log(tenKND)
-        console.log(diaChiKND)
-        console.log(moTaKND)
-        console.log(maQuocGia)
-        console.log(maLoaiHinh)
-
-        $('#maknd').val(maKND)
-        $('#tenknd').val(tenKND)
-        $('#diachiknd').val(diaChiKND)
-        $('#mota').val(moTaKND)
-        $('#qg').val(maQuocGia)
-        $('#lh').val(maLoaiHinh)
+        $('#mar').val($(this).attr("data-maresort"))
+        $('#tenr').val($(this).attr("data-tenresort"))
+        $('#knd').val($(this).attr("data-tenknd"))
+        $('#slp').val($(this).attr("data-slp"))
+        $('#dientich').val($(this).attr("data-dientich"))
+        $('#succhua').val($(this).attr("data-slktd"))
+        $('#diachi').val($(this).attr("data-diachi"))
+        $('#gtd').val($(this).attr("data-gtd"))
+        $('#slg').val($(this).attr("data-slg"))
+        $('#lg').val($(this).attr("data-lg"))
+        $('#mtr').val($(this).attr("data-mota"))
 
         if ($(this).attr("data-anh") != "") {
             // Lấy đối tượng hình ảnh từ DOM

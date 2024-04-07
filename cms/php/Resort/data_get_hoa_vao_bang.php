@@ -22,6 +22,7 @@ $rs = mysqli_query($conn, "SELECT COUNT(*) AS 'total' FROM resort
                             WHERE (TENRESORT LIKE '%" . $search . "%' OR MAKND LIKE '%" . $search . "%')");
 
 while ($rows = mysqli_fetch_array($sql)) {
+    $resortTemp['MARESORT'] = $rows['MARESORT'];
     $resortTemp['MAKND'] = $rows['MAKND'];
     $resortTemp['TENKND'] = $rows['TENKND'];
     $resortTemp['TENRESORT'] = $rows['TENRESORT'];

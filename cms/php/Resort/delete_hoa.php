@@ -3,7 +3,7 @@ require_once("server.php");
 
 $maKND = $_POST["maknd"];
 
-$sql = "DELETE FROM khunghiduong WHERE MAKND='" . $maKND . "'";
+$sql = "DELETE FROM resort WHERE MARESORT ='" . $maKND . "'";
 $res = [];
 
 if (mysqli_query($conn, $sql)) {

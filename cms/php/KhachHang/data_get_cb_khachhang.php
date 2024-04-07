@@ -3,7 +3,7 @@ require_once("server.php");
 
 $response = array();
 
-$sql = "SELECT `MAKH`,`TENKH`,`SDTKH`,`DIACHIKH`,`GTKH`,`EMAILKH` FROM `khachhang`";
+$sql = "SELECT `MAKH`,`TENKH`,`SDTKH`,`EMAILKH`,`MATKHAUKH`,`ANHKH`,`GIOITINH`,`VAITRO` FROM `khachhang`";
 $rs = mysqli_query($conn, $sql);
 
 if ($rs) {
@@ -12,9 +12,11 @@ if ($rs) {
         $customer['MAKH'] = $rows['MAKH'];
         $customer['TENKH'] = $rows['TENKH'];
         $customer['SDTKH'] = $rows['SDTKH'];
-        $customer['DIACHIKH'] = $rows['DIACHIKH'];
-        $customer['GTKH'] = $rows['GTKH'];
         $customer['EMAILKH'] = $rows['EMAILKH'];
+        $customer['MATKHAUKH'] = $rows['MATKHAUKH'];
+        $customer['ANHKH'] = $rows['ANHKH'];
+        $customer['GIOITINH'] = $rows['GIOITINH'];
+        $customer['VAITRO'] = $rows['VAITRO'];
         array_push($mang, $customer);
     }
 

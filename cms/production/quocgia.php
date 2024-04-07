@@ -38,13 +38,14 @@
   <!-- Custom Theme Style -->
   <link href="../build/css/custom.min.css" rel="stylesheet">
   <style>
-        /* Thiết lập kích thước cột địa chỉ */
-        .table td:nth-child(4),
-        .table th:nth-child(4) {
-            width: 25%;
-            max-width: 25%;
-        }
-        #previewContainer {
+    /* Thiết lập kích thước cột địa chỉ */
+    .table td:nth-child(4),
+    .table th:nth-child(4) {
+      width: 25%;
+      max-width: 25%;
+    }
+
+    #previewContainer {
       position: relative;
       display: flex;
       justify-content: left;
@@ -66,7 +67,7 @@
       object-fit: cover;
       width: 100%;
     }
-    </style>
+  </style>
 </head>
 
 <body class="nav-md">
@@ -75,8 +76,7 @@
       <div class="col-md-3 left_col">
         <div class="left_col scroll-view">
           <div class="navbar nav_title" style="border: 0;">
-            <a href="index.html" class="site_title"> <img src="images/logo1.png"
-                style="object-fit: cover; width: 30%; height: 80%; border-radius: 50%;" /> <span>Bán hoa</span></a>
+            <a href="index.html" class="site_title"> <img src="images/logo1.png" style="object-fit: cover; width: 30%; height: 80%; border-radius: 50%;" /> <span>Bán hoa</span></a>
           </div>
 
           <div class="clearfix"></div>
@@ -102,13 +102,13 @@
               <ul class="nav side-menu">
                 <li><a><i class="fa fa-home"></i> Trang chủ <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu">
-                    <li><a href="index.html">Resort</a></li>
-                    <li><a href="hoa1.html">Khu nghỉ dưỡng</a></li>
-                    <li><a href="index2.html">Khách hàng</a></li>
-                    <li><a href="index3.html">Quốc gia</a></li>
-                    <li><a href="nhacungcap1.html">Loại nghỉ dưỡng</a></li>
-                    <li><a href="nhanvien.html">Blog</a></li>
-                    <li><a href="khuyenmai.html">Khuyến mãi</a></li>
+                    <li><a href="index.php">Resort</a></li>
+                    <li><a href="hoa1.php">Khu nghỉ dưỡng</a></li>
+                    <li><a href="index2.php">Khách hàng</a></li>
+                    <li><a href="quocgia.php">Quốc gia</a></li>
+                    <li><a href="nhacungcap1.php">Loại nghỉ dưỡng</a></li>
+                    <li><a href="nhacungcap1.php">Đặt Phòng</a></li>
+                    <!-- <li><a href="khachhang.html"></a></li> -->
 
                   </ul>
                 </li>
@@ -162,8 +162,7 @@
           <nav class="nav navbar-nav">
             <ul class=" navbar-right">
               <li class="nav-item dropdown open" style="padding-left: 15px;">
-                <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown"
-                  data-toggle="dropdown" aria-expanded="false">
+                <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
                   <img src="images/IMG_2030.jpg" alt="">Mr. Học
                 </a>
                 <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
@@ -173,13 +172,12 @@
                     <span>Settings</span>
                   </a>
                   <a class="dropdown-item" href="javascript:;">Help</a>
-                  <a class="dropdown-item" href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+                  <a class="dropdown-item logout" href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
                 </div>
               </li>
 
               <li role="presentation" class="nav-item dropdown open">
-                <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1" data-toggle="dropdown"
-                  aria-expanded="false">
+                <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1" data-toggle="dropdown" aria-expanded="false">
                   <i class="fa fa-envelope-o"></i>
                   <span class="badge bg-green">6</span>
                 </a>
@@ -298,8 +296,7 @@
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
                       <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                          aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-wrench"></i></a>
                         <ul class="dropdown-menu" role="menu">
                           <li><a class="dropdown-item" href="#">Settings 1</a>
                           </li>
@@ -314,20 +311,17 @@
                   </div>
                   <div class="x_content">
                     <br>
-                    <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left"
-                      novalidate="">
+                    <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
 
                       <div class="item form-group">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="txtmahoa">Mã Quốc Gia <span
-                            class="required">*</span>
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="txtmahoa">Mã Quốc Gia <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 ">
                           <input type="text" id="txtmahoa" name="malh" required="required" class="form-control ">
                         </div>
                       </div>
                       <div class="item form-group">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="txttenhoa">Tên Quốc Gia <span
-                            class="required">*</span>
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="txttenhoa">Tên Quốc Gia <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 ">
                           <input type="text" id="txttenhoa" name="last-name" required="required" class="form-control">
@@ -339,13 +333,11 @@
                           <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                          <textarea type="text" id="des" name="des" rows="10" style="height: 150px;"
-                            class="form-control"></textarea>
+                          <textarea type="text" id="des" name="des" rows="10" style="height: 150px;" class="form-control"></textarea>
                         </div>
                       </div>
 
-                      <label class="col-form-label col-md-3 col-sm-3 label-align" for="img">Ảnh khách hàng<span
-                          class="required">*</span>
+                      <label class="col-form-label col-md-3 col-sm-3 label-align" for="img">Ảnh khách hàng<span class="required">*</span>
                       </label>
                       <input type="file" style="padding: 10px;" id="uploadInput" name="uploadInput" accept="image/*">
                       <div>
@@ -357,10 +349,10 @@
                       </div>
 
                       <script>
-                        document.getElementById("uploadInput").addEventListener("change", function (event) {
+                        document.getElementById("uploadInput").addEventListener("change", function(event) {
                           var input = event.target;
                           var reader = new FileReader();
-                          reader.onload = function () {
+                          reader.onload = function() {
                             var previewImage = document.getElementById("previewImage");
                             previewImage.src = reader.result;
                             document.getElementById("uploadInput").style.display = "none";
@@ -370,7 +362,7 @@
                           reader.readAsDataURL(input.files[0]);
                         });
 
-                        document.getElementById("chooseAgainButton").addEventListener("click", function () {
+                        document.getElementById("chooseAgainButton").addEventListener("click", function() {
                           document.getElementById("uploadInput").style.display = "inline";
 
                           // Đặt lại giá trị của trường input
@@ -390,8 +382,7 @@
                             Xóa</button>
                           <button class="btn btn-danger btnLuu" type="button"><i class="fa fa-check mr-1"> </i>
                             Lưu</button>
-                          <button type="submit" class="btn btn-danger btnSua" style="color: white !important"><i
-                              class="fa fa-pencil-square-o mr-1"> </i>Sửa</button>
+                          <button type="submit" class="btn btn-danger btnSua" style="color: white !important"><i class="fa fa-pencil-square-o mr-1"> </i>Sửa</button>
                           <button class="btn btn-danger btnTaoLai" type="reset"><i class="fa fa-refresh mr-1"> </i>Tạo
                             lại</button>
                         </div>
@@ -417,8 +408,7 @@
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
                       <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                          aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                           <a class="dropdown-item" href="#">Settings 1</a>
                           <a class="dropdown-item" href="#">Settings 2</a>
@@ -435,7 +425,7 @@
                       <thead>
                         <tr>
                           <th>#</th>
-                          <th>    </th>
+                          <th> </th>
                           <th>Mã Quốc Gia</th>
                           <th>Tên Quốc Gia</th>
                           <th>Mô tả</th>
@@ -610,9 +600,7 @@
             <!-- /footer content -->
           </div>
         </div>
-        <script>
-          //selectedFile = document.getElementById("input").files[0];
-        </script>
+
 
         <!-- jQuery -->
         <script src="../vendors/jquery/dist/jquery.min.js"></script>
@@ -662,6 +650,87 @@
         <script src="xulyquocgia.js"></script>
         <script src="js/bootbox/bootbox.all.min.js"></script>
         <!-- <script src="common.js"></script> -->
+
+        <script>
+          // Lấy tất cả các cookie và chuyển chúng thành một mảng các cặp key-value
+          var cookies = document.cookie.split(';');
+
+          // Tạo một đối tượng để lưu trữ các cookie
+          var cookieObject = {};
+
+          // Lặp qua mảng cookie để tách key và value, sau đó lưu vào đối tượng cookieObject
+          cookies.forEach(function(cookie) {
+            var parts = cookie.split('=');
+            var key = parts[0].trim();
+            var value = parts[1];
+            cookieObject[key] = value;
+          });
+
+          var roleCookie = cookieObject['role'];
+          console.log(roleCookie);
+
+          function checkCookie(cookieName) {
+            var cookies = document.cookie.split(';');
+
+            // Duyệt qua từng cookie để kiểm tra
+            for (var i = 0; i < cookies.length; i++) {
+              var cookie = cookies[i].trim(); // Loại bỏ dấu cách thừa
+              // Kiểm tra xem cookie có bắt đầu bằng cookieName không
+              if (cookie.indexOf(cookieName + '=') === 0) {
+                return true; // Cookie tồn tại
+              }
+            }
+            return false; // Cookie không tồn tại
+          }
+
+          // Sử dụng hàm checkCookie để kiểm tra
+          var cookieExists = checkCookie('id');
+
+          if (cookieExists) {
+            console.log('Cookie tồn tại.');
+          } else {
+            console.log('Cookie không tồn tại.');
+          }
+
+          function deleteCookie(cookieName) {
+            document.cookie = cookieName + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            // Lấy tất cả các cookie và chuyển chúng thành một mảng các cặp key-value
+            var cookies = document.cookie.split(';');
+
+            // Tạo một đối tượng để lưu trữ các cookie
+            var cookieObject = {};
+
+            // Lặp qua mảng cookie để tách key và value, sau đó lưu vào đối tượng cookieObject
+            cookies.forEach(function(cookie) {
+              var parts = cookie.split('=');
+              var key = parts[0].trim();
+              var value = parts[1];
+              cookieObject[key] = value;
+            });
+          }
+
+
+
+
+
+
+          $(document).ready(function() {
+            // Xử lý sự kiện click vào phần tử .logout
+            $('.logout').click(function(event) {
+              event.preventDefault();
+
+              event.preventDefault();
+
+              if (confirm("Bạn có chắc chắn muốn đăng xuất không?")) {
+                // Sử dụng hàm deleteCookie để xóa cookie
+                deleteCookie('id');
+                console.log("đã xóa id")
+                localStorage.setItem('isLoggedIn', 'false');
+                window.location.href = "../../index.php";
+              }
+            });
+          });
+        </script>
 
 </body>
 

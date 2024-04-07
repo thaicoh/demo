@@ -423,7 +423,7 @@ if (isset($_GET['idknd'])) {
                 </div>
                 <div class="col-lg-9 collapse navbar-collapse thanhmenu m-0 p-0 maunen ">
                     <ul class="navbar-nav ml-auto">
-                        <li class="navbar-item  active">
+                        <li class="navbar-item ">
                             <a class="nav-link" href="index.php">Trang chủ</a>
                             <span></span>
                         </li>
@@ -456,12 +456,12 @@ if (isset($_GET['idknd'])) {
                                 <h3>Resort DNA<br /><span>Website Designer</span></h3>
                                 <ul>
                                     <li>
-                                        <img src="./assets/icons/user.png" /><a href="#">Tài khoảng của tôi</a>
+                                        <img src="./assets/icons/user.png" /><a href="trangcanhan.php">Tài khoảng của tôi</a>
                                     </li>
                                     <li>
-                                        <img src="./assets/icons/history.png" /><a href="#">Lịch sử</a>
+                                        <img src="./assets/icons/history.png" /><a href="lichsu.php">Lịch sử</a>
                                     </li>
-                                    <li><img src="./assets/icons/png-save.png" /><a href="#">Đã lưu</a></li>
+                                    <li><img src="./assets/icons/png-save.png" /><a href="yeuthich.php">Đã lưu</a></li>
                                     <li>
                                         <img src="./assets/icons/envelope.png" /><a href="#">Thông báo</a>
                                     </li>

@@ -32,16 +32,48 @@ $(document).ready(function () {
 
     $('.btnThem').click(function (e) {
         $('.btnThem').prop('disabled', true);
-        console.log("chay")
         $('.btnThem').addClass('.disabled_btn')
+        $('#malh').on('keydown paste', function (e) {
+            e.preventDefault();
+            return false;
+        });
+
         $('#malh').val('')
-        $('#malh').focus()
+        $('#tenlh').focus()
         $('#tenlh').val('')
         $('#des').val('')
         $('#title').val('');
         $('#anhloaihinh').val('');
         $('.btnLuu').prop('disabled', false);
         trangThai = 1;
+
+        datasend = {}
+        queryDataPost("../php/LoaiNghiDuong/data_get_ma_lnd.php", datasend, function (data) {
+            let makh = []
+            console.log("data: ", data)
+            data.res.forEach(element => {
+
+                makh.push(element.MALOAIHINH)
+            });
+            console.log(makh)
+            let a = false;
+            for (i = 0; i < makh.length - 1; i = i + 1) {
+                if (makh[i + 1] - makh[i] > 1) {
+                    $('#malh').val(parseInt(makh[i]) + 1)
+                    a = true;
+                    break
+                } else {
+                    $('#malh').val(parseInt(makh[makh.length - 1]) + 1)
+                }
+            }
+
+            // if(a){
+            //     $('#malh').val( parseInt(makh[i])  + 1)
+            // }
+
+
+        })
+
     });
 
     $('.btnTaoLai').click(function (e) {

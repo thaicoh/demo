@@ -6,6 +6,7 @@ function resetBtn() { // reset các ô input
     $('.btnThem').prop('disabled', false);
     $('.btnThem').addClass('.disabled_btn')
     $('#malh').val('')
+    $('#malh').val('')
     $('#malh').focus()
     $('#tenlh').val('')
     $('#emailkh').val('')
@@ -36,8 +37,12 @@ $(document).ready(function () {
     $('.btnThem').click(function (e) {
         $('.btnThem').prop('disabled', true);
         $('.btnThem').addClass('.disabled_btn')
-        $('#malh').val('')
-        $('#malh').focus()
+        $('#malh').on('keydown paste', function (e) {
+            e.preventDefault();
+            return false;
+        });
+        
+        $('#tenlh').focus()
         $('#tenlh').val('')
         $('#emailkh').val('')
         $('#sdtkh').val('')
@@ -46,6 +51,39 @@ $(document).ready(function () {
         $('#mk').val('')
         $('.btnLuu').prop('disabled', false);
         trangThai = 1;
+
+        datasend = {}
+        queryDataPost("../php/KhachHang/data_get_makh.php", datasend, function (data) {
+            let makh = []
+            console.log("data: ", data)
+            data.res.forEach(element => {
+
+                makh.push(element.MAKH)
+            });
+            console.log(makh)
+            let a = false;
+            for (i = 0; i < makh.length - 1; i = i + 1) {
+                if (makh[i + 1] - makh[i] > 1) {
+                    $('#malh').val(parseInt(makh[i]) + 1)
+                    a = true;
+                    break
+                } else {
+                    $('#malh').val(parseInt(makh[makh.length - 1]) + 1)
+                }
+            }
+
+            // if(a){
+            //     $('#malh').val( parseInt(makh[i])  + 1)
+            // }
+
+
+        })
+
+
+
+
+
+
     });
 
     $('.btnTaoLai').click(function (e) {
@@ -78,11 +116,9 @@ $(document).ready(function () {
         var tenKH = $("#tenlh").val();
         var emailKH = $("#emailkh").val();
         var sdtKH = $("#sdtkh").val();
-        var vaiTro = $("#vaitro").val();
-        var gioiTinh = $("#gt").val();
         var matKhauKH = $("#mk").val();
 
-        if (maKH == '' || tenKH == '' || emailKH == '' || sdtKH == '' || gioiTinh == '' || vaiTro == '' || matKhauKH == '') {
+        if (maKH == '' || tenKH == '' || emailKH == '' || sdtKH == '' || matKhauKH == '') {
             bootbox.alert("Vui lòng điền đầy đủ thông tin!");
             return; // Dừng việc thực hiện tiếp nếu thiếu thông tin
         }
@@ -126,7 +162,15 @@ $(document).ready(function () {
                         bootbox.alert("Không thể kết nối với server!");
                     }
                     else {
-                        bootbox.alert("Trùng mã khách hàng!");
+                        if (data.success == 2) {
+                            bootbox.alert("Trùng mã khách hàng, số điện thoại và email!");
+                        } else if (data.success == 3) {
+                            bootbox.alert("Trùng mã khách hàng!");
+                        } else if (data.success == 4) {
+                            bootbox.alert("Trùng số điện thoại!");
+                        } else if (data.success == 5) {
+                            bootbox.alert("Trùng email!");
+                        }
                     }
                 })
                 .catch(error => {
@@ -316,6 +360,10 @@ $(document).ready(function () {
             document.getElementById("uploadInput").style.display = "inline";
             document.getElementById("chooseAgainButton").style.display = "none";
         }
+
+        eye1.style.display = 'inline-block';
+        passwordInput.type = 'password';
+
 
         trangThai = 2;
         //window.scrollTo({ top: 60, behavior: 'smooth' });

@@ -120,6 +120,12 @@
             }
 
         }
+
+        .imglogo {
+            width: 60px;
+            border-radius: 50%;
+            margin: 10px;
+        }
     </style>
 </head>
 
@@ -129,7 +135,8 @@
         <nav class="m-0 p-0 navbar navbar-expand-lg navbar-light bg-light maunen">
             <div class="row m-0 p-0 justify-content-between w-100">
                 <div class="logo col-2 ">
-                    <a class="navbar-brand m-0 p-0" href="index.php">Logo</a>
+                    <a class="navbar-brand m-0 p-0" href="index.php"><img class="imglogo" src="anh/logo2.png"
+                            alt=""></a>
                 </div>
                 <div class="toggler-btn text-right col-1">
                     <buttom class="m-0 p-0" type="buttom" id="toggler">
@@ -138,23 +145,23 @@
                 </div>
                 <div class="col-lg-9 collapse navbar-collapse thanhmenu m-0 p-0 maunen ">
                     <ul class="navbar-nav ml-auto">
-                        <li class="navbar-item  active">
-                            <a class="nav-link" href="index.html">Trang chủ</a>
+                        <li class="navbar-item  ">
+                            <a class="nav-link" href="index.php">Trang chủ</a>
                             <span></span>
                         </li>
                         <li class="navbar-item">
-                            <a class="nav-link" href="sanpham.html">Khu nghỉ dưỡng</a>
+                            <a class="nav-link" href="sanpham.php">Khu nghỉ dưỡng</a>
                             <span></span>
                         </li>
-                        <li class="navbar-item">
+                        <li class="navbar-item ">
                             <a class="nav-link" href="khampha.html">Khám phá</a>
                             <span></span>
                         </li>
-                        <li class="navbar-item">
+                        <li class="navbar-item ">
                             <a class="nav-link" href="blog.html">Blog</a>
                             <span></span>
                         </li>
-                        <li class="navbar-item">
+                        <li class="navbar-item active">
                             <a class="nav-link" href="lienhe.html">Liên hệ</a>
                             <span></span>
                         </li>
@@ -169,14 +176,15 @@
                             <img src="anh/avtUser.png" alt="">
                             <div class="dropdown-menu menu-user">
                                 <h3>Resort DNA<br /><span>Website Designer</span></h3>
-                                <ul>
+                                <ul style="display: block !important;">
                                     <li>
-                                        <img src="./assets/icons/user.png" /><a href="#">Tài khoảng của tôi</a>
+                                        <img src="./assets/icons/user.png" /><a href="trangcanhan.php">Tài khoảng của
+                                            tôi</a>
                                     </li>
                                     <li>
-                                        <img src="./assets/icons/history.png" /><a href="#">Lịch sử</a>
+                                        <img src="./assets/icons/history.png" /><a href="lichsu.php">Lịch sử</a>
                                     </li>
-                                    <li><img src="./assets/icons/png-save.png" /><a href="#">Đã lưu</a></li>
+                                    <li><img src="./assets/icons/png-save.png" /><a href="yeuthich.php">Đã lưu</a></li>
                                     <li>
                                         <img src="./assets/icons/envelope.png" /><a href="#">Thông báo</a>
                                     </li>

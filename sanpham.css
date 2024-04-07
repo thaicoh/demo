@@ -1,5 +1,6 @@
 #list img{
-    height: 600px !important;
+    height: 500px !important;
+    object-fit: cover !important;
 }   
 
 body {

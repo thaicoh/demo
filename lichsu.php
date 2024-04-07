@@ -1,50 +1,62 @@
 <!DOCTYPE html>
 <html>
 <?php
-// Kết nối đến cơ sở dữ liệu của bạn
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "qlresort2";
+if (isset($_COOKIE['id'])) {
+    // Lấy giá trị của cookie
+    $cookie_id = $_COOKIE['id'];
+    //echo "Cookie ID: $cookie_id";
+    // Kết nối đến cơ sở dữ liệu của bạn
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "qlresort2";
 
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-    die ("Connection failed: " . $conn->connect_error);
-}
-
-// Truy vấn dữ liệu từ bảng quocgia
-$sql = "SELECT * FROM khachhang";
-$result = $conn->query($sql);
-
-// Mảng chứa dữ liệu
-$quocgiaData = array();
-
-// Lấy dữ liệu từ kết quả truy vấn và đưa vào mảng
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        $quocgiaData[] = $row;
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
     }
-} else {
-    echo "Bang Quoc Gia Khong Co Ket Qua";
-}
-print_r($quocgiaData);
+    $sql = "SELECT * FROM datphong
+            JOIN resort 
+            ON datphong.MAKH  = $cookie_id AND  datphong.MARESORT = resort.MARESORT";
+    $result = $conn->query($sql);
+    // Mảng chứa dữ liệu
+    $DATA = [];
+    // Lấy dữ liệu từ kết quả truy vấn và đưa vào mảng
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $DATA[] = $row;
+        }
+        //print_r($DATA[0]);
 
-// Truy vấn dữ liệu từ bảng loaihinh
-$sql2 = "SELECT MALOAIHINH , TENLOAIHINH, MOTALOAIHINH, ANHLOAIHINH, titleloaihinh FROM loaihinh";
-$result2 = $conn->query($sql2);
-$loaihinhData = array();
+        // foreach ($thichData as $maknd) {
+        //     // Chuyển đổi các phần tử của mảng $thichData thành một chuỗi được phân tách bằng dấu phẩy
+        //     $sql = "SELECT * FROM khunghiduong WHERE MAKND = $maknd";
+        //     // Thực hiện câu truy vấn và lấy kết quả
+        //     $result = $conn->query($sql);
 
-if ($result2->num_rows > 0) {
-    while ($row = $result2->fetch_assoc()) {
-        $loaihinhData[] = $row;
+        //     // Kiểm tra xem có kết quả trả về không
+        //     if ($result->num_rows > 0) {
+        //         // Lặp qua từng dòng kết quả và xử lý
+        //         while ($row = $result->fetch_assoc()) {
+        //             // Xử lý dữ liệu ở đây, ví dụ:
+        //             $DATA[] = $row;
+        //             // Thực hiện các hành động khác...
+        //         }
+        //         //print_r($DATA);
+        //     } else {
+        //         // Không có kết quả trả về
+        //         echo "Không có kết quả nào.";
+        //     }
+        // }
+    } else {
+        echo "Bang thich Khong Co Ket Qua";
     }
+    // Đóng kết nối
+    $conn->close();
 } else {
-    echo "Bang loaihinh Khong Co Ket Qua";
+    echo "Cookie không tồn tại.";
+    header('Location: dangnhap.html');
 }
-//print_r($loaihinhData);
-
-// Đóng kết nối
-$conn->close();
 ?>
 
 <head>
@@ -59,12 +71,8 @@ $conn->close();
     <link href="css/boostrap.min.css" rel="stylesheet" type="text/css" />
     <link href="css/bootstrap.css" rel="stylesheet" type="text/css" />
     <link href="index.css" rel="stylesheet" type="text/css" />
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
-        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
 
 
     <!-- slick slider -->
@@ -191,7 +199,7 @@ $conn->close();
         .custom-table {
             width: 100%;
             border: 2px solid #000;
-            
+
             /* Khung viền đậm */
             border-radius: 5px;
             /* Bo góc */
@@ -379,11 +387,11 @@ $conn->close();
                 <div class="col-lg-9 collapse navbar-collapse thanhmenu m-0 p-0 maunen ">
                     <ul class="navbar-nav ml-auto">
                         <li class="navbar-item  active">
-                            <a class="nav-link" href="index.html">Trang chủ</a>
+                            <a class="nav-link" href="index.php">Trang chủ</a>
                             <span></span>
                         </li>
                         <li class="navbar-item">
-                            <a class="nav-link" href="sanpham.html">Khu nghỉ dưỡng</a>
+                            <a class="nav-link" href="sanpham.php">Khu nghỉ dưỡng</a>
                             <span></span>
                         </li>
                         <li class="navbar-item">
@@ -416,7 +424,7 @@ $conn->close();
                                     <li>
                                         <img src="./assets/icons/history.png" /><a href="lichsu.php">Lịch sử</a>
                                     </li>
-                                    <li><img src="./assets/icons/png-save.png" /><a href="#">Đã lưu</a></li>
+                                    <li><img src="./assets/icons/png-save.png" /><a href="yeuthich.php">Đã lưu</a></li>
                                     <li>
                                         <img src="./assets/icons/envelope.png" /><a href="#">Thông báo</a>
                                     </li>
@@ -483,7 +491,7 @@ $conn->close();
                         <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                             <div class="user_profile">
                                 <div class="profile-title-block">
-                                    <h3>Đơn đã đặt </h3>
+                                    <h3>Resort đã đặt</h3>
                                 </div>
                                 <div class="profile-content">
                                     <div class="table-responsive wb-order">
@@ -491,20 +499,52 @@ $conn->close();
                                         <table class="table custom-table">
                                             <thead>
                                                 <tr>
-                                                    <th class="custom-table-header">
+                                                    <!-- <th class="custom-table-header">
                                                         <span>Mã đặt phòng</span>
-                                                    </th>
-                                                    <th class="custom-table-header">Mã phòng</th>
-                                                    <th class="custom-table-header text-center">Ngày đặt </th>
-                                                    <th class="custom-table-header text-center">Tổng số phòng</th>
-                                                    <th class="custom-table-header text-center">Trạng thái</th>
+                                                    </th> -->
+                                                    <th class="custom-table-header">Mã đơn</th>
+                                                    <th class="custom-table-header">Resort</th>
+                                                    <th class="custom-table-header text-center">Ngày nhận</th>
+                                                    <th class="custom-table-header text-center">Ngày trả</th>
+                                                    <th class="custom-table-header text-center">Tổng tiền</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td colspan="5" class="custom-table-no-order">Chưa có đơn hàng nào!
-                                                    </td>
-                                                </tr>
+                                                <?php
+                                                if (sizeof($DATA) == 0) {
+                                                    echo '  <tr>
+                                                                <td colspan="5" class="custom-table-no-order">Chưa có đơn hàng nào!
+                                                                </td>
+                                                            </tr>';
+                                                }
+                                                ?>
+
+                                                <?php foreach ($DATA as $item) : ?>
+                                                    <!-- <div class="col-md-6 knd">
+                                                        <div class="diemDenNoiBat-item m-1 p-0 text-center">
+                                                            <img src="cms/" alt="" style="width: 300px; height: 300px; border-radius: 10px; margin-bottom: 10px;">
+                                                            <div class="subtitle-wrapper">
+                                                                <p class="subtitle" style="display: inline;"><?php echo $item['TENKND']; ?></p>
+                                                                <button type="button" class="btn-like iconUnlike" data-maknd="<?php echo $item['MAKND']; ?>">Bỏ thích</button>
+                                                            </div>
+                                                        </div>
+                                                    </div> -->
+
+                                                    <tr>
+                                                        <td colspan="1" class="custom-table-no-order"><?php echo $item['MADATPHONG']; ?>
+                                                        </td>
+                                                        <td colspan="1" class="custom-table-no-order"><?php echo $item['TENRESORT']; ?>
+                                                        </td>
+                                                        <td colspan="1" class="custom-table-no-order"><?php echo $item['CHECKIN']; ?>
+                                                        </td>
+                                                        <td colspan="1" class="custom-table-no-order"><?php echo $item['CHECKOUT']; ?>
+                                                        </td>
+                                                        <td colspan="1" class="custom-table-no-order"><?php echo $item['TONGTIEN']; ?>.00 USD
+                                                        </td>
+                                                    </tr>
+                                                <?php endforeach; ?>
+
+
                                             </tbody>
                                         </table>
 
@@ -623,20 +663,16 @@ $conn->close();
                         <!-- Grid column -->
                         <div class="col-md-5 col-lg-4 ml-lg-0 text-center text-md-end">
                             <!-- Facebook -->
-                            <a class="btn btn-outline-light btn-floating m-1" class="text-white" role="button"><i
-                                    class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-outline-light btn-floating m-1" class="text-white" role="button"><i class="fab fa-facebook-f"></i></a>
 
                             <!-- Twitter -->
-                            <a class="btn btn-outline-light btn-floating m-1" class="text-white" role="button"><i
-                                    class="fab fa-twitter"></i></a>
+                            <a class="btn btn-outline-light btn-floating m-1" class="text-white" role="button"><i class="fab fa-twitter"></i></a>
 
                             <!-- Google -->
-                            <a class="btn btn-outline-light btn-floating m-1" class="text-white" role="button"><i
-                                    class="fab fa-google"></i></a>
+                            <a class="btn btn-outline-light btn-floating m-1" class="text-white" role="button"><i class="fab fa-google"></i></a>
 
                             <!-- Instagram -->
-                            <a class="btn btn-outline-light btn-floating m-1" class="text-white" role="button"><i
-                                    class="fab fa-instagram"></i></a>
+                            <a class="btn btn-outline-light btn-floating m-1" class="text-white" role="button"><i class="fab fa-instagram"></i></a>
                         </div>
                         <!-- Grid column -->
                     </div>
@@ -655,7 +691,7 @@ $conn->close();
 
     <script>
         // backToTop
-        window.addEventListener('scroll', function () {
+        window.addEventListener('scroll', function() {
             var backTopButton = document.querySelector('.backTop');
             if (window.pageYOffset > 200) {
                 backTopButton.classList.add('show');
@@ -665,7 +701,10 @@ $conn->close();
         });
 
         function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         }
     </script>
     <script>
@@ -677,7 +716,7 @@ $conn->close();
         } else {
             so_o = 2.3; // Màn hình >= 992px
         }
-        $(document).ready(function () {
+        $(document).ready(function() {
             $('.diaDiemNoiBat').slick({
                 infinite: false,
                 slidesToShow: so_o,
@@ -688,7 +727,7 @@ $conn->close();
                 dots: true,
             });
         });
-        $(document).ready(function () {
+        $(document).ready(function() {
             $('.diemDenNoiBat').slick({
                 infinite: false,
                 slidesToShow: 2.3,

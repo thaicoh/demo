@@ -2,30 +2,64 @@
 <html>
 
 <?php
-// Kết nối đến cơ sở dữ liệu của bạn
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "qlresort2";
+// Kiểm tra xem cookie có tồn tại không
+if (isset($_COOKIE['id'])) {
+    // Lấy giá trị của cookie
+    $cookie_id = $_COOKIE['id'];
+    //echo "Cookie ID: $cookie_id";
+    // Kết nối đến cơ sở dữ liệu của bạn
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "qlresort2";
 
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-$sql = "SELECT MAKND, MAKH FROM thich";
-$result = $conn->query($sql);
-// Mảng chứa dữ liệu
-$thichData = array();
-// Lấy dữ liệu từ kết quả truy vấn và đưa vào mảng
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        $thichData[] = $row;
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
     }
+    $sql = "SELECT * FROM thich WHERE MAKH =$cookie_id";
+    $result = $conn->query($sql);
+    // Mảng chứa dữ liệu
+    $thichData = array();
+    $DATA = [];
+    // Lấy dữ liệu từ kết quả truy vấn và đưa vào mảng
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $thichData[] = $row['MAKND'];
+        }
+        //print_r($thichData);
+
+        foreach ($thichData as $maknd) {
+            // Chuyển đổi các phần tử của mảng $thichData thành một chuỗi được phân tách bằng dấu phẩy
+            $sql = "SELECT * FROM khunghiduong WHERE MAKND = $maknd";
+            // Thực hiện câu truy vấn và lấy kết quả
+            $result = $conn->query($sql);
+
+            // Kiểm tra xem có kết quả trả về không
+            if ($result->num_rows > 0) {
+                // Lặp qua từng dòng kết quả và xử lý
+                while ($row = $result->fetch_assoc()) {
+                    // Xử lý dữ liệu ở đây, ví dụ:
+                    $DATA[] = $row;
+                    // Thực hiện các hành động khác...
+                }
+                //print_r($DATA);
+            } else {
+                // Không có kết quả trả về
+                //echo "Không có kết quả nào.";
+            }
+        }
+    } else {
+        //echo "Bang thich Khong Co Ket Qua";
+    }
+    // Đóng kết nối
+    $conn->close();
 } else {
-    echo "Bang thich Khong Co Ket Qua";
+    echo "Cookie không tồn tại.";
+    header('Location: dangnhap.html');
 }
-// Đóng kết nối
-$conn->close();
+
+
 ?>
 
 <head>
@@ -61,6 +95,19 @@ $conn->close();
         .btn-like:hover {
             border: 1px solid white;
         }
+
+        .diemDenNoiBat-item {
+            width: 100%;
+            height: max-content !important;
+            background-color: #f8f9fa !important;
+            padding: 25px !important;
+            border-radius: 25px;
+        }
+
+        .diemDenNoiBat-item .subtitle-wrapper {
+            display: flex;
+            justify-content: space-between;
+        }
     </style>
 
 
@@ -68,6 +115,7 @@ $conn->close();
 </head>
 
 <body>
+
     <!-- Thanh Navbar  -->
     <div class="container-fluid maunen sticky-top z">
         <nav class="m-0 p-0 navbar navbar-expand-lg navbar-light bg-light maunen">
@@ -87,7 +135,7 @@ $conn->close();
                             <span></span>
                         </li>
                         <li class="navbar-item">
-                            <a class="nav-link" href="sanpham.html">Khu nghỉ dưỡng</a>
+                            <a class="nav-link" href="sanpham.php">Khu nghỉ dưỡng</a>
                             <span></span>
                         </li>
                         <li class="navbar-item">
@@ -115,13 +163,12 @@ $conn->close();
                                 <h3>Resort DNA<br /><span>Website Designer</span></h3>
                                 <ul>
                                     <li>
-                                        <img src="./assets/icons/user.png" /><a href="#">Tài khoảng của tôi</a>
+                                        <img src="./assets/icons/user.png" /><a href="trangcanhan.php">Tài khoảng của tôi</a>
                                     </li>
                                     <li>
-                                        <img src="./assets/icons/history.png" /><a href="#">Lịch sử</a>
+                                        <img src="./assets/icons/history.png" /><a href="lichsu.php">Lịch sử</a>
                                     </li>
-                                    <li><img src="./assets/icons/png-save.png" /><a href="trangyeuthich.php">Đã lưu</a>
-                                    </li>
+                                    <li><img src="./assets/icons/png-save.png" /><a href="yeuthich.php">Đã lưu</a></li>
                                     <li>
                                         <img src="./assets/icons/envelope.png" /><a href="#">Thông báo</a>
                                     </li>
@@ -178,6 +225,7 @@ $conn->close();
         <div class="row">
             <div class="col-md-4">
                 <div class="p-4 border border-white border-2">
+
                     <div class="text-center d-flex flex-column align-items-center">
                         <div class="border border-dashed border-secondary rounded-circle p-2">
                             <div class="bg-secondary rounded-circle d-flex justify-content-center align-items-center" style="width: 100px; height: 100px; overflow: hidden;">
@@ -236,7 +284,31 @@ $conn->close();
                 <h3>Khách sạn yêu thích</h3>
                 </p>
                 <div class="row">
-                    <div class="col-md-6">
+                    <?php
+                    if (sizeof($DATA) == 0) {
+                        echo "<p class='khongcodata'>Bạn chưa lưu Khu Nghĩ Dưỡng nào!</p>";
+                    }
+                    ?>
+
+                    <?php foreach ($DATA as $item) : ?>
+                        <div class="col-md-6 knd">
+                            <div class="diemDenNoiBat-item m-1 p-0 text-center">
+                                <a href="<?php echo "chitietkhunghiduong.php?idknd=" . $item['MAKND']; ?>">
+                                    <img src="cms/<?php echo $item['ANHKND']; ?>" alt="" style="width: 300px; height: 300px; border-radius: 10px; margin-bottom: 10px;">
+                                </a>
+                                <div class="subtitle-wrapper">
+                                    <a href="<?php echo "chitietkhunghiduong.php?idknd=" . $item['MAKND']; ?>">
+                                        <p class="subtitle" style="display: inline;"><?php echo $item['TENKND']; ?></p>
+                                    </a>
+
+
+                                    <button type="button" class="btn-like iconUnlike" data-maknd="<?php echo $item['MAKND']; ?>">Bỏ thích</button>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+
+                    <!-- <div class="col-md-6">
                         <div class="diemDenNoiBat-item m-1 p-0 text-center">
                             <img src="anhSp/noibat6.jpg" alt="" style="width: 300px; height: auto; border-radius: 10px; margin-bottom: 10px;">
                             <div class="subtitle-wrapper">
@@ -271,16 +343,19 @@ $conn->close();
                                 <button type="button" class="btn-like">Bỏ thích</button>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                 </div>
             </div>
         </div>
 
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script src="js/common.js"></script>
+    <script src="app.js"></script>
+    <script src="yeuthich.js"></script>
 </body>
 
 </html>

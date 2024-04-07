@@ -82,6 +82,11 @@ $conn->close();
         .card.quocgia img{
             height: 550px !important;
         }
+        .imglogo{
+            width: 60px;
+            border-radius: 50%;
+            margin: 10px;
+        }
     </style>
 </head>
 
@@ -91,7 +96,7 @@ $conn->close();
         <nav class="m-0 p-0 navbar navbar-expand-lg navbar-light bg-light maunen">
             <div class="row m-0 p-0 justify-content-between w-100">
                 <div class="logo col-2 ">
-                    <a class="navbar-brand m-0 p-0" href="index.html">Logo</a>
+                    <a class="navbar-brand m-0 p-0" href="index.html"><img class="imglogo"  src="anh/logo2.png" alt=""></a>
                 </div>
                 <div class="toggler-btn text-right col-1">
                     <buttom class="m-0 p-0" type="buttom" id="toggler">
@@ -138,7 +143,7 @@ $conn->close();
                                     <li>
                                         <img src="./assets/icons/history.png" /><a href="lichsu.php">Lịch sử</a>
                                     </li>
-                                    <li><img src="./assets/icons/png-save.png" /><a href="#">Đã lưu</a></li>
+                                    <li><img src="./assets/icons/png-save.png" /><a href="yeuthich.php">Đã lưu</a></li>
                                     <li>
                                         <img src="./assets/icons/envelope.png" /><a href="#">Thông báo</a>
                                     </li>

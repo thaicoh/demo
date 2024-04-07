@@ -14,7 +14,7 @@ mysqli_set_charset($conn, "UTF8");
 
 if (isset($_GET['idknd'])) {
     $productId = $_GET['idknd'];
-    echo "Chi tiết sản phẩm có ID: $productId";
+    //echo "Chi tiết sản phẩm có ID: $productId";
 
     $sql = "SELECT * FROM khunghiduong WHERE MAKND = " . $_GET['idknd'];
     $result = $conn->query($sql);
@@ -22,7 +22,7 @@ if (isset($_GET['idknd'])) {
     // Lấy dữ liệu từ kết quả truy vấn và đưa vào mảng
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
-        print_r($row);
+        //print_r($row);
     } else {
         echo "không co kết quả";
     }

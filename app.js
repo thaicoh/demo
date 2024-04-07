@@ -12,12 +12,10 @@ cookies.forEach(function (cookie) {
   cookieObject[key] = value;
 });
 
-// Bây giờ bạn có thể truy cập giá trị của cookie theo key
 var roleCookie = cookieObject['role'];
-console.log(roleCookie); // In ra giá trị của cookie 'role'
+console.log(roleCookie);
 
 function checkCookie(cookieName) {
-  // Tách các cookie thành mảng các cặp key-value
   var cookies = document.cookie.split(';');
 
   // Duyệt qua từng cookie để kiểm tra
@@ -63,9 +61,9 @@ function deleteCookie(cookieName) {
 
 // Hàm kiểm tra trạng thái đăng nhập và thực hiện các thay đổi
 function checkLoginStatus() {
-  var isLoggedIn = localStorage.getItem('isLoggedIn');
+  //var isLoggedIn = localStorage.getItem('isLoggedIn');
 
-  if (isLoggedIn === 'true') {
+  if (checkCookie('id')) {
     // Nếu đã đăng nhập, thêm class 'hidden' vào '.nav-btn' và loại bỏ class 'hidden' khỏi '.nav-avt'
     $('.nav-btn').addClass('hidden');
     $('.nav-avt').removeClass('hidden');

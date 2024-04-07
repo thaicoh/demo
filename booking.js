@@ -290,6 +290,7 @@ $('.btn-timphong').click(function (e) {
             var days = duration.asDays();
 
             $('.tongtien').html(`${$(this).data('giatrendem') * days}.00 USD`);
+            var tongTien = $(this).data('giatrendem') * days;
 
             $('.btn-xacnhan').click(function () {
                 console.log("nhấn nút xac nhan");
@@ -298,7 +299,8 @@ $('.btn-timphong').click(function (e) {
                     maresort: maresort,
                     checkin: formattedStartDate,
                     checkout: formattedEndDate,
-                    soluongnguoi: nguoilonValue + treemValue * 2
+                    soluongnguoi: nguoilonValue + treemValue * 2,
+                    tongtien: tongTien
 
                 };
                 console.log("datasend: ", datasend)
@@ -311,7 +313,7 @@ $('.btn-timphong').click(function (e) {
                         $('.btn-xacnhan').css('display', 'none')
                         alert("Bạn đã đặt phòng thành công")
                         location.reload();
-                        //window.location.href = "index.php";
+                        window.location.href = "lichsu.php";
 
                     } else {
                         $('.btn-xacnhan').css('display', 'none')

@@ -11,7 +11,7 @@ if (!$conn) {
 }
 mysqli_set_charset($conn, "UTF8");
 
-if (isset($_COOKIE['role'])) {
+if (isset($_COOKIE['id'])) {
 } else {
     // Nếu cookie 'role' không tồn tại, chuyển hướng đến trang khác
     header('Location: dangnhap.html');
